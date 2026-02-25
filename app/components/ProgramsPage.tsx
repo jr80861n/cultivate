@@ -307,7 +307,7 @@ export default function ProgramsPage() {
                       <button className="h-16 px-12 rounded-full bg-white/5 border border-white/20 text-white font-black hover:bg-white/10 transition-all hover:border-white/40 w-full sm:w-auto">PROSPECTUS</button>
                     </div>
                   </div>
-                  <div className="lg:w-1/2 w-full h-[600px] rounded-[3rem] overflow-hidden relative border border-white/10 shadow-2xl z-10 group-hover:scale-[1.02] transition-transform duration-700 perspective-1000">
+                  <div className="lg:w-1/2 w-full h-[400px] md:h-[600px] rounded-[3rem] overflow-hidden relative border border-white/10 shadow-2xl z-10 group-hover:scale-[1.02] transition-transform duration-700 perspective-1000">
                     <div className="tilt-card h-full w-full">
                         <div className="absolute inset-0">
                             <Image

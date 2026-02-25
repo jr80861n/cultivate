@@ -2,7 +2,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from 'next/link';
-
 export default function HomePage() {
   return (
     <>
@@ -162,7 +161,7 @@ export default function HomePage() {
               </div>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-start velocity-grid">
                 <div className="card-opacity-fade group relative bg-surface-dark/50 border border-white/10 overflow-hidden shadow-[0_0_50px_-10px_rgba(0,0,0,0.5)] hover:shadow-[0_0_80px_-20px_rgba(188,19,254,0.3)] transition-all duration-700 glitch-hover-effect cursor-pointer interactive-hover">
-                  <div className="relative h-[600px] img-parallax-container image-loader">
+                  <div className="relative h-[400px] md:h-[600px] img-parallax-container image-loader">
                     <Image
                         width={800}
                         height={600}
@@ -172,26 +171,26 @@ export default function HomePage() {
                     />
                     <div className="absolute inset-0 bg-primary/40 opacity-20 group-hover:opacity-0 transition-opacity duration-700 pointer-events-none"></div>
                     <div className="absolute inset-0 bg-gradient-to-t from-background-deep via-transparent to-transparent pointer-events-none"></div>
-                    <div className="absolute top-10 left-10 pointer-events-none z-10">
+                    <div className="absolute top-6 left-6 md:top-10 md:left-10 pointer-events-none z-10">
                       <span className="bg-black/80 backdrop-blur border border-primary/30 text-white px-6 py-3 text-[11px] font-black uppercase tracking-[0.3em] shadow-[0_0_15px_rgba(0,0,0,0.5)]">Audition Req.</span>
                     </div>
                   </div>
-                  <div className="p-12 relative bg-surface-dark border-t border-white/5">
+                  <div className="p-8 md:p-12 relative bg-surface-dark border-t border-white/5">
                     <div className="flex items-center justify-between mb-8">
-                      <h3 className="text-5xl font-black italic uppercase tracking-tighter text-white group-hover:text-primary transition-colors">NXTLVL</h3>
-                      <span className="text-white/10 text-6xl font-black absolute -top-8 right-8 z-0 select-none">01</span>
+                      <h3 className="text-4xl md:text-5xl font-black italic uppercase tracking-tighter text-white group-hover:text-primary transition-colors">NXTLVL</h3>
+                      <span className="text-white/10 text-5xl md:text-6xl font-black absolute -top-8 right-8 z-0 select-none">01</span>
                     </div>
-                    <p className="text-slate-400 group-hover:text-purple-200 text-xl mb-10 leading-relaxed font-light relative z-10 transition-colors">
+                    <p className="text-slate-400 group-hover:text-purple-200 text-lg md:text-xl mb-10 leading-relaxed font-light relative z-10 transition-colors">
                       The industry gold standard. A 9-month immersive technical residency designed for professional conversion.
                     </p>
-                    <button className="group/btn relative w-full h-20 bg-background-deep text-white font-black uppercase tracking-[0.4em] text-xs overflow-hidden transition-colors border border-white/10 hover:border-primary magnetic-btn">
+                    <button className="group/btn relative w-full h-16 md:h-20 bg-background-deep text-white font-black uppercase tracking-[0.4em] text-xs overflow-hidden transition-colors border border-white/10 hover:border-primary magnetic-btn">
                       <span className="relative z-10">Apply Program</span>
                       <div className="absolute inset-0 bg-primary translate-y-full group-[hover]/btn:translate-y-0 transition-transform duration-500"></div>
                     </button>
                   </div>
                 </div>
                 <div className="card-opacity-fade stagger-2 group relative bg-surface-dark/50 border border-white/10 overflow-hidden shadow-[0_0_50px_-10px_rgba(0,0,0,0.5)] hover:shadow-[0_0_80px_-20px_rgba(188,19,254,0.3)] transition-all duration-700 lg:mt-32 interactive-hover">
-                  <div className="relative h-[600px] img-parallax-container image-loader">
+                  <div className="relative h-[400px] md:h-[600px] img-parallax-container image-loader">
                     <Image
                         width={800}
                         height={600}
@@ -201,19 +200,19 @@ export default function HomePage() {
                     />
                     <div className="absolute inset-0 bg-primary/40 opacity-20 group-hover:opacity-0 transition-opacity duration-700 pointer-events-none"></div>
                     <div className="absolute inset-0 bg-gradient-to-t from-background-deep via-transparent to-transparent pointer-events-none"></div>
-                    <div className="absolute top-10 left-10 pointer-events-none z-10">
+                    <div className="absolute top-6 left-6 md:top-10 md:left-10 pointer-events-none z-10">
                       <span className="bg-primary text-white px-6 py-3 text-[11px] font-black uppercase tracking-[0.3em] shadow-[0_0_20px_rgba(188,19,254,0.4)]">Open Enrollment</span>
                     </div>
                   </div>
-                  <div className="p-12 relative bg-surface-dark border-t border-white/5">
+                  <div className="p-8 md:p-12 relative bg-surface-dark border-t border-white/5">
                     <div className="flex items-center justify-between mb-8">
-                      <h3 className="text-5xl font-black italic uppercase tracking-tighter text-white group-hover:text-primary transition-colors">Summer</h3>
-                      <span className="text-white/10 text-6xl font-black absolute -top-8 right-8 z-0 select-none">02</span>
+                      <h3 className="text-4xl md:text-5xl font-black italic uppercase tracking-tighter text-white group-hover:text-primary transition-colors">Summer</h3>
+                      <span className="text-white/10 text-5xl md:text-6xl font-black absolute -top-8 right-8 z-0 select-none">02</span>
                     </div>
-                    <p className="text-slate-400 group-hover:text-purple-200 text-xl mb-10 leading-relaxed font-light relative z-10 transition-colors">
+                    <p className="text-slate-400 group-hover:text-purple-200 text-lg md:text-xl mb-10 leading-relaxed font-light relative z-10 transition-colors">
                       High-impact bursts of creative energy. Weekly intensives with rotating global guest choreographers.
                     </p>
-                    <button className="group/btn relative w-full h-20 bg-background-deep text-white font-black uppercase tracking-[0.4em] text-xs overflow-hidden transition-colors border border-white/10 hover:border-primary magnetic-btn">
+                    <button className="group/btn relative w-full h-16 md:h-20 bg-background-deep text-white font-black uppercase tracking-[0.4em] text-xs overflow-hidden transition-colors border border-white/10 hover:border-primary magnetic-btn">
                       <span className="relative z-10">Book Session</span>
                       <div className="absolute inset-0 bg-primary translate-y-full group-[hover]/btn:translate-y-0 transition-transform duration-500"></div>
                     </button>

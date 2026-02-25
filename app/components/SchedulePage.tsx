@@ -1,10 +1,65 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function SchedulePage() {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+    const [isInstructorModalOpen, setIsInstructorModalOpen] = useState(false);
+    const [activeView, setActiveView] = useState<"month" | "week" | "day">("day");
+    const [activeFilters, setActiveFilters] = useState<string[]>(['Hip Hop']);
+    const [animateClass, setAnimateClass] = useState('translate-x-0 opacity-100');
+    const [showNotifications, setShowNotifications] = useState(false);
+    const [currentDate, setCurrentDate] = useState(new Date());
+    const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+    const monthScrollRef = useRef<HTMLDivElement>(null);
+
+    const monthsList = useMemo(() => {
+        const list = [];
+        const baseDate = new Date();
+        for (let i = -12; i <= 12; i++) {
+            list.push(new Date(baseDate.getFullYear(), baseDate.getMonth() + i, 1));
+        }
+        return list;
+    }, []);
+
+    useEffect(() => {
+        if (activeView === 'month' && monthScrollRef.current) {
+            // center month is at index 12
+            monthScrollRef.current.scrollLeft = monthScrollRef.current.clientWidth * 12;
+        }
+    }, [activeView]);
+
+    const handleNavigation = (direction: 'next' | 'prev') => {
+        // Animate out
+        setAnimateClass(direction === 'next' ? '-translate-x-8 opacity-0 transition-all duration-200' : 'translate-x-8 opacity-0 transition-all duration-200');
+        setTimeout(() => {
+            // Change date
+            setCurrentDate(prev => {
+                const next = new Date(prev);
+                if (activeView === 'month' || activeView === 'week') {
+                    next.setMonth(prev.getMonth() + (direction === 'next' ? 1 : -1));
+                } else if (activeView === 'day') {
+                    next.setDate(prev.getDate() + (direction === 'next' ? 1 : -1));
+                }
+                return next;
+            });
+            // Snap to opposite side with no transition
+            setAnimateClass('transition-none opacity-0 ' + (direction === 'next' ? 'translate-x-8' : '-translate-x-8'));
+            setTimeout(() => {
+                // Animate in to center
+                setAnimateClass('translate-x-0 opacity-100 transition-all duration-300 ease-out');
+            }, 50);
+        }, 200);
+    };
+
+    const toggleFilter = (filter: string) => {
+        setActiveFilters(prev => 
+            prev.includes(filter) 
+                ? prev.filter(f => f !== filter) 
+                : [...prev, filter]
+        );
+    };
 
     useEffect(() => {
         if (isDrawerOpen) {
@@ -37,18 +92,67 @@ export default function SchedulePage() {
                     </div>
                 </div>
                 <div className="flex items-center gap-5">
-                    <div className="relative hidden lg:block group">
-                        <span className="material-icons text-gray-500 absolute left-3 top-2 text-[18px] group-hover:text-primary transition-colors">search</span>
-                        <input className="bg-surface-darker border border-surface-border rounded-lg pl-9 pr-4 py-1.5 text-sm w-64 focus:ring-1 focus:ring-primary focus:border-primary transition-all text-gray-300 placeholder-gray-600" placeholder="Search class or instructor..." type="text"/>
-                        <div className="absolute right-2 top-2 flex items-center gap-1">
-                            <span className="text-[10px] border border-surface-border rounded px-1.5 text-gray-500 bg-surface-dark">⌘K</span>
+                    <div className="flex items-center gap-3 pl-4">
+                        <div className="relative">
+                            <button 
+                                onClick={() => setShowNotifications(!showNotifications)}
+                                aria-label="Notifications" 
+                                className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-white/5 transition-colors relative text-gray-400 hover:text-white btn-physics"
+                            >
+                                <span className="material-icons-outlined text-[20px]">notifications</span>
+                                <span className="absolute top-2.5 right-2.5 w-1.5 h-1.5 bg-primary rounded-full ring-2 ring-surface-dark"></span>
+                            </button>
+                            
+                            {/* Notification Dropdown */}
+                            {showNotifications && (
+                                <div className="absolute right-0 mt-2 w-80 bg-surface-darker border border-surface-border rounded-xl shadow-2xl z-50 overflow-hidden backdrop-blur-xl">
+                                    <div className="p-4 border-b border-surface-border flex justify-between items-center">
+                                        <h3 className="text-sm font-bold text-white">Notifications</h3>
+                                        <span className="text-xs text-primary cursor-pointer hover:underline">Mark all read</span>
+                                    </div>
+                                    <div className="flex flex-col max-h-96 overflow-y-auto">
+                                        <div className="p-4 border-b border-surface-border/50 hover:bg-surface-dark cursor-pointer transition-colors relative">
+                                            <div className="absolute left-0 top-0 bottom-0 w-1 bg-green-500"></div>
+                                            <div className="flex gap-3">
+                                                <div className="w-8 h-8 rounded-full bg-green-500/20 text-green-400 flex items-center justify-center shrink-0">
+                                                    <span className="material-icons text-[16px]">check_circle</span>
+                                                </div>
+                                                <div>
+                                                    <h4 className="text-xs font-bold text-gray-200">Booking Confirmed</h4>
+                                                    <p className="text-[11px] text-gray-400 mt-1">You're booked for Adv. Hip Hop with Sarah Jenkins on {currentDate.toLocaleDateString()}.</p>
+                                                    <span className="text-[9px] text-gray-500 mt-2 inline-block">2 hours ago</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="p-4 border-b border-surface-border/50 hover:bg-surface-dark cursor-pointer transition-colors relative">
+                                            <div className="flex gap-3">
+                                                <div className="w-8 h-8 rounded-full bg-red-500/20 text-red-400 flex items-center justify-center shrink-0">
+                                                    <span className="material-icons text-[16px]">cancel</span>
+                                                </div>
+                                                <div>
+                                                    <h4 className="text-xs font-bold text-gray-200">Cancelation Confirmed</h4>
+                                                    <p className="text-[11px] text-gray-400 mt-1">Your reservation for Morning Flow has been successfully canceled.</p>
+                                                    <span className="text-[9px] text-gray-500 mt-2 inline-block">1 day ago</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="p-4 border-b border-surface-border/50 hover:bg-surface-dark cursor-pointer transition-colors relative">
+                                            <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-500"></div>
+                                            <div className="flex gap-3">
+                                                <div className="w-8 h-8 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center shrink-0">
+                                                    <span className="material-icons text-[16px]">fiber_new</span>
+                                                </div>
+                                                <div>
+                                                    <h4 className="text-xs font-bold text-gray-200">New Class Added!</h4>
+                                                    <p className="text-[11px] text-gray-400 mt-1">Maria K. just added a new Contemporary masterclass next week. Book now!</p>
+                                                    <span className="text-[9px] text-gray-500 mt-2 inline-block">3 days ago</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
                         </div>
-                    </div>
-                    <div className="flex items-center gap-3 pl-4 border-l border-surface-border">
-                        <button aria-label="Notifications" className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-white/5 transition-colors relative text-gray-400 hover:text-white btn-physics">
-                            <span className="material-icons-outlined text-[20px]">notifications</span>
-                            <span className="absolute top-2.5 right-2.5 w-1.5 h-1.5 bg-primary rounded-full ring-2 ring-surface-dark"></span>
-                        </button>
                         <div className="w-9 h-9 rounded-lg bg-gradient-to-tr from-gray-700 to-gray-600 p-[1px] cursor-pointer btn-physics">
                             <Image
                                 width={800}
@@ -63,48 +167,41 @@ export default function SchedulePage() {
             </header>
             
             <main className="flex-1 flex overflow-hidden relative">
-                <aside className="w-72 bg-surface-darker border-r border-surface-border flex-col hidden lg:flex shrink-0 z-20">
-                    <div className="p-6 pb-2">
-                        <div className="flex items-center justify-between mb-4">
-                            <h3 className="text-sm font-bold text-gray-200">October 2023</h3>
-                            <div className="flex gap-1">
-                                <button className="p-1 hover:bg-white/5 rounded text-gray-500 hover:text-white"><span className="material-icons text-[16px]">chevron_left</span></button>
-                                <button className="p-1 hover:bg-white/5 rounded text-gray-500 hover:text-white"><span className="material-icons text-[16px]">chevron_right</span></button>
+                <aside className={`bg-surface-darker border-r border-surface-border flex-col hidden lg:flex shrink-0 z-20 transition-all duration-300 ${isSidebarCollapsed ? 'w-16 items-center' : 'w-72'}`}>
+                    {isSidebarCollapsed ? (
+                        <div className="p-4 flex flex-col items-center pt-6 gap-6 w-full">
+                            <button onClick={() => setIsSidebarCollapsed(false)} className="h-8 w-8 flex items-center justify-center rounded-lg hover:bg-surface-border text-gray-400" title="Expand Filters">
+                                <span className="material-icons text-[20px]">filter_list</span>
+                            </button>
+                            <div style={{ writingMode: 'vertical-rl' }} className="text-xs font-bold text-gray-500 uppercase tracking-wider rotate-180 mt-4">
+                                Smart Filters
                             </div>
                         </div>
-                        <div className="grid grid-cols-7 gap-1 text-center text-[10px] text-gray-500 font-medium mb-2 uppercase tracking-wide">
-                            <span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span>
-                        </div>
-                        <div className="grid grid-cols-7 gap-1 text-center text-xs">
-                            <div className="aspect-square flex items-center justify-center text-gray-600 opacity-40">25</div>
-                            <div className="aspect-square flex items-center justify-center text-gray-600 opacity-40">26</div>
-                            <div className="aspect-square flex items-center justify-center text-gray-600 opacity-40">27</div>
-                            <div className="aspect-square flex items-center justify-center text-gray-600 opacity-40">28</div>
-                            <div className="aspect-square flex items-center justify-center text-gray-600 opacity-40">29</div>
-                            <div className="aspect-square flex items-center justify-center text-gray-600 opacity-40">30</div>
-                            <button className="aspect-square flex items-center justify-center rounded hover:bg-white/5 text-gray-300 transition-colors">1</button>
-                            <button className="aspect-square flex items-center justify-center rounded hover:bg-white/5 text-gray-300 transition-colors">2</button>
-                            <button className="aspect-square flex items-center justify-center rounded hover:bg-white/5 text-gray-300 transition-colors">3</button>
-                            <button className="aspect-square flex items-center justify-center bg-primary text-white rounded font-bold shadow-glow relative z-10">4</button>
-                            <button className="aspect-square flex items-center justify-center rounded hover:bg-white/5 text-gray-300 transition-colors">5</button>
-                            <button className="aspect-square flex items-center justify-center rounded hover:bg-white/5 text-gray-300 transition-colors">6</button>
-                            <button className="aspect-square flex items-center justify-center rounded hover:bg-white/5 text-gray-300 transition-colors">7</button>
-                        </div>
-                    </div>
-                    <div className="h-px bg-surface-border mx-6"></div>
-                    <div className="p-6 flex-1 overflow-y-auto custom-scrollbar">
-                        <div className="flex items-center justify-between mb-3">
+                    ) : (
+                    <>
+                        <div className="p-4 flex items-center justify-between border-b border-surface-border shrink-0">
                             <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider">Smart Filters</h3>
-                            <span className="text-[10px] text-primary cursor-pointer hover:underline">Reset</span>
+                            <div className="flex gap-2">
+                                <span className="text-[10px] text-primary cursor-pointer hover:underline pt-0.5">Reset</span>
+                                <button onClick={() => setIsSidebarCollapsed(true)} className="h-6 w-6 flex items-center justify-center rounded-lg hover:bg-surface-border text-gray-400 transition-colors">
+                                    <span className="material-icons text-[18px]">chevron_left</span>
+                                </button>
+                            </div>
                         </div>
-                        <div className="space-y-5">
+                        <div className="p-6 flex-1 overflow-y-auto custom-scrollbar pt-4">
+                            <div className="space-y-5">
                             <div>
                                 <label className="text-xs text-gray-400 mb-2 block font-medium">Style</label>
                                 <div className="flex flex-wrap gap-2">
-                                    <button className="px-2.5 py-1 rounded bg-primary/20 text-primary-light border border-primary/30 text-xs font-medium hover:bg-primary/30 transition-colors">Hip Hop</button>
-                                    <button className="px-2.5 py-1 rounded bg-surface-dark text-gray-400 border border-surface-border text-xs font-medium hover:text-gray-200 hover:border-gray-600 transition-colors">Contemporary</button>
-                                    <button className="px-2.5 py-1 rounded bg-surface-dark text-gray-400 border border-surface-border text-xs font-medium hover:text-gray-200 hover:border-gray-600 transition-colors">Jazz</button>
-                                    <button className="px-2.5 py-1 rounded bg-surface-dark text-gray-400 border border-surface-border text-xs font-medium hover:text-gray-200 hover:border-gray-600 transition-colors">Ballet</button>
+                                    {['Hip Hop', 'Contemporary', 'Jazz', 'Ballet'].map(filter => (
+                                        <button 
+                                            key={filter}
+                                            onClick={() => toggleFilter(filter)}
+                                            className={`px-2.5 py-1 rounded text-xs font-medium transition-colors ${activeFilters.includes(filter) ? 'bg-primary/20 text-primary-light border border-primary/30 hover:bg-primary/30' : 'bg-surface-dark text-gray-400 border border-surface-border hover:text-gray-200 hover:border-gray-600'}`}
+                                        >
+                                            {filter}
+                                        </button>
+                                    ))}
                                 </div>
                             </div>
                             <div>
@@ -142,13 +239,23 @@ export default function SchedulePage() {
                             </div>
                         </div>
                     </div>
-                </aside>
+                </>
+                )}
+            </aside>
 
                 <div className="flex-1 flex flex-col min-w-0 bg-background-dark relative">
                     <div className="h-14 border-b border-surface-border flex items-center justify-between px-6 shrink-0 bg-surface-dark/80 backdrop-blur-md z-10 sticky top-0">
                         <div className="flex items-center gap-6">
                             <div className="flex flex-col">
-                                <h1 className="text-lg font-bold text-white leading-none">Wednesday, Oct 4</h1>
+                                <div className="flex items-center gap-2">
+                                    <h1 className="text-lg font-bold text-white leading-none">
+                                        {activeView === 'month' 
+                                            ? currentDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) 
+                                            : activeView === 'day' 
+                                                ? currentDate.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })
+                                                : `${currentDate.toLocaleDateString('en-US', { month: 'short' })} Week`}
+                                    </h1>
+                                </div>
                                 <span className="text-[10px] text-gray-500 font-mono mt-0.5 flex items-center gap-1">
                                     <span className="w-1.5 h-1.5 rounded-full bg-green-500 inline-block animate-pulse"></span>
                                     Real-time Sync Active
@@ -156,8 +263,9 @@ export default function SchedulePage() {
                             </div>
                             <div className="h-6 w-px bg-surface-border"></div>
                             <div className="flex bg-surface-darker p-1 rounded-lg border border-surface-border">
-                                <button className="px-3 py-1 text-xs font-bold rounded bg-primary text-white shadow-sm transition-all">Day</button>
-                                <button className="px-3 py-1 text-xs font-bold rounded text-gray-400 hover:text-white hover:bg-white/5 transition-all">Week</button>
+                                <button onClick={() => setActiveView("month")} className={`px-3 py-1 text-xs font-bold rounded transition-all ${activeView === "month" ? "bg-primary text-white shadow-sm" : "text-gray-400 hover:text-white hover:bg-white/5"}`}>Month</button>
+                                <button onClick={() => setActiveView("week")} className={`px-3 py-1 text-xs font-bold rounded transition-all ${activeView === "week" ? "bg-primary text-white shadow-sm" : "text-gray-400 hover:text-white hover:bg-white/5"}`}>Week</button>
+                                <button onClick={() => setActiveView("day")} className={`px-3 py-1 text-xs font-bold rounded transition-all ${activeView === "day" ? "bg-primary text-white shadow-sm" : "text-gray-400 hover:text-white hover:bg-white/5"}`}>Day</button>
                             </div>
                         </div>
                         <div className="flex items-center gap-4">
@@ -167,45 +275,179 @@ export default function SchedulePage() {
                                 <img alt="Instructor" className="w-8 h-8 rounded-full border-2 border-surface-dark object-cover ring-2 ring-transparent hover:ring-primary transition-all cursor-pointer" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3XLI-QFzmu4oeDgWFzFe7SJ7CvHzJPjMIw6WioPaMhK1v1xCcFoS4ZJlnrjsAPLnb5TMbWlbuuiuVZJgMSAsXyKeiG2YoqRjPlHrGnkIW7_7w90M6mOQuIDqQyuF6ADaau8DBwALbt5qH9WWvDXxK8drLDnnygqnOumsVDKAEVlYq7My4mr8EqMGdB2YN636qeHE77_m0KBbnXRa3buk-Y2RtsWb-rFKroX1wiGdyYAeak1JJPgP8M4Pcok357MqLkxe9VLLyfboK"/>
                                 <div className="w-8 h-8 rounded-full border-2 border-surface-dark bg-surface-border flex items-center justify-center text-xs font-bold text-gray-400">+5</div>
                             </div>
-                            <button className="btn-physics flex items-center gap-2 bg-white text-black hover:bg-gray-200 text-xs font-bold py-2 px-4 rounded-lg transition-colors shadow-[0_0_15px_-5px_rgba(255,255,255,0.3)]">
-                                <span className="material-icons text-[16px]">add</span>
-                                New Booking
-                           </button>
+
                         </div>
                     </div>
 
-                    <div className="h-10 border-b border-surface-border flex items-center bg-surface-darker/90 shrink-0 pl-40 pr-4 overflow-hidden select-none z-10">
-                        <div className="flex w-full relative">
-                            <div className="flex w-full text-xs text-gray-500 font-mono tracking-wider">
-                                <div className="w-[140px] shrink-0 border-l border-surface-border/50 pl-2">09:00 AM</div>
-                                <div className="w-[140px] shrink-0 border-l border-surface-border/50 pl-2">10:00 AM</div>
-                                <div className="w-[140px] shrink-0 border-l border-surface-border/50 pl-2">11:00 AM</div>
-                                <div className="w-[140px] shrink-0 border-l border-surface-border/50 pl-2 text-primary font-bold">12:00 PM</div>
-                                <div className="w-[140px] shrink-0 border-l border-surface-border/50 pl-2">01:00 PM</div>
-                                <div className="w-[140px] shrink-0 border-l border-surface-border/50 pl-2">02:00 PM</div>
-                                <div className="w-[140px] shrink-0 border-l border-surface-border/50 pl-2">03:00 PM</div>
-                                <div className="w-[140px] shrink-0 border-l border-surface-border/50 pl-2">04:00 PM</div>
-                                <div className="w-[140px] shrink-0 border-l border-surface-border/50 pl-2">05:00 PM</div>
-                                <div className="w-[140px] shrink-0 border-l border-surface-border/50 pl-2">06:00 PM</div>
-                                <div className="w-[140px] shrink-0 border-l border-surface-border/50 pl-2">07:00 PM</div>
+                    <div className={`flex-1 flex flex-col relative bg-surface-darker/50 ${activeView === 'day' ? 'overflow-x-auto overflow-y-auto custom-scrollbar' : 'overflow-hidden p-6'}`}>
+                        
+                        {activeView === "month" || activeView === "week" ? (() => {
+                            const daysInMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate();
+                            const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).getDay();
+                            const prevMonthDays = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0).getDate();
+                            
+                            const daysForMonth = [];
+                            // pad prev month
+                            for (let i = firstDayOfMonth - 1; i >= 0; i--) {
+                                daysForMonth.push({ type: 'prev', day: prevMonthDays - i });
+                            }
+                            // curr month
+                            for (let i = 1; i <= daysInMonth; i++) {
+                                daysForMonth.push({ type: 'curr', day: i });
+                            }
+                            // pad next month to complete weeks
+                            const remaining = (daysForMonth.length % 7 === 0) ? 0 : 7 - (daysForMonth.length % 7);
+                            for (let i = 1; i <= remaining; i++) {
+                                daysForMonth.push({ type: 'next', day: i });
+                            }
+
+                            // chunk into weeks
+                            const weeks = [];
+                            for (let i = 0; i < daysForMonth.length; i += 7) {
+                                weeks.push(daysForMonth.slice(i, i + 7));
+                            }
+
+                            const renderDaySlot = (slot: any, isTodayOverride: boolean = false, monthDate?: Date) => {
+                                if (slot.type === 'prev' || slot.type === 'next') {
+                                    return (
+                                        <div key={`${slot.type}-${slot.day}-${Math.random()}`} className="bg-surface-darker p-2 opacity-50 relative pointer-events-none">
+                                            <span className="text-gray-600 font-bold">{slot.day}</span>
+                                        </div>
+                                    );
+                                }
+
+                                const day = slot.day;
+                                const isToday = isTodayOverride; // Keep dummy highlights
+                                const hasClasses = [2, 4, 7, 10, 14, 15, 18, 22, 25, 29].includes(day);
+                                
+                                return (
+                                    <div key={`curr-${day}-${Math.random()}`} className={`bg-surface-darker p-2 relative hover:bg-surface-dark transition-colors cursor-pointer group flex flex-col ${isToday ? 'ring-1 ring-inset ring-primary shadow-inner shadow-primary/20' : ''}`}>
+                                        <div className="flex justify-between items-start mb-1 shrink-0">
+                                            <span className={`flex h-6 w-6 items-center justify-center rounded-full text-xs font-bold ${isToday ? 'bg-primary text-white shadow-glow' : 'text-gray-300'}`}>{day}</span>
+                                            {hasClasses && <span className="flex h-2 w-2 rounded-full bg-primary-light"></span>}
+                                        </div>
+                                        
+                                        <div className="flex-1 overflow-hidden hover:overflow-y-auto space-y-1 disabled-scrollbar min-h-0 pt-1">
+                                            {day === 4 && (!isTodayOverride || monthDate?.getMonth() === new Date().getMonth()) && (
+                                                <>
+                                                    <div className="text-[10px] bg-blue-500/20 text-blue-300 px-1.5 py-0.5 rounded truncate border border-blue-500/30 font-medium">10a Morning Flow</div>
+                                                    <div onClick={(e) => { e.stopPropagation(); setIsDrawerOpen(true); }} className="text-[10px] bg-primary/20 text-primary-light px-1.5 py-0.5 rounded truncate border border-primary/40 font-bold shadow-[0_0_10px_rgba(127,19,236,0.2)]">11:45a Adv. Hip Hop</div>
+                                                    <div className="text-[10px] bg-orange-500/20 text-orange-300 px-1.5 py-0.5 rounded truncate border border-orange-500/30 font-medium">2p Kids Ballet</div>
+                                                </>
+                                            )}
+                                            {day === 14 && (!isTodayOverride || monthDate?.getMonth() === new Date().getMonth()) && (
+                                                <>
+                                                    <div className="text-[10px] bg-teal-500/20 text-teal-300 px-1.5 py-0.5 rounded truncate border border-teal-500/30 font-medium">12:15p Contemp Fusion</div>
+                                                    <div className="text-[10px] bg-gray-500/20 text-gray-300 px-1.5 py-0.5 rounded truncate border border-gray-500/30 font-medium text-center">Open Floor Available</div>
+                                                </>
+                                            )}
+                                            {(day === 2 || day === 7 || day === 18 || day === 22 || day === 29) && (!isTodayOverride || monthDate?.getMonth() === new Date().getMonth()) && (
+                                                <div className="text-[10px] bg-white/5 text-gray-400 px-1.5 py-0.5 rounded truncate border border-white/10">{day % 2 === 0 ? 'Evening Classes' : 'Morning Classes'}</div>
+                                            )}
+                                        </div>
+                                    </div>
+                                );
+                            };
+
+                            if (activeView === 'month') {
+                                return (
+                                <div className={`flex-1 flex flex-col min-h-0 ${animateClass}`}>
+                                    <div className="bg-surface-darker border border-surface-border rounded-xl flex-1 flex flex-col min-h-0 shadow-xl overflow-hidden">
+                                        <div className="grid grid-cols-7 border-b border-surface-border bg-surface-dark/50 p-2 shrink-0">
+                                            {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
+                                                <div key={day} className="text-center text-xs font-bold text-gray-400 uppercase tracking-wider">{day}</div>
+                                            ))}
+                                        </div>
+                                        <div 
+                                            ref={monthScrollRef}
+                                            className="flex-1 flex overflow-x-auto snap-x snap-mandatory disabled-scrollbar items-stretch h-full"
+                                            onScroll={(e) => {
+                                                const MathRound = Math.round(e.currentTarget.scrollLeft / e.currentTarget.clientWidth);
+                                                if (monthsList[MathRound] && monthsList[MathRound].getMonth() !== currentDate.getMonth()) {
+                                                    setCurrentDate(monthsList[MathRound]);
+                                                }
+                                            }}
+                                        >
+                                            {monthsList.map((monthDate, idx) => {
+                                                const daysInMonth = new Date(monthDate.getFullYear(), monthDate.getMonth() + 1, 0).getDate();
+                                                const firstDayOfMonth = new Date(monthDate.getFullYear(), monthDate.getMonth(), 1).getDay();
+                                                const prevMonthDays = new Date(monthDate.getFullYear(), monthDate.getMonth(), 0).getDate();
+                                                
+                                                const daysForMonth = [];
+                                                for (let i = firstDayOfMonth - 1; i >= 0; i--) {
+                                                    daysForMonth.push({ type: 'prev', day: prevMonthDays - i });
+                                                }
+                                                for (let i = 1; i <= daysInMonth; i++) {
+                                                    daysForMonth.push({ type: 'curr', day: i });
+                                                }
+                                                const remaining = (daysForMonth.length % 7 === 0) ? 0 : 7 - (daysForMonth.length % 7);
+                                                for (let i = 1; i <= remaining; i++) {
+                                                    daysForMonth.push({ type: 'next', day: i });
+                                                }
+                                                
+                                                const rowCount = daysForMonth.length / 7;
+
+                                                return (
+                                                    <div key={`month-${idx}`} className="grid grid-cols-7 bg-surface-border gap-px min-w-full flex-1 snap-start h-full" style={{ gridTemplateRows: `repeat(${rowCount}, minmax(0, 1fr))` }}>
+                                                        {daysForMonth.map((slot) => {
+                                                            const isTodayOverride = slot.day === new Date().getDate() && monthDate.getMonth() === new Date().getMonth() && monthDate.getFullYear() === new Date().getFullYear() && slot.type === 'curr';
+                                                            return renderDaySlot(slot, isTodayOverride, monthDate);
+                                                        })}
+                                                    </div>
+                                                );
+                                            })}
+                                        </div>
+                                    </div>
+                                </div>
+                                );
+                            } else {
+                                // Week view with horizontal scrolling
+                                return (
+                                    <div className={`bg-surface-darker border border-surface-border rounded-xl flex-1 flex flex-col shadow-xl min-h-0 ${animateClass}`}>
+                                        <div className="grid grid-cols-7 border-b border-surface-border bg-surface-dark/50 p-2 shrink-0">
+                                            {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
+                                                <div key={day} className="text-center text-xs font-bold text-gray-400 uppercase tracking-wider">{day}</div>
+                                            ))}
+                                        </div>
+                                        <div className="flex-1 flex overflow-x-auto snap-x snap-mandatory disabled-scrollbar items-stretch h-full">
+                                            {weeks.map((week, idx) => (
+                                                <div key={`week-${idx}`} className={`grid grid-cols-7 bg-surface-border gap-px min-w-full flex-1 snap-start h-full`}>
+                                                    {week.map(slot => renderDaySlot(slot, slot.day === 4, currentDate))}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                );
+                            }
+                        })() : (
+                        <div className="relative min-w-max h-full flex flex-col">
+                            <div className="h-10 border-b border-surface-border flex items-center bg-surface-darker/90 shrink-0 pl-40 pr-4 overflow-hidden select-none z-30 sticky top-0 backdrop-blur-md">
+                                <div className="flex w-full relative">
+                                    <div className="flex w-full text-xs text-gray-500 font-mono tracking-wider">
+                                        <div className="w-[140px] shrink-0 border-l border-surface-border/50 pl-2 text-primary font-bold">01:00 PM</div>
+                                        <div className="w-[140px] shrink-0 border-l border-surface-border/50 pl-2">02:00 PM</div>
+                                        <div className="w-[140px] shrink-0 border-l border-surface-border/50 pl-2">03:00 PM</div>
+                                        <div className="w-[140px] shrink-0 border-l border-surface-border/50 pl-2">04:00 PM</div>
+                                        <div className="w-[140px] shrink-0 border-l border-surface-border/50 pl-2">05:00 PM</div>
+                                        <div className="w-[140px] shrink-0 border-l border-surface-border/50 pl-2">06:00 PM</div>
+                                        <div className="w-[140px] shrink-0 border-l border-surface-border/50 pl-2">07:00 PM</div>
+                                        <div className="w-[140px] shrink-0 border-l border-surface-border/50 pl-2">08:00 PM</div>
+                                        <div className="w-[140px] shrink-0 border-l border-surface-border/50 pl-2">09:00 PM</div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <div className="flex-1 overflow-y-auto custom-scrollbar relative bg-surface-darker/50">
-                        <div className="relative min-w-max pb-20">
-                            <div className="absolute top-0 bottom-0 left-[485px] w-px bg-red-500 z-30 shadow-[0_0_15px_rgba(239,68,68,0.5)] pointer-events-none opacity-80 mix-blend-screen">
-                                <div className="sticky top-0 z-40">
+                            <div className="absolute top-10 bottom-0 left-[245px] w-px bg-red-500 z-20 shadow-[0_0_15px_rgba(239,68,68,0.5)] pointer-events-none opacity-80 mix-blend-screen">
+                                <div className="sticky top-10 z-30">
                                     <div className="absolute -top-1 -translate-x-1/2 w-3 h-3 rounded-full bg-red-500 now-indicator-pulse"></div>
                                     <div className="absolute top-2 left-2 text-[10px] font-bold text-white bg-red-600 px-1.5 py-0.5 rounded shadow-sm whitespace-nowrap transform -translate-x-1/2 translate-y-1">
-                                        11:45 AM
+                                        1:45 PM
                                         <div className="absolute -top-1 left-1/2 -translate-x-1/2 border-l-4 border-r-4 border-b-4 border-l-transparent border-r-transparent border-b-red-600"></div>
                                     </div>
                                 </div>
                             </div>
 
                             {/* Studio A */}
-                            <div className="flex h-32 border-b border-surface-border group relative">
+                            <div className="flex flex-1 min-h-[12rem] border-b border-surface-border group relative">
                                 <div className="w-40 sticky left-0 bg-surface-darker border-r border-surface-border z-20 flex flex-col justify-center p-4 shadow-[4px_0_24px_rgba(0,0,0,0.5)] backdrop-blur-xl">
                                     <div className="flex justify-between items-center mb-1">
                                         <span className="text-sm font-bold text-white">Studio A</span>
@@ -217,27 +459,26 @@ export default function SchedulePage() {
                                     </div>
                                 </div>
                                 <div className="flex-1 relative grid-bg-pattern flex items-center">
-                                    {/* Class Block 1 */}
-                                    <div className="absolute left-[140px] w-[200px] top-2 bottom-2 glass-card rounded-xl p-3 flex flex-col justify-between group/card overflow-hidden cursor-pointer hover:-translate-y-1 transition-transform duration-300">
+                                    <div className="absolute left-[35px] w-[200px] top-6 bottom-6 glass-card rounded-xl p-3 flex flex-col justify-between group/card overflow-hidden cursor-pointer hover:-translate-y-1 transition-transform duration-300">
                                         <div className="absolute top-0 left-0 w-1 h-full bg-blue-500"></div>
                                         <div>
                                             <div className="flex justify-between items-start">
-                                                <h4 className="text-xs font-bold text-white truncate w-32">Morning Flow</h4>
+                                                <h4 className="text-xs font-bold text-white truncate w-32">Afternoon Flow</h4>
                                                 <span className="material-icons text-[12px] text-gray-500">lock_clock</span>
                                             </div>
-                                            <div className="text-[10px] text-gray-400 mt-1 font-mono">10:00 - 11:30 AM</div>
+                                            <div className="text-[10px] text-gray-400 mt-1 font-mono">01:15 - 02:45 PM</div>
                                         </div>
                                         <div className="flex items-center justify-between mt-2">
                                             <div className="flex -space-x-2">
                                                 <img alt="Instructor" className="w-6 h-6 rounded-full border border-surface-dark" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXef-MeCCZpdqQQa_rYxlRFsdVljTbFuGGlsNiUo8iLob9mmXixhIVcLR_f8bnUVFAOAGP1_kUzRD1invmLtnZfFS3Xi-f5CacFTa-1qUjxGGnDIFR0M0G8TiU8kUcbVijTfMiyLBbAM9qYsF7aOCVg9nxW-wQjRyVBjNXRssZerSWB1DxjsYhzHm8MYM46HXtF1YDOMGUvUAmdGl6f0acIYj-_pLxDVvH7sy2QsgejF5r1jr6nL3FBi3zCHXl5803FZowToPbjwcE"/>
                                             </div>
-                                            <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wide">Ended</span>
+                                            <span className="text-[10px] font-bold text-blue-400 uppercase tracking-wide">In Progress</span>
                                         </div>
                                     </div>
                                     
                                     {/* Class Block 2 (Clickable to open drawer) */}
                                     <button 
-                                        className="absolute left-[390px] w-[180px] top-1 bottom-1 bg-primary/10 border border-primary/50 rounded-xl p-0 hover:bg-primary/20 hover:border-primary/80 hover:shadow-glow hover:-translate-y-1 transition-all text-left flex flex-col group/card overflow-hidden z-10 cursor-pointer btn-physics backdrop-blur-md" 
+                                        className="absolute left-[280px] w-[180px] top-4 bottom-4 bg-primary/10 border border-primary/50 rounded-xl p-0 hover:bg-primary/20 hover:border-primary/80 hover:shadow-glow hover:-translate-y-1 transition-all text-left flex flex-col group/card overflow-hidden z-10 cursor-pointer btn-physics backdrop-blur-md" 
                                         onClick={() => setIsDrawerOpen(true)}
                                     >
                                         <div className="absolute bottom-0 left-0 h-1 bg-primary/30 w-full z-0">
@@ -252,7 +493,7 @@ export default function SchedulePage() {
                                                         <span className="text-[9px] font-bold text-red-200">LIVE</span>
                                                     </div>
                                                 </div>
-                                                <div className="text-[10px] text-primary-light mt-1 font-mono">11:45 - 1:00 PM</div>
+                                                <div className="text-[10px] text-primary-light mt-1 font-mono">03:00 - 04:15 PM</div>
                                             </div>
                                             <div className="mt-2">
                                                 <div className="flex justify-between text-[10px] text-gray-300 mb-1 items-end">
@@ -271,11 +512,11 @@ export default function SchedulePage() {
                                     </button>
 
                                     {/* Class Block 3 */}
-                                    <div className="absolute left-[650px] w-[180px] top-2 bottom-2 glass-card rounded-xl p-3 flex flex-col justify-between group/card overflow-hidden cursor-pointer hover:border-orange-500/50 transition-colors opacity-70 hover:opacity-100">
+                                    <div className="absolute left-[490px] w-[210px] top-6 bottom-6 glass-card rounded-xl p-3 flex flex-col justify-between group/card overflow-hidden cursor-pointer hover:border-orange-500/50 transition-colors opacity-70 hover:opacity-100">
                                         <div className="absolute top-0 left-0 w-1 h-full bg-orange-500"></div>
                                         <div>
                                             <h4 className="text-xs font-bold text-white truncate">Kids Ballet</h4>
-                                            <div className="text-[10px] text-gray-400 mt-1 font-mono">02:00 - 3:30 PM</div>
+                                            <div className="text-[10px] text-gray-400 mt-1 font-mono">04:30 - 06:30 PM</div>
                                         </div>
                                         <div className="flex items-center gap-2 mt-2">
                                             <span className="px-1.5 py-0.5 bg-surface-border rounded text-[9px] text-gray-300 border border-white/5">Kids</span>
@@ -285,42 +526,8 @@ export default function SchedulePage() {
                                 </div>
                             </div>
 
-                            {/* Studio B */}
-                            <div className="flex h-32 border-b border-surface-border group relative">
-                                <div className="w-40 sticky left-0 bg-surface-darker border-r border-surface-border z-20 flex flex-col justify-center p-4 shadow-[4px_0_24px_rgba(0,0,0,0.5)] backdrop-blur-xl">
-                                    <div className="flex justify-between items-center mb-1">
-                                        <span className="text-sm font-bold text-white">The Loft</span>
-                                        <span className="w-2 h-2 rounded-full bg-gray-600"></span>
-                                    </div>
-                                    <span className="text-[10px] text-gray-500 font-mono mb-2">Capacity: 15</span>
-                                    <div className="w-full bg-surface-dark rounded-full h-1 overflow-hidden">
-                                        <div className="bg-gray-700 w-1/4 h-full rounded-full"></div>
-                                    </div>
-                                </div>
-                                <div className="flex-1 relative grid-bg-pattern flex items-center">
-                                    <div className="absolute left-[850px] w-[140px] top-2 bottom-2 bg-surface-dark/40 border border-surface-border/50 rounded-xl p-3 animate-pulse flex flex-col justify-between">
-                                        <div className="h-3 bg-surface-border rounded w-3/4"></div>
-                                        <div className="h-2 bg-surface-border rounded w-1/2"></div>
-                                        <div className="flex gap-2 mt-auto">
-                                            <div className="w-6 h-6 rounded-full bg-surface-border"></div>
-                                        </div>
-                                    </div>
-                                    <div className="absolute left-[280px] w-[200px] top-2 bottom-2 glass-card rounded-xl p-3 flex flex-col justify-between group/card overflow-hidden hover:-translate-y-1 transition-transform cursor-pointer">
-                                        <div className="absolute top-0 left-0 w-1 h-full bg-purple-400"></div>
-                                        <div>
-                                            <h4 className="text-xs font-bold text-white truncate">Private Session</h4>
-                                            <div className="text-[10px] text-gray-400 mt-1 font-mono">11:00 - 12:45 PM</div>
-                                        </div>
-                                        <div className="flex items-center gap-2 mt-2 bg-surface-darker/50 p-1.5 rounded-lg border border-white/5">
-                                            <span className="material-icons text-[12px] text-gray-500">lock</span>
-                                            <span className="text-[10px] text-gray-400">Reserved for Member</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
                             {/* Studio C  */}
-                            <div className="flex h-32 border-b border-surface-border group relative">
+                            <div className="flex flex-1 min-h-[12rem] border-b border-surface-border group relative">
                                 <div className="w-40 sticky left-0 bg-surface-darker border-r border-surface-border z-20 flex flex-col justify-center p-4 shadow-[4px_0_24px_rgba(0,0,0,0.5)] backdrop-blur-xl">
                                     <div className="flex justify-between items-center mb-1">
                                         <span className="text-sm font-bold text-white">Studio B</span>
@@ -332,7 +539,7 @@ export default function SchedulePage() {
                                     </div>
                                 </div>
                                 <div className="flex-1 relative grid-bg-pattern flex items-center">
-                                    <div className="absolute left-[450px] w-[240px] top-2 bottom-2 glass-card rounded-xl p-3 flex flex-col justify-between group/card overflow-hidden hover:border-teal-500/50 hover:shadow-[0_0_15px_rgba(20,184,166,0.1)] transition-all cursor-pointer">
+                                    <div className="absolute left-[105px] w-[210px] top-6 bottom-6 glass-card rounded-xl p-3 flex flex-col justify-between group/card overflow-hidden hover:border-teal-500/50 hover:shadow-[0_0_15px_rgba(20,184,166,0.1)] transition-all cursor-pointer">
                                         <div className="absolute top-0 left-0 w-1 h-full bg-teal-500"></div>
                                         <div className="flex gap-3">
                                             <div className="relative">
@@ -353,7 +560,7 @@ export default function SchedulePage() {
                                             </div>
                                             <div>
                                                 <h4 className="text-xs font-bold text-white truncate">Contemporary Fusion</h4>
-                                                <div className="text-[10px] text-gray-400 mt-0.5 font-mono">12:15 - 02:15 PM</div>
+                                                <div className="text-[10px] text-gray-400 mt-0.5 font-mono">01:45 - 03:15 PM</div>
                                                 <div className="mt-1 flex items-center gap-1">
                                                     <span className="w-1.5 h-1.5 rounded-full bg-teal-500"></span>
                                                     <span className="text-[9px] text-gray-400">Sub: Maria K.</span>
@@ -368,37 +575,20 @@ export default function SchedulePage() {
                                 </div>
                             </div>
 
-                            {/* Open Floor */}
-                            <div className="flex h-32 border-b border-surface-border group relative">
-                                <div className="w-40 sticky left-0 bg-surface-darker border-r border-surface-border z-20 flex flex-col justify-center p-4 shadow-[4px_0_24px_rgba(0,0,0,0.5)] backdrop-blur-xl">
-                                    <div className="flex justify-between items-center mb-1">
-                                        <span className="text-sm font-bold text-gray-400">Open Floor</span>
-                                        <span className="material-icons text-[14px] text-gray-600">visibility_off</span>
-                                    </div>
-                                    <span className="text-[10px] text-gray-600 font-mono mb-2">Unsupervised</span>
-                                </div>
-                                <div className="flex-1 relative bg-stripes flex items-center">
-                                    <div className="absolute left-[0px] w-[500px] top-4 bottom-4 border border-dashed border-gray-700/50 rounded-xl flex items-center justify-center bg-surface-darker/30 hover:bg-surface-darker/60 transition-colors cursor-crosshair group">
-                                        <div className="text-center">
-                                            <span className="text-xs text-gray-500 font-medium group-hover:text-gray-300">Open Practice Session</span>
-                                            <div className="text-[9px] text-gray-600 mt-1 opacity-0 group-hover:opacity-100 transition-opacity">Click &amp; Drag to reserve space</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
+                        )}
                     </div>
                 </div>
             </main>
 
             {/* Slide-over Drawer */}
-            <div aria-labelledby="slide-over-title" aria-modal="true" className="fixed inset-0 z-50 pointer-events-none overflow-hidden" role="dialog">
+            <div aria-labelledby="slide-over-title" aria-modal="true" className={`fixed inset-0 z-50 overflow-hidden ${isDrawerOpen ? 'pointer-events-auto' : 'pointer-events-none'}`} role="dialog">
                 <div 
                     aria-hidden="true" 
-                    className="absolute inset-0 bg-background-dark/60 backdrop-blur-sm opacity-0 transition-opacity duration-300 ease-in-out body-[.drawer-open]_&:opacity-100 pointer-events-auto body-[.drawer-open]_&:pointer-events-auto" 
+                    className={`absolute inset-0 bg-background-dark/60 backdrop-blur-sm transition-opacity duration-300 ease-in-out ${isDrawerOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`} 
                     onClick={() => setIsDrawerOpen(false)}
                 ></div>
-                <div className="pointer-events-auto w-screen max-w-md transform transition duration-500 ease-in-out translate-x-full sm:duration-700 drawer-slide body-[.drawer-open]_&:translate-x-0">
+                <div className={`absolute right-0 h-full w-screen max-w-md transform transition duration-500 ease-in-out sm:duration-700 drawer-slide ${isDrawerOpen ? 'translate-x-0' : 'translate-x-full'}`}>
                         <div className="flex h-full flex-col overflow-y-scroll bg-surface-dark border-l border-surface-border shadow-2xl relative">
                             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-purple-400 to-primary"></div>
                             <div className="px-6 py-6 border-b border-surface-border bg-surface-darker sticky top-0 z-10 backdrop-blur-md bg-opacity-90">
@@ -430,6 +620,7 @@ export default function SchedulePage() {
                                         <span className="material-icons text-[14px] text-gray-500">location_on</span>
                                         Studio A
                                     </div>
+
                                 </div>
                             </div>
                             <div className="relative flex-1 px-6 py-6 space-y-8">
@@ -460,81 +651,26 @@ export default function SchedulePage() {
                                                             4.9 (120 reviews)
                                                         </div>
                                                     </div>
-                                                    <button className="text-xs text-primary hover:text-white font-medium transition-colors">View Profile</button>
+                                                    <button 
+                                                        className="text-xs text-primary hover:text-white font-medium transition-colors"
+                                                        onClick={(e) => { e.stopPropagation(); setIsInstructorModalOpen(true); }}
+                                                    >
+                                                        View Profile
+                                                    </button>
                                                 </div>
                                                 <p className="text-xs text-gray-400 mt-2 leading-relaxed">High-energy choreography focusing on musicality. 10 years LA industry experience.</p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="grid grid-cols-2 gap-3">
-                                    <div className="p-4 bg-surface-darker rounded-xl border border-surface-border flex flex-col justify-between hover:bg-surface-darker/80 transition-colors">
-                                        <div className="flex justify-between items-start mb-2">
-                                            <span className="text-xs text-gray-500 font-medium uppercase tracking-wider">Intensity</span>
-                                            <span className="material-icons text-[16px] text-red-400">local_fire_department</span>
-                                        </div>
-                                        <div>
-                                            <div className="flex gap-1 h-1.5 mb-2">
-                                                <div className="flex-1 bg-red-500 rounded-sm"></div>
-                                                <div className="flex-1 bg-red-500 rounded-sm"></div>
-                                                <div className="flex-1 bg-red-500 rounded-sm"></div>
-                                                <div className="flex-1 bg-red-500/50 rounded-sm"></div>
-                                                <div className="flex-1 bg-surface-border rounded-sm"></div>
-                                            </div>
-                                            <span className="text-sm font-bold text-white">High Heat</span>
-                                        </div>
-                                    </div>
-                                    <div className="p-4 bg-surface-darker rounded-xl border border-surface-border flex flex-col justify-between hover:bg-surface-darker/80 transition-colors">
-                                        <div className="flex justify-between items-start mb-2">
-                                            <span className="text-xs text-gray-500 font-medium uppercase tracking-wider">Est. Burn</span>
-                                            <span className="material-icons text-[16px] text-orange-400">monitor_heart</span>
-                                        </div>
-                                        <div className="text-sm font-bold text-white mt-auto">~550 kcal</div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div className="flex justify-between items-center mb-3">
-                                        <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider">Who&apos;s Going</h3>
-                                        <span className="text-xs font-mono text-primary-light bg-primary/10 px-2 py-0.5 rounded border border-primary/20">22 / 25</span>
-                                    </div>
-                                    <div className="flex -space-x-2 overflow-hidden py-2 pl-1">
-                                        <Image
-                                            width={40}
-                                            height={40}
-                                            alt="User"
-                                            className="inline-block h-10 w-10 rounded-full ring-2 ring-surface-dark object-cover grayscale hover:grayscale-0 hover:z-10 hover:scale-110 transition-all duration-300"
-                                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzOCXq59zG_rCtE-OIcH-LvztG09LoF8EdKfnRJSmkawNbp0zPOoH9OXUUXGkcfQFBoHHKsjIp-wwhngePXKWUP8ERfyKEAuvQSxEXJFQgp-Mk4TRXEwI89V-I070a-KKIT62LsG-20ETSP8Msw89eLXbjMcj6d5-ESMFCr21SGNWr0CpbX0oWjjSbQiyv3K2e3xjSmidlJU4t3MkI6Eb7qxGL-bt2l6XE-J5fEyWtr3cU9AwA2susH170KeZkAE5Uk6CKHPTPAqwr"
-                                        />
-                                        <Image
-                                            width={40}
-                                            height={40}
-                                            alt="User"
-                                            className="inline-block h-10 w-10 rounded-full ring-2 ring-surface-dark object-cover grayscale hover:grayscale-0 hover:z-10 hover:scale-110 transition-all duration-300"
-                                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjZlmeTF-Cf8N8EWyGHh55y1LZRlEOMJJVdLZnm0QWnN4EUfIVQT3KA6biAMPZ2_vhSb0cgFV9dJBvgaiCgXLqFay737toaA2GNTN60OgBnbYaYuYqJVfGWFF4o8tqHhSDQTpSfDjLuv9el7kgfqUmC2_XfEFPbe0X1q15yDYmrmQNRKi2xjmSxxYivPSybBi2_anrRJHiAQQMYSy2TFsQViDYHqMJkOYjvcUHk6vDn3t5n_NVGMnKW4cO3CWSFW6BlGq1BOaymNOSsKu99It-NX3GRHt720djxcOuIASSuEmgWLCfN"
-                                        />
-                                        <Image
-                                            width={40}
-                                            height={40}
-                                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuArnKh4ihwygFaM66kmNrUlyYwVWc00939cJ3GhMDPyBQbuJmPPJB0Bn0qIg5GEhLHKY0VbPMxLRt3n2bYLL2dhVFhEWPj9lnU1Oqpa4Eq127-EfL0r8S3VUQ4WU5o3zmRt4w30y-JaWuTeYLKzHmGPrIJJ4K8CM3UrcHj0xEkhWk2Ho041eGsZ9m6_oBfxf4rO4U2qP3GrIpNmaM6E6rwsqQz7hd4Z3JvufI0k37KDcUFl50V56Vb4kCmn8ms4iheJCZTRMXC0iB4"
-                                            alt="User"
-                                            className="inline-block h-10 w-10 rounded-full ring-2 ring-surface-dark object-cover grayscale hover:grayscale-0 hover:z-10 hover:scale-110 transition-all duration-300"
-                                            onError={(e) => {
-                                                e.currentTarget.style.display = 'none';
-                                                e.currentTarget.parentElement!.innerHTML = '<span class="material-icons text-[16px] text-[#f43f5e]">person</span>';
-                                            }}
-                                        />
-                                        <Image
-                                            width={40}
-                                            height={40}
-                                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAEqP2nJtZZTQxAvpfW7QWA26HtK0qOtYiQFZXZ_Zslsog0vOubXT04sddljQHWHpt_Kk8wNild5lhDPWt8lg5NdDXMo9RX_3eIuL67a3mhkuiRNjmG4SRf2Bw0dJtYOd6KB0kqL018YsjoPhWEEUvSO_o_LkagxL1LEaw-Bpbp3FrGdfLAbTKXMCvCf5UFJtuNDh5OI_5gH0UwloUNKYvRlhCTuBaiofB6P5biIAoNhaLjpSIbWGW1oQveNwhVNjM6KXFioLDa-ATJ"
-                                            alt="User"
-                                            className="inline-block h-10 w-10 rounded-full ring-2 ring-surface-dark object-cover grayscale hover:grayscale-0 hover:z-10 hover:scale-110 transition-all duration-300"
-                                            onError={(e) => {
-                                                e.currentTarget.style.display = 'none';
-                                                e.currentTarget.parentElement!.innerHTML = '<span class="material-icons text-[16px] text-[#f43f5e]">person</span>';
-                                            }}
-                                        />
-                                        <div className="h-10 w-10 rounded-full ring-2 ring-surface-dark bg-surface-border flex items-center justify-center text-xs text-white font-bold hover:bg-primary transition-colors cursor-pointer">+18</div>
+                                <div className="space-y-3">
+                                    <div className="bg-surface-darker border border-surface-border rounded-xl p-4">
+                                        <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 flex items-center gap-1.5"><span className="material-icons text-[14px]">check_circle</span> Preparation</h3>
+                                        <ul className="text-sm text-gray-300 space-y-1.5 list-disc pl-4">
+                                            <li>Clean indoor sneakers required</li>
+                                            <li>Bring water & sweat towel</li>
+                                            <li>Basic rhythm coordination recommended</li>
+                                        </ul>
                                     </div>
                                 </div>
                                 <div className="bg-surface-darker border border-surface-border rounded-xl p-5 space-y-3 relative overflow-hidden">
@@ -564,6 +700,208 @@ export default function SchedulePage() {
                                     Cancellation available up to 2 hours before class.
                                 </p>
                             </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* Instructor Profile Modal */}
+            <div aria-labelledby="instructor-modal-title" aria-modal="true" className={`fixed inset-0 z-[60] flex items-center justify-center p-4 sm:p-6 overflow-hidden ${isInstructorModalOpen ? 'pointer-events-auto' : 'pointer-events-none'}`} role="dialog">
+                <div 
+                    aria-hidden="true" 
+                    className={`absolute inset-0 bg-background-dark/80 backdrop-blur-md transition-opacity duration-300 ease-in-out ${isInstructorModalOpen ? 'opacity-100' : 'opacity-0'}`} 
+                    onClick={() => setIsInstructorModalOpen(false)}
+                ></div>
+                
+                <div className={`relative max-w-lg w-full bg-surface-darker border border-surface-border rounded-2xl shadow-2xl overflow-hidden transform transition-all duration-300 ease-out ${isInstructorModalOpen ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 translate-y-4'}`}>
+                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-purple-400 to-primary"></div>
+                    
+                    {/* Header Image Area */}
+                    <div className="relative h-48 bg-surface-dark">
+                        <Image
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBaxO1ejHNsmNaF4m4B0ku43SeveyFVcpoWotzQTFIbAjpVKwkLXuJ2tQkyr8EfriMa0BFX1omCOYdXS9u5fckiBM-f0_91cCRjWrmXjvENfM9ncLy6THw7f-0B3DpTOFc5yTrhSiwC6Ms1GCymet19pOQB-KROcaXq5R1cog_XpD6HLfLMfJNfHmZbE-aqnIR3YxA0KrW-wHr3YKLN6cO3CWSFW6BlGq1BOaymNOSsKu99It-NX3GRHt720djxcOuIASSuEmgWLCfN"
+                            alt="Sarah Jenkins Header"
+                            layout="fill"
+                            objectFit="cover"
+                            className="opacity-50 blur-sm"
+                            onError={(e) => {
+                                e.currentTarget.style.display = 'none';
+                            }}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-surface-darker to-transparent"></div>
+                        <button 
+                            className="absolute top-4 right-4 rounded-full p-1.5 bg-black/40 hover:bg-black/60 backdrop-blur-md border border-white/10 text-white transition-colors z-10" 
+                            onClick={() => setIsInstructorModalOpen(false)} 
+                            type="button"
+                        >
+                            <span className="sr-only">Close modal</span>
+                            <span className="material-icons text-[20px]">close</span>
+                        </button>
+                    </div>
+
+                    {/* Profile Details */}
+                    <div className="relative px-6 pb-8 pt-0">
+                        <div className="flex justify-center -mt-16 mb-4 relative z-10">
+                            <div className="relative">
+                                <Image
+                                    width={120}
+                                    height={120}
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBaxO1ejHNsmNaF4m4B0ku43SeveyFVcpoWotzQTFIbAjpVKwkLXuJ2tQkyr8EfriMa0BFX1omCOYdXS9u5fckiBM-f0_91cCRjWrmXjvENfM9ncLy6THw7f-0B3DpTOFc5yTrhSiwC6Ms1GCymet19pOQB-KROcaXq5R1cog_XpD6HLfLMfJNfHmZbE-aqnIR3YxA0KrW-wHr3YKLN6cO3CWSFW6BlGq1BOaymNOSsKu99It-NX3GRHt720djxcOuIASSuEmgWLCfN"
+                                    alt="Sarah Jenkins"
+                                    className="h-32 w-32 rounded-full object-cover ring-4 ring-surface-darker shadow-2xl"
+                                    onError={(e) => {
+                                        e.currentTarget.style.display = 'none';
+                                        e.currentTarget.parentElement!.innerHTML = '<div class="h-32 w-32 rounded-full ring-4 ring-surface-darker shadow-2xl bg-surface-dark flex items-center justify-center"><span class="material-icons text-[40px] text-primary">person</span></div>';
+                                    }}
+                                />
+                                <div className="absolute bottom-0 right-0 bg-primary text-white text-xs px-2 py-0.5 rounded-full border-2 border-surface-darker font-bold shadow-lg">PRO</div>
+                            </div>
+                        </div>
+
+                        <div className="text-center mb-6">
+                            <h2 className="text-2xl font-bold text-white tracking-tight" id="instructor-modal-title">Sarah Jenkins</h2>
+                            <p className="text-primary-light font-medium mt-1">Lead Choreographer & Hip Hop Instructor</p>
+                            <div className="flex justify-center items-center gap-4 mt-3">
+                                <div className="flex items-center text-sm text-gray-300">
+                                    <span className="material-icons text-[16px] text-yellow-500 mr-1">star</span>
+                                    4.9 <span className="text-gray-500 ml-1">(120 reviews)</span>
+                                </div>
+                                <div className="w-1 h-1 rounded-full bg-surface-border"></div>
+                                <div className="flex items-center text-sm text-gray-300">
+                                    <span className="material-icons text-[16px] text-gray-400 mr-1">history</span>
+                                    5+ Years
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="space-y-6">
+                            <div>
+                                <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Biography</h3>
+                                <p className="text-sm text-gray-300 leading-relaxed">
+                                    Sarah brings 10 years of LA industry experience right to your studio. Known for her high-energy choreography focusing heavily on musicality and intricate textures. She has danced alongside top-tier artists and brings a commercial edge to every class while maintaining a supportive, growth-focused environment.
+                                </p>
+                            </div>
+                            
+                            <div className="grid grid-cols-2 gap-4">
+                                <div className="bg-surface-dark rounded-xl p-4 border border-surface-border">
+                                    <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Styles</h3>
+                                    <p className="text-sm text-white font-medium">Advanced Hip Hop, Jazz Funk, Commercial</p>
+                                </div>
+                                <div className="bg-surface-dark rounded-xl p-4 border border-surface-border">
+                                    <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Vibe</h3>
+                                    <p className="text-sm text-white font-medium">High Energy, Technical, Encouraging</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div className="mt-8">
+                            <button 
+                                className="w-full bg-surface-dark hover:bg-surface-border text-white border border-surface-border font-bold py-3 px-4 rounded-xl transition-colors flex items-center justify-center gap-2"
+                                onClick={() => setIsInstructorModalOpen(false)}
+                            >
+                                <span>Back to Class Details</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* Instructor Profile Modal */}
+            <div aria-labelledby="instructor-modal-title" aria-modal="true" className={`fixed inset-0 z-[60] flex items-center justify-center p-4 sm:p-6 overflow-hidden ${isInstructorModalOpen ? 'pointer-events-auto' : 'pointer-events-none'}`} role="dialog">
+                <div 
+                    aria-hidden="true" 
+                    className={`absolute inset-0 bg-background-dark/80 backdrop-blur-md transition-opacity duration-300 ease-in-out ${isInstructorModalOpen ? 'opacity-100' : 'opacity-0'}`} 
+                    onClick={() => setIsInstructorModalOpen(false)}
+                ></div>
+                
+                <div className={`relative max-w-lg w-full bg-surface-darker border border-surface-border rounded-2xl shadow-2xl overflow-hidden transform transition-all duration-300 ease-out ${isInstructorModalOpen ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 translate-y-4'}`}>
+                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-purple-400 to-primary"></div>
+                    
+                    {/* Header Image Area */}
+                    <div className="relative h-48 bg-surface-dark">
+                        <Image
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBaxO1ejHNsmNaF4m4B0ku43SeveyFVcpoWotzQTFIbAjpVKwkLXuJ2tQkyr8EfriMa0BFX1omCOYdXS9u5fckiBM-f0_91cCRjWrmXjvENfM9ncLy6THw7f-0B3DpTOFc5yTrhSiwC6Ms1GCymet19pOQB-KROcaXq5R1cog_XpD6HLfLMfJNfHmZbE-aqnIR3YxA0KrW-wHr3YKLN6cO3CWSFW6BlGq1BOaymNOSsKu99It-NX3GRHt720djxcOuIASSuEmgWLCfN"
+                            alt="Sarah Jenkins Header"
+                            layout="fill"
+                            objectFit="cover"
+                            className="opacity-50 blur-sm"
+                            onError={(e) => {
+                                e.currentTarget.style.display = 'none';
+                            }}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-surface-darker to-transparent"></div>
+                        <button 
+                            className="absolute top-4 right-4 rounded-full p-1.5 bg-black/40 hover:bg-black/60 backdrop-blur-md border border-white/10 text-white transition-colors z-10" 
+                            onClick={() => setIsInstructorModalOpen(false)} 
+                            type="button"
+                        >
+                            <span className="sr-only">Close modal</span>
+                            <span className="material-icons text-[20px]">close</span>
+                        </button>
+                    </div>
+
+                    {/* Profile Details */}
+                    <div className="relative px-6 pb-8 pt-0">
+                        <div className="flex justify-center -mt-16 mb-4 relative z-10">
+                            <div className="relative">
+                                <Image
+                                    width={120}
+                                    height={120}
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBaxO1ejHNsmNaF4m4B0ku43SeveyFVcpoWotzQTFIbAjpVKwkLXuJ2tQkyr8EfriMa0BFX1omCOYdXS9u5fckiBM-f0_91cCRjWrmXjvENfM9ncLy6THw7f-0B3DpTOFc5yTrhSiwC6Ms1GCymet19pOQB-KROcaXq5R1cog_XpD6HLfLMfJNfHmZbE-aqnIR3YxA0KrW-wHr3YKLN6cO3CWSFW6BlGq1BOaymNOSsKu99It-NX3GRHt720djxcOuIASSuEmgWLCfN"
+                                    alt="Sarah Jenkins"
+                                    className="h-32 w-32 rounded-full object-cover ring-4 ring-surface-darker shadow-2xl"
+                                    onError={(e) => {
+                                        e.currentTarget.style.display = 'none';
+                                        e.currentTarget.parentElement!.innerHTML = '<div class="h-32 w-32 rounded-full ring-4 ring-surface-darker shadow-2xl bg-surface-dark flex items-center justify-center"><span class="material-icons text-[40px] text-primary">person</span></div>';
+                                    }}
+                                />
+                                <div className="absolute bottom-0 right-0 bg-primary text-white text-xs px-2 py-0.5 rounded-full border-2 border-surface-darker font-bold shadow-lg">PRO</div>
+                            </div>
+                        </div>
+
+                        <div className="text-center mb-6">
+                            <h2 className="text-2xl font-bold text-white tracking-tight" id="instructor-modal-title">Sarah Jenkins</h2>
+                            <p className="text-primary-light font-medium mt-1">Lead Choreographer & Hip Hop Instructor</p>
+                            <div className="flex justify-center items-center gap-4 mt-3">
+                                <div className="flex items-center text-sm text-gray-300">
+                                    <span className="material-icons text-[16px] text-yellow-500 mr-1">star</span>
+                                    4.9 <span className="text-gray-500 ml-1">(120 reviews)</span>
+                                </div>
+                                <div className="w-1 h-1 rounded-full bg-surface-border"></div>
+                                <div className="flex items-center text-sm text-gray-300">
+                                    <span className="material-icons text-[16px] text-gray-400 mr-1">history</span>
+                                    5+ Years
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="space-y-6">
+                            <div>
+                                <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Biography</h3>
+                                <p className="text-sm text-gray-300 leading-relaxed">
+                                    Sarah brings 10 years of LA industry experience right to your studio. Known for her high-energy choreography focusing heavily on musicality and intricate textures. She has danced alongside top-tier artists and brings a commercial edge to every class while maintaining a supportive, growth-focused environment.
+                                </p>
+                            </div>
+                            
+                            <div className="grid grid-cols-2 gap-4">
+                                <div className="bg-surface-dark rounded-xl p-4 border border-surface-border">
+                                    <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Styles</h3>
+                                    <p className="text-sm text-white font-medium">Advanced Hip Hop, Jazz Funk, Commercial</p>
+                                </div>
+                                <div className="bg-surface-dark rounded-xl p-4 border border-surface-border">
+                                    <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Vibe</h3>
+                                    <p className="text-sm text-white font-medium">High Energy, Technical, Encouraging</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div className="mt-8">
+                            <button 
+                                className="w-full bg-surface-dark hover:bg-surface-border text-white border border-surface-border font-bold py-3 px-4 rounded-xl transition-colors flex items-center justify-center gap-2"
+                                onClick={() => setIsInstructorModalOpen(false)}
+                            >
+                                <span>Back to Class Details</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
