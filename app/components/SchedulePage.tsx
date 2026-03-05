@@ -12,6 +12,8 @@ export default function SchedulePage() {
     const [showNotifications, setShowNotifications] = useState(false);
     const [currentDate, setCurrentDate] = useState(new Date());
     const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+    const [activeLevels, setActiveLevels] = useState<string[]>([]);
+    const [showFullClasses, setShowFullClasses] = useState(false);
     const monthScrollRef = useRef<HTMLDivElement>(null);
 
     const monthsList = useMemo(() => {
@@ -61,6 +63,14 @@ export default function SchedulePage() {
         );
     };
 
+    const toggleLevel = (level: string) => {
+        setActiveLevels(prev => 
+            prev.includes(level)
+                ? prev.filter(l => l !== level)
+                : [...prev, level]
+        );
+    };
+
     useEffect(() => {
         if (isDrawerOpen) {
             document.body.classList.add('drawer-open');
@@ -75,7 +85,7 @@ export default function SchedulePage() {
     return (
         <div className="bg-background-dark text-gray-100 font-display antialiased overflow-hidden h-screen flex flex-col selection:bg-primary selection:text-white">
             <header className="h-16 border-b border-surface-border bg-surface-dark/95 backdrop-blur supports-[backdrop-filter]:bg-surface-dark/60 flex items-center justify-between px-6 z-30 relative shrink-0">
-                <div className="flex items-center gap-8">
+                <div className="flex flex-1 items-center gap-8">
                     <Link href="/" className="flex items-center gap-3 group cursor-pointer">
                         <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center text-white font-bold text-xl shadow-glow group-hover:scale-105 transition-transform">C</div>
                         <div className="flex flex-col">
@@ -83,13 +93,12 @@ export default function SchedulePage() {
                             <span className="text-[10px] text-gray-500 font-mono tracking-wider uppercase">Engineered Flow</span>
                         </div>
                     </Link>
-                    <div className="hidden md:flex items-center gap-2 px-4 py-1.5 rounded-full bg-surface-darker border border-surface-border text-xs text-gray-400">
-                        <span className="text-gray-500">Dashboard</span>
-                        <span className="material-icons text-[12px] text-gray-600">chevron_right</span>
-                        <span className="text-white font-medium">Schedule</span>
-                        <span className="material-icons text-[12px] text-gray-600">chevron_right</span>
-                        <span className="text-primary-light">Week 41</span>
-                    </div>
+                    <nav className="hidden md:flex ml-4 items-center gap-8">
+                        <Link className="text-[11px] font-bold uppercase tracking-[0.2em] text-gray-400 hover:text-white transition-colors" href="/">HOME</Link>
+                        <Link className="text-[11px] font-bold uppercase tracking-[0.2em] text-gray-400 hover:text-white transition-colors" href="/programs">PROGRAMS</Link>
+                        <Link className="text-[11px] font-bold uppercase tracking-[0.2em] text-gray-400 hover:text-white transition-colors" href="/store">STORE</Link>
+                        <Link className="text-[11px] font-bold uppercase tracking-[0.2em] text-gray-400 hover:text-white transition-colors" href="/about">ABOUT US</Link>
+                    </nav>
                 </div>
                 <div className="flex items-center gap-5">
                     <div className="flex items-center gap-3 pl-4">
@@ -99,7 +108,7 @@ export default function SchedulePage() {
                                 aria-label="Notifications" 
                                 className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-white/5 transition-colors relative text-gray-400 hover:text-white btn-physics"
                             >
-                                <span className="material-icons-outlined text-[20px]">notifications</span>
+                                <span className="material-symbols-outlined text-[20px]">notifications</span>
                                 <span className="absolute top-2.5 right-2.5 w-1.5 h-1.5 bg-primary rounded-full ring-2 ring-surface-dark"></span>
                             </button>
                             
@@ -107,8 +116,10 @@ export default function SchedulePage() {
                             {showNotifications && (
                                 <div className="absolute right-0 mt-2 w-80 bg-surface-darker border border-surface-border rounded-xl shadow-2xl z-50 overflow-hidden backdrop-blur-xl">
                                     <div className="p-4 border-b border-surface-border flex justify-between items-center">
-                                        <h3 className="text-sm font-bold text-white">Notifications</h3>
-                                        <span className="text-xs text-primary cursor-pointer hover:underline">Mark all read</span>
+                                        <div className="flex items-center gap-2">
+                                            <span className="material-symbols-outlined text-gray-400 text-[18px]">notifications</span>
+                                        </div>
+                                        <span className="text-[10px] font-bold uppercase tracking-wider text-primary cursor-pointer hover:underline">Mark all read</span>
                                     </div>
                                     <div className="flex flex-col max-h-96 overflow-y-auto">
                                         <div className="p-4 border-b border-surface-border/50 hover:bg-surface-dark cursor-pointer transition-colors relative">
@@ -119,7 +130,7 @@ export default function SchedulePage() {
                                                 </div>
                                                 <div>
                                                     <h4 className="text-xs font-bold text-gray-200">Booking Confirmed</h4>
-                                                    <p className="text-[11px] text-gray-400 mt-1">You're booked for Adv. Hip Hop with Sarah Jenkins on {currentDate.toLocaleDateString()}.</p>
+                                                    <p className="text-[11px] text-gray-400 mt-1">You&apos;re booked for Adv. Hip Hop with Sarah Jenkins on {currentDate.toLocaleDateString()}.</p>
                                                     <span className="text-[9px] text-gray-500 mt-2 inline-block">2 hours ago</span>
                                                 </div>
                                             </div>
@@ -153,7 +164,7 @@ export default function SchedulePage() {
                                 </div>
                             )}
                         </div>
-                        <div className="w-9 h-9 rounded-lg bg-gradient-to-tr from-gray-700 to-gray-600 p-[1px] cursor-pointer btn-physics">
+                        <div className="w-9 h-9 flex items-center justify-center shrink-0">
                             <Image
                                 width={800}
                                 height={600}
@@ -170,8 +181,8 @@ export default function SchedulePage() {
                 <aside className={`bg-surface-darker border-r border-surface-border flex-col hidden lg:flex shrink-0 z-20 transition-all duration-300 ${isSidebarCollapsed ? 'w-16 items-center' : 'w-72'}`}>
                     {isSidebarCollapsed ? (
                         <div className="p-4 flex flex-col items-center pt-6 gap-6 w-full">
-                            <button onClick={() => setIsSidebarCollapsed(false)} className="h-8 w-8 flex items-center justify-center rounded-lg hover:bg-surface-border text-gray-400" title="Expand Filters">
-                                <span className="material-icons text-[20px]">filter_list</span>
+                            <button onClick={() => setIsSidebarCollapsed(false)} className="h-8 w-8 flex items-center justify-center rounded-lg hover:bg-white/5 text-gray-400 hover:text-white transition-colors" title="Expand Filters">
+                                <span className="material-symbols-outlined text-[20px]">left_panel_open</span>
                             </button>
                             <div style={{ writingMode: 'vertical-rl' }} className="text-xs font-bold text-gray-500 uppercase tracking-wider rotate-180 mt-4">
                                 Smart Filters
@@ -182,9 +193,18 @@ export default function SchedulePage() {
                         <div className="p-4 flex items-center justify-between border-b border-surface-border shrink-0">
                             <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider">Smart Filters</h3>
                             <div className="flex gap-2">
-                                <span className="text-[10px] text-primary cursor-pointer hover:underline pt-0.5">Reset</span>
-                                <button onClick={() => setIsSidebarCollapsed(true)} className="h-6 w-6 flex items-center justify-center rounded-lg hover:bg-surface-border text-gray-400 transition-colors">
-                                    <span className="material-icons text-[18px]">chevron_left</span>
+                                <button 
+                                    onClick={() => {
+                                        setActiveFilters([]);
+                                        setActiveLevels([]);
+                                        setShowFullClasses(false);
+                                    }}
+                                    className="px-2 py-0.5 rounded bg-white/5 border border-white/10 hover:bg-white/10 text-[10px] font-bold uppercase tracking-wider text-gray-400 hover:text-white transition-colors"
+                                >
+                                    Reset
+                                </button>
+                                <button onClick={() => setIsSidebarCollapsed(true)} className="h-6 w-6 flex items-center justify-center rounded-lg hover:bg-white/5 text-gray-400 hover:text-white transition-colors">
+                                    <span className="material-symbols-outlined text-[18px]">left_panel_close</span>
                                 </button>
                             </div>
                         </div>
@@ -206,23 +226,32 @@ export default function SchedulePage() {
                             </div>
                             <div>
                                 <div className="flex justify-between items-center mb-2">
-                                    <label className="text-xs text-gray-400 font-medium">Level</label>
-                                    <span className="text-[10px] text-primary bg-primary/10 px-1.5 rounded">Int - Adv</span>
+                                    <div className="flex items-center gap-3">
+                                        <label className="text-xs text-gray-400 font-medium">Level</label>
+                                        <button 
+                                            onClick={() => setActiveLevels(activeLevels.length === 3 ? [] : ["Beg", "Int", "Adv"])}
+                                            className={`text-[9px] px-1.5 py-0.5 rounded font-bold uppercase transition-colors ${activeLevels.length === 3 ? "bg-primary text-white" : "bg-white/5 text-gray-500 hover:bg-white/10 hover:text-white"}`}
+                                        >
+                                            All Levels
+                                        </button>
+                                    </div>
+                                    <span className="text-[10px] text-primary bg-primary/10 px-1.5 rounded">
+                                        {activeLevels.length === 0 ? "Any" : activeLevels.length === 3 ? "All" : activeLevels.join(", ")}
+                                    </span>
                                 </div>
                                 <div className="h-10 flex gap-1 items-end pb-1 px-1 rounded-md bg-surface-dark border border-surface-border relative overflow-hidden group">
                                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]"></div>
-                                    <div className="flex-1 h-2 bg-gray-700 rounded-sm cursor-pointer hover:bg-gray-500 transition-colors"></div>
-                                    <div className="flex-1 h-4 bg-gray-700 rounded-sm cursor-pointer hover:bg-gray-500 transition-colors"></div>
-                                    <div className="flex-1 h-6 bg-primary rounded-sm cursor-pointer"></div>
-                                    <div className="flex-1 h-8 bg-primary rounded-sm cursor-pointer"></div>
+                                    <button type="button" onClick={() => toggleLevel("Beg")} className={`flex-1 h-3 rounded-sm cursor-pointer transition-colors ${activeLevels.includes("Beg") ? "bg-primary" : "bg-gray-700 hover:bg-gray-500"}`} title="Beginner"></button>
+                                    <button type="button" onClick={() => toggleLevel("Int")} className={`flex-1 h-6 rounded-sm cursor-pointer transition-colors ${activeLevels.includes("Int") ? "bg-primary" : "bg-gray-700 hover:bg-gray-500"}`} title="Intermediate"></button>
+                                    <button type="button" onClick={() => toggleLevel("Adv")} className={`flex-1 h-9 rounded-sm cursor-pointer transition-colors ${activeLevels.includes("Adv") ? "bg-primary" : "bg-gray-700 hover:bg-gray-500"}`} title="Advanced"></button>
                                 </div>
                             </div>
-                            <div className="flex items-center justify-between p-3 rounded-lg border border-surface-border bg-surface-dark/50">
+                            <button type="button" onClick={() => setShowFullClasses(!showFullClasses)} className="w-full flex items-center justify-between p-3 rounded-lg border border-surface-border bg-surface-dark/50 cursor-pointer hover:bg-surface-dark transition-colors">
                                 <span className="text-xs text-gray-300">Show Full Classes</span>
-                                <button className="relative inline-flex h-5 w-9 items-center rounded-full bg-surface-border transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-surface-darker">
-                                    <span className="translate-x-1 inline-block h-3 w-3 transform rounded-full bg-gray-400 transition-transform"></span>
-                                </button>
-                            </div>
+                                <div className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-surface-darker ${showFullClasses ? 'bg-primary' : 'bg-surface-border'}`}>
+                                    <span className={`inline-block h-3 w-3 transform rounded-full bg-white transition-transform ${showFullClasses ? 'translate-x-5' : 'translate-x-1 bg-gray-400'}`}></span>
+                                </div>
+                            </button>
                         </div>
                     </div>
                     <div className="p-4 border-t border-surface-border bg-gradient-to-b from-surface-darker to-surface-dark">
@@ -268,15 +297,6 @@ export default function SchedulePage() {
                                 <button onClick={() => setActiveView("day")} className={`px-3 py-1 text-xs font-bold rounded transition-all ${activeView === "day" ? "bg-primary text-white shadow-sm" : "text-gray-400 hover:text-white hover:bg-white/5"}`}>Day</button>
                             </div>
                         </div>
-                        <div className="flex items-center gap-4">
-                            <div className="flex -space-x-3 hover:space-x-1 transition-all duration-300">
-                                <img alt="Instructor" className="w-8 h-8 rounded-full border-2 border-surface-dark object-cover ring-2 ring-transparent hover:ring-primary transition-all cursor-pointer" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfDHLiuu0Tigoxy8V0KyDHa8M0zdFlLTYjX2WdE8D6u8tX_UhgjmJOaxesjtfHnDhjN__fTTbY2BxetUyJ14wprD3TwgJ2IGHbwdM6_m_5YH5MHVt5B5DX43Izsx1YdnO81VKTu4Cj1w5ECCe1kGh70IvAs2tHPYlt4Pd6qr8c00e0NYuz-wpPqworBwPKKejkaqW6ViW1ycIudnF8Qs83TrkEPBL2bMEHsi_gi_ZG3yGSiry52hTTW2DH1xJ4tl-sD1pmue08NWci" title="Active Instructors"/>
-                                <img alt="Instructor" className="w-8 h-8 rounded-full border-2 border-surface-dark object-cover ring-2 ring-transparent hover:ring-primary transition-all cursor-pointer" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCeanCY27GHbnIBPJHighsKJ3MuNSP39tEmAwJJCIK0ty2zSkhyGFh_aNyxdWauvpyq6QDyeO9tBaHlLletNYGUDHVgsHmy_cuFLE0cTSitibOhKf8c3qeJOJ3PHpgxYsT4Q8BgNSwS5himhDzNv-CCXdspeE-rVPz41VDPhcnn2fNqLqRJb9ULkWJ7dg0RiP8ri6N2NZgX3IhCSKEEm9rff1pbux3Zba-bzIKzSGwy7CWwuuGIVIR_RUux-np_pCffc-nWyRfKYLpC"/>
-                                <img alt="Instructor" className="w-8 h-8 rounded-full border-2 border-surface-dark object-cover ring-2 ring-transparent hover:ring-primary transition-all cursor-pointer" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3XLI-QFzmu4oeDgWFzFe7SJ7CvHzJPjMIw6WioPaMhK1v1xCcFoS4ZJlnrjsAPLnb5TMbWlbuuiuVZJgMSAsXyKeiG2YoqRjPlHrGnkIW7_7w90M6mOQuIDqQyuF6ADaau8DBwALbt5qH9WWvDXxK8drLDnnygqnOumsVDKAEVlYq7My4mr8EqMGdB2YN636qeHE77_m0KBbnXRa3buk-Y2RtsWb-rFKroX1wiGdyYAeak1JJPgP8M4Pcok357MqLkxe9VLLyfboK"/>
-                                <div className="w-8 h-8 rounded-full border-2 border-surface-dark bg-surface-border flex items-center justify-center text-xs font-bold text-gray-400">+5</div>
-                            </div>
-
-                        </div>
                     </div>
 
                     <div className={`flex-1 flex flex-col relative bg-surface-darker/50 ${activeView === 'day' ? 'overflow-x-auto overflow-y-auto custom-scrollbar' : 'overflow-hidden p-6'}`}>
@@ -307,7 +327,8 @@ export default function SchedulePage() {
                                 weeks.push(daysForMonth.slice(i, i + 7));
                             }
 
-                            const renderDaySlot = (slot: any, isTodayOverride: boolean = false, monthDate?: Date) => {
+                            type Slot = { type: string; day?: number };
+                            const renderDaySlot = (slot: Slot, isTodayOverride: boolean = false, monthDate?: Date) => {
                                 if (slot.type === 'prev' || slot.type === 'next') {
                                     return (
                                         <div key={`${slot.type}-${slot.day}-${Math.random()}`} className="bg-surface-darker p-2 opacity-50 relative pointer-events-none">
@@ -318,7 +339,7 @@ export default function SchedulePage() {
 
                                 const day = slot.day;
                                 const isToday = isTodayOverride; // Keep dummy highlights
-                                const hasClasses = [2, 4, 7, 10, 14, 15, 18, 22, 25, 29].includes(day);
+                                const hasClasses = [2, 4, 7, 10, 14, 15, 18, 22, 25, 29].includes(day ?? 0);
                                 
                                 return (
                                     <div key={`curr-${day}-${Math.random()}`} className={`bg-surface-darker p-2 relative hover:bg-surface-dark transition-colors cursor-pointer group flex flex-col ${isToday ? 'ring-1 ring-inset ring-primary shadow-inner shadow-primary/20' : ''}`}>
@@ -549,7 +570,7 @@ export default function SchedulePage() {
                                                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5d4y9g6QO4QxL--xUbV1-c08ONU1xkuwskC--3dH3zRok7_DOZE9cP3o_QU_b0oZLKUFuBd_a7yvkkAP3m7gbSzfWisNS6hwtzbfe71BnRNHBT19VfBqXy9i4JpES7DwzekvcxrIKgGP0i0P3AweDZT_MXeYbp1sNL8uMlWzj-g_iCafkdWsj6QovJ2mQ3P0a0QuthX-OHCq_SSqxAidL9OGa5TZVeWrbCBu5-hILPcUmuWs7NrMaEwWFYVc-KrHWvbjk1OhLqXvikKTLkn-HjwmfdU6LR"
                                                     alt="Instructor"
                                                     className="w-10 h-10 rounded-lg object-cover ring-1 ring-surface-border"
-                                                    onError={(e) => {
+                                                    onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
                                                         e.currentTarget.style.display = 'none';
                                                         e.currentTarget.parentElement!.innerHTML = '<span class="material-icons text-[16px] text-[#2dd4bf]">person</span>';
                                                     }}
@@ -635,7 +656,7 @@ export default function SchedulePage() {
                                                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuBaxO1ejHNsmNaF4m4B0ku43SeveyFVcpoWotzQTFIbAjpVKwkLXuJ2tQkyr8EfriMa0BFX1omCOYdXS9u5fckiBM-f0_91cCRjWrmXjvENfM9ncLy6THw7f-0B3DpTOFc5yTrhSiwC6Ms1GCymet19pOQB-KROcaXq5R1cog_XpD6HLfLMfJNfHmZbE-aqnIR3YxA0KrW-wHr3YKLN6cO3CWSFW6BlGq1BOaymNOSsKu99It-NX3GRHt720djxcOuIASSuEmgWLCfN"
                                                     alt="Instructor"
                                                     className="h-14 w-14 rounded-xl object-cover ring-2 ring-surface-border group-hover:ring-primary transition-all"
-                                                    onError={(e) => {
+                                                    onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
                                                         e.currentTarget.style.display = 'none';
                                                         e.currentTarget.parentElement!.innerHTML = '<span class="material-icons text-[16px] text-[#9d4af2]">person</span>';
                                                     }}
@@ -723,7 +744,7 @@ export default function SchedulePage() {
                             layout="fill"
                             objectFit="cover"
                             className="opacity-50 blur-sm"
-                            onError={(e) => {
+                            onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
                                 e.currentTarget.style.display = 'none';
                             }}
                         />
@@ -748,7 +769,7 @@ export default function SchedulePage() {
                                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuBaxO1ejHNsmNaF4m4B0ku43SeveyFVcpoWotzQTFIbAjpVKwkLXuJ2tQkyr8EfriMa0BFX1omCOYdXS9u5fckiBM-f0_91cCRjWrmXjvENfM9ncLy6THw7f-0B3DpTOFc5yTrhSiwC6Ms1GCymet19pOQB-KROcaXq5R1cog_XpD6HLfLMfJNfHmZbE-aqnIR3YxA0KrW-wHr3YKLN6cO3CWSFW6BlGq1BOaymNOSsKu99It-NX3GRHt720djxcOuIASSuEmgWLCfN"
                                     alt="Sarah Jenkins"
                                     className="h-32 w-32 rounded-full object-cover ring-4 ring-surface-darker shadow-2xl"
-                                    onError={(e) => {
+                                    onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
                                         e.currentTarget.style.display = 'none';
                                         e.currentTarget.parentElement!.innerHTML = '<div class="h-32 w-32 rounded-full ring-4 ring-surface-darker shadow-2xl bg-surface-dark flex items-center justify-center"><span class="material-icons text-[40px] text-primary">person</span></div>';
                                     }}
@@ -824,7 +845,7 @@ export default function SchedulePage() {
                             layout="fill"
                             objectFit="cover"
                             className="opacity-50 blur-sm"
-                            onError={(e) => {
+                            onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
                                 e.currentTarget.style.display = 'none';
                             }}
                         />
@@ -849,7 +870,7 @@ export default function SchedulePage() {
                                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuBaxO1ejHNsmNaF4m4B0ku43SeveyFVcpoWotzQTFIbAjpVKwkLXuJ2tQkyr8EfriMa0BFX1omCOYdXS9u5fckiBM-f0_91cCRjWrmXjvENfM9ncLy6THw7f-0B3DpTOFc5yTrhSiwC6Ms1GCymet19pOQB-KROcaXq5R1cog_XpD6HLfLMfJNfHmZbE-aqnIR3YxA0KrW-wHr3YKLN6cO3CWSFW6BlGq1BOaymNOSsKu99It-NX3GRHt720djxcOuIASSuEmgWLCfN"
                                     alt="Sarah Jenkins"
                                     className="h-32 w-32 rounded-full object-cover ring-4 ring-surface-darker shadow-2xl"
-                                    onError={(e) => {
+                                    onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
                                         e.currentTarget.style.display = 'none';
                                         e.currentTarget.parentElement!.innerHTML = '<div class="h-32 w-32 rounded-full ring-4 ring-surface-darker shadow-2xl bg-surface-dark flex items-center justify-center"><span class="material-icons text-[40px] text-primary">person</span></div>';
                                     }}

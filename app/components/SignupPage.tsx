@@ -1,7 +1,6 @@
 "use client";
 import React, { useState, FormEvent } from "react";
 import Link from "next/link";
-import Image from "next/image";
 
 export default function SignupPage() {
     const [status, setStatus] = useState<"idle" | "loading" | "success">("idle");

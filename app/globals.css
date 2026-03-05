@@ -84,9 +84,9 @@
         color: transparent;
         -webkit-background-clip: text;
         background-clip: text;
-        animation: textReveal linear both;
+        animation: textMaskReveal linear both;
         animation-timeline: view();
-        animation-range: entry 20% cover 50%;
+        animation-range: entry 20% cover 40%;
     }
     
     .velocity-grid {
@@ -95,24 +95,35 @@
         transition: gap 0.1s ease;
     }
     .velocity-item-left {
-        animation: shiftLeft linear both;
+        animation: slideLeftVelocity linear both;
         animation-timeline: view();
-        animation-range: entry 0% exit 100%;
+        animation-range: entry -50% cover 150%;
     }
     .velocity-item-right {
-        animation: shiftRight linear both;
+        animation: slideRightVelocity linear both;
         animation-timeline: view();
-        animation-range: entry 0% exit 100%;
+        animation-range: entry -50% cover 150%;
     }
 
     .hero-timeline {
         view-timeline-name: --hero;
-        view-timeline-axis: block;
     }
+
     .hero-exit-anim {
         animation: heroFadeOut linear both;
         animation-timeline: --hero;
         animation-range: exit 0% exit 80%;
+        will-change: opacity, transform;
+    }
+    
+    .hero-fade-transition {
+        transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+        will-change: opacity, transform;
+    }
+    
+    @keyframes heroFadeOut {
+        from { opacity: 1; transform: translateY(0); }
+        to { opacity: 0; transform: translateY(-5%); }
     }
 
     .parallax-bg-deep {
@@ -129,8 +140,8 @@
     }
     .parallax-hero-text {
         animation: parallaxText linear both;
-        animation-timeline: scroll();
-        transform-origin: center;
+        animation-timeline: --hero;
+        animation-range: exit 0% exit 100%;
     }
 
     .section-unfold {
@@ -143,11 +154,11 @@
     }
 
     .card-fade-up {
-        opacity: 0; view-timeline-name: --card-fade;
-        animation: fadeInUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-        animation-timeline: view();
-        animation-range: entry 10% entry 50%;
+        animation: fadeInUp linear both;
+        animation-timeline: scroll();
+        animation-range: entry 5% cover 15%;
         transform-origin: bottom center;
+        will-change: opacity, transform;
     }
 
     .stagger-delay-1 { animation-delay: 0.1s; }
@@ -167,11 +178,15 @@
         position: relative;
     }
 
-    .card-opacity-fade {
-         animation: opacityReveal 0.8s ease-out forwards;
-         animation-timeline: view();
-         animation-range: entry 10% cover 30%;
-         opacity: 0;
+    .manual-fade-up {
+        opacity: 0;
+        transform: translateY(40px);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        will-change: opacity, transform;
+    }
+    .manual-fade-up.is-visible {
+        opacity: 1;
+        transform: translateY(0);
     }
 
     .shard-float {
@@ -190,9 +205,12 @@
         animation: shimmer 3s linear infinite;
     }
     
+    .glitch-hover-effect {
+        transition: box-shadow 0.3s ease, transform 0.3s ease;
+    }
     .glitch-hover-effect:hover {
-        animation: glitch-anim 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
-        box-shadow: 0 0 20px rgba(188, 19, 254, 0.8);
+        box-shadow: 0 0 30px rgba(188, 19, 254, 0.4);
+        transform: translateY(-5px);
     }
     
     .scrollbar-hide::-webkit-scrollbar {
@@ -606,10 +624,10 @@
 }
 
 body {
-    cursor: url('data:image/svg+xml;utf8,<svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="8" fill="%23bc13fe" opacity="0.8"/></svg>') 20 20, auto;
+    /* Custom cursor removed for performance testing */
 }
 a:hover, button:hover, .interactive-hover:hover {
-     cursor: url('data:image/svg+xml;utf8,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><circle cx="30" cy="30" r="20" fill="none" stroke="%23d26aff" stroke-width="2"/><circle cx="30" cy="30" r="4" fill="%23ffffff"/></svg>') 30 30, pointer;
+     /* Custom cursor removed for performance testing */
 }
 
 header {
@@ -647,10 +665,6 @@ header {
     100% { transform: translateX(20px); }
 }
 
-@keyframes heroFadeOut {
-    to { opacity: 0; transform: translateY(-20%) scale(0.95); filter: blur(10px); }
-}
-
 @keyframes parallaxDeep {
     from { transform: translateY(0); }
     to { transform: translateY(300px); }
@@ -684,8 +698,8 @@ header {
 }
 
 @keyframes opacityReveal {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes float {

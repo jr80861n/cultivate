@@ -19,9 +19,8 @@ export default function StorePage() {
     return (
         <div className="rich-gradient-bg text-purple-50 min-h-screen flex flex-col font-display antialiased overflow-x-hidden selection:bg-primary selection:text-white">
             <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
-                <div className="absolute top-[-10%] left-[-10%] w-[60vw] h-[60vw] bg-primary/20 rounded-full blur-[150px] mix-blend-screen animate-pulse" style={{ animationDuration: '8s' }}></div>
-                <div className="absolute bottom-[-10%] right-[-10%] w-[50vw] h-[50vw] bg-primary-dark/30 rounded-full blur-[120px] mix-blend-screen"></div>
-                <div className="absolute top-[40%] left-[30%] w-[40vw] h-[40vw] bg-indigo-900/20 rounded-full blur-[100px] mix-blend-overlay"></div>
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent opacity-80"></div>
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,var(--tw-gradient-stops))] from-indigo-900/10 via-transparent to-transparent opacity-80"></div>
             </div>
 
             <header className="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-primary/20 bg-[#0a0512]/80 backdrop-blur-xl px-6 py-4 lg:px-12 transition-all duration-500 shadow-glow-sm">
@@ -33,9 +32,10 @@ export default function StorePage() {
                         <h2 className="text-white text-2xl font-black leading-tight tracking-tighter uppercase drop-shadow-[0_0_10px_rgba(124,58,237,0.5)]">Cultivate</h2>
                     </Link>
                     <nav className="hidden lg:flex items-center gap-10">
-                        <Link className="text-purple-300/70 hover:text-white text-xs font-black uppercase tracking-[0.2em] transition-colors hover:drop-shadow-[0_0_8px_rgba(167,139,250,0.6)]" href="/programs">Classes</Link>
-                        <Link className="text-primary-light text-xs font-black uppercase tracking-[0.2em] relative after:absolute after:bottom-[-6px] after:left-1/2 after:-translate-x-1/2 after:w-1 after:h-1 after:rounded-full after:bg-primary after:shadow-[0_0_8px_currentColor]" href="/store">Store</Link>
-                        <Link className="text-purple-300/70 hover:text-white text-xs font-black uppercase tracking-[0.2em] transition-colors hover:drop-shadow-[0_0_8px_rgba(167,139,250,0.6)]" href="#">About</Link>
+                        <Link className="text-purple-300/70 hover:text-white text-xs font-black uppercase tracking-[0.2em] transition-colors hover:drop-shadow-[0_0_8px_rgba(167,139,250,0.6)]" href="/">Home</Link>
+                        <Link className="text-purple-300/70 hover:text-white text-xs font-black uppercase tracking-[0.2em] transition-colors hover:drop-shadow-[0_0_8px_rgba(167,139,250,0.6)]" href="/programs">Programs</Link>
+                        <Link className="text-purple-300/70 hover:text-white text-xs font-black uppercase tracking-[0.2em] transition-colors hover:drop-shadow-[0_0_8px_rgba(167,139,250,0.6)]" href="/schedule">Schedule</Link>
+                        <Link className="text-purple-300/70 hover:text-white text-xs font-black uppercase tracking-[0.2em] transition-colors hover:drop-shadow-[0_0_8px_rgba(167,139,250,0.6)]" href="/about">About Us</Link>
                     </nav>
                 </div>
                 <div className="flex flex-1 justify-end gap-6 md:gap-10">

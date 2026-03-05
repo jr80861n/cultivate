@@ -98,10 +98,9 @@ export default function AboutPage() {
                     </Link>
                     <nav className="hidden md:flex items-center gap-10">
                         <Link className="text-sm font-bold tracking-wider hover:text-primary transition-colors text-white" href="/">HOME</Link>
-                        <Link className="text-sm font-bold tracking-wider text-primary drop-shadow-[0_0_8px_rgba(168,85,247,0.8)]" href="/about">ABOUT</Link>
-                        <Link className="text-sm font-bold tracking-wider hover:text-primary transition-colors text-white" href="/programs">CLASSES</Link>
+                        <Link className="text-sm font-bold tracking-wider hover:text-primary transition-colors text-white" href="/programs">PROGRAMS</Link>
                         <Link className="text-sm font-bold tracking-wider hover:text-primary transition-colors text-white" href="/schedule">SCHEDULE</Link>
-                        <Link className="text-sm font-bold tracking-wider hover:text-primary transition-colors text-white" href="#">CONTACT</Link>
+                        <Link className="text-sm font-bold tracking-wider hover:text-primary transition-colors text-white" href="/store">STORE</Link>
                     </nav>
                     <button className="bg-primary hover:bg-white hover:text-primary-dark text-white px-8 py-2.5 text-sm font-bold tracking-widest uppercase transition-all shadow-[0_0_20px_rgba(168,85,247,0.4)] border border-primary hover:border-white">
                         JOIN NOW
@@ -113,11 +112,11 @@ export default function AboutPage() {
                 <section className="relative h-[110vh] flex items-center justify-center overflow-hidden">
                     <div className="absolute inset-0 z-0">
                         <div className="parallax-bg absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuDNnAsNgUKbJOtuHSz-rCK5vvrvfVdYIyYUIiOAv6L1IuE8_nzpFTo0TAhKsrhiUwDhMGlq4huiRZl79HplaZudlUrcG2a4yV781R1lEDdCBhTU6bOXwIki8D-hwU3bu40ldq8A2DmcKnaAgNRzlQELurjFQG3h0eXlnsjYV3aA-H51klbLMc_ywpuEGPPZZu2TVGDz96v8U-p39n-t6ez_K6RfEuTF5htWoqLglqKv0JPgaZgoRDGvEMPixatBU-R-WyWyKbwGOhfN')", height: "130%", top: "-15%" }}></div>
-                        <div className="absolute inset-0 bg-gradient-to-b from-[#2e1065]/80 via-[#4c1d95]/40 to-[#0a060e] mix-blend-multiply"></div>
-                        <div className="absolute inset-0 bg-[#2e1065]/30 mix-blend-overlay"></div>
+                        <div className="absolute inset-0 bg-gradient-to-b from-[#2e1065]/80 via-[#4c1d95]/40 to-[#0a060e] opacity-80"></div>
+                        <div className="absolute inset-0 bg-[#2e1065]/30"></div>
                     </div>
                     <div className="relative z-10 text-center px-6 max-w-6xl w-full">
-                        <div className="inline-flex items-center gap-4 px-6 py-2 border border-primary/50 rounded-full bg-black/40 backdrop-blur-sm mb-12 reveal-element">
+                        <div className="inline-flex items-center gap-4 px-6 py-2 border border-primary/50 rounded-full bg-black/40 mb-12 reveal-element">
                             <div className="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
                             <span className="text-primary-light text-xs font-bold tracking-[0.3em] uppercase">
                                 The Purple World
@@ -125,7 +124,7 @@ export default function AboutPage() {
                         </div>
                         <h1 className="relative font-black uppercase tracking-tighter leading-[0.8] mb-8">
                             <span className="block text-6xl md:text-8xl lg:text-[11rem] text-transparent bg-clip-text bg-gradient-to-b from-white to-purple-200 drop-shadow-2xl reveal-element stagger-1 variable-weight-text">About</span>
-                            <span className="block text-6xl md:text-8xl lg:text-[11rem] text-stroke-purple absolute top-1 left-1 -z-10 opacity-50 blur-[1px] reveal-element stagger-1">About</span>
+                            <span className="block text-6xl md:text-8xl lg:text-[11rem] text-stroke-purple absolute top-1 left-1 -z-10 opacity-50 reveal-element stagger-1">About</span>
                             <span className="block text-6xl md:text-8xl lg:text-[11rem] text-primary italic relative z-10 reveal-element stagger-2 variable-weight-text">Cultivate</span>
                         </h1>
                         <p className="text-xl md:text-2xl text-white font-light max-w-2xl mx-auto reveal-element stagger-3 mt-12 leading-relaxed drop-shadow-md">
@@ -143,10 +142,10 @@ export default function AboutPage() {
                 <section className="relative py-40 overflow-hidden bg-[#2e1065]">
                     <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
                     <div className="absolute inset-0 z-0">
-                        <div className="w-full h-full opacity-30 mix-blend-overlay fixed-bg-section" style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuDNnAsNgUKbJOtuHSz-rCK5vvrvfVdYIyYUIiOAv6L1IuE8_nzpFTo0TAhKsrhiUwDhMGlq4huiRZl79HplaZudlUrcG2a4yV781R1lEDdCBhTU6bOXwIki8D-hwU3bu40ldq8A2DmcKnaAgNRzlQELurjFQG3h0eXlnsjYV3aA-H51klbLMc_ywpuEGPPZZu2TVGDz96v8U-p39n-t6ez_K6RfEuTF5htWoqLglqKv0JPgaZgoRDGvEMPixatBU-R-WyWyKbwGOhfN')" }}></div>
+                        <div className="w-full h-full opacity-30 fixed-bg-section" style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuDNnAsNgUKbJOtuHSz-rCK5vvrvfVdYIyYUIiOAv6L1IuE8_nzpFTo0TAhKsrhiUwDhMGlq4huiRZl79HplaZudlUrcG2a4yV781R1lEDdCBhTU6bOXwIki8D-hwU3bu40ldq8A2DmcKnaAgNRzlQELurjFQG3h0eXlnsjYV3aA-H51klbLMc_ywpuEGPPZZu2TVGDz96v8U-p39n-t6ez_K6RfEuTF5htWoqLglqKv0JPgaZgoRDGvEMPixatBU-R-WyWyKbwGOhfN')" }}></div>
                     </div>
                     <div className="max-w-7xl mx-auto px-6 relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-                        <div className="bg-black/40 backdrop-blur-xl p-12 md:p-16 border border-white/10 rounded-2xl shadow-[0_0_50px_rgba(168,85,247,0.15)] reveal-element">
+                        <div className="bg-black/80 p-12 md:p-16 border border-white/10 rounded-2xl shadow-[0_0_50px_rgba(168,85,247,0.15)] reveal-element">
                             <h2 className="text-primary-light font-bold text-sm tracking-[0.4em] uppercase mb-8 flex items-center gap-4">
                                 <span className="w-12 h-[1px] bg-primary"></span>
                                 Our Story
@@ -175,7 +174,6 @@ export default function AboutPage() {
                 </section>
 
                 <section className="py-40 px-6 bg-[#050208] relative overflow-hidden">
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vw] bg-primary/5 rounded-full blur-[120px] pointer-events-none"></div>
                     <div className="max-w-7xl mx-auto relative z-10">
                         <div className="flex flex-col md:flex-row md:items-end justify-between mb-32 gap-8 reveal-element">
                             <div className="max-w-2xl">
@@ -296,10 +294,6 @@ export default function AboutPage() {
                 </section>
 
                 <section className="relative py-48 px-6 bg-gradient-to-br from-primary via-primary-dark to-[#2e1065] overflow-hidden">
-                    <div className="absolute top-0 left-0 w-full h-full overflow-hidden opacity-30 mix-blend-color-dodge pointer-events-none">
-                        <div className="absolute -top-[20%] -left-[10%] w-[60%] h-[60%] bg-white rounded-full blur-[150px]"></div>
-                        <div className="absolute bottom-[0%] right-[0%] w-[50%] h-[50%] bg-purple-300 rounded-full blur-[120px]"></div>
-                    </div>
                     <div className="relative z-10 max-w-5xl mx-auto text-center flex flex-col items-center">
                         <h2 className="text-6xl md:text-9xl font-black uppercase tracking-tighter mb-8 leading-[0.85] text-white variable-weight-text">
                             Join The <br />

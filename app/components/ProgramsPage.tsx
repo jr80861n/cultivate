@@ -101,13 +101,15 @@ export default function ProgramsPage() {
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
         <div ref={blob1Ref} className="blob-bg liquid-blob-1 w-[800px] h-[800px] -top-20 -left-20 mix-blend-screen" data-speed="0.05"></div>
         <div ref={blob2Ref} className="blob-bg liquid-blob-2 w-[600px] h-[600px] top-[40%] -right-32 mix-blend-screen" data-speed="0.08"></div>
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMDUiLz4KPC9zdmc+')] opacity-[0.03] mix-blend-overlay pointer-events-none fixed bg-repeat"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,var(--tw-gradient-stops))] from-primary/5 via-transparent to-transparent opacity-50"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,var(--tw-gradient-stops))] from-fuchsia-600/5 via-transparent to-transparent opacity-50"></div>
+        <div className="absolute inset-0 opacity-[0.03] bg-noise"></div>
       </div>
       <div className="relative z-10 flex h-auto min-h-screen w-full flex-col">
         <header className="sticky top-0 z-[100] flex items-center justify-between border-b border-white/5 bg-[#1a052b]/80 backdrop-blur-xl px-6 md:px-10 py-5 transition-all duration-300">
           <Link href="/" className="flex items-center gap-3 group cursor-pointer">
             <div className="flex size-10 items-center justify-center rounded-xl bg-gradient-to-br from-primary-light to-primary shadow-[0_0_20px_rgba(127,19,236,0.5)] group-hover:scale-110 transition-transform duration-300">
-              <span className="material-symbols-outlined text-white !text-[24px]">music_note</span>
+              <span className="material-symbols-outlined !text-[24px]">music_note</span>
             </div>
             <h2 className="text-white text-xl font-black tracking-tighter uppercase drop-shadow-[0_0_10px_rgba(168,85,247,0.5)] group-hover:text-primary-light transition-colors">Cultivate</h2>
           </Link>
@@ -116,20 +118,16 @@ export default function ProgramsPage() {
               HOME
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-light transition-all duration-300 group-hover:w-full"></span>
             </Link>
-            <Link className="relative text-white text-sm font-black tracking-wide py-2" href="/programs">
-              PROGRAMS
-              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-primary-light shadow-[0_0_10px_rgba(168,85,247,0.8)]"></span>
-            </Link>
-            <Link className="relative text-primary-light/70 hover:text-white transition-all text-sm font-bold tracking-wide py-2 group" href="#">
+            <Link className="relative text-primary-light/70 hover:text-white transition-all text-sm font-bold tracking-wide py-2 group" href="/schedule">
               SCHEDULE
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-light transition-all duration-300 group-hover:w-full"></span>
             </Link>
-            <Link className="relative text-primary-light/70 hover:text-white transition-all text-sm font-bold tracking-wide py-2 group" href="#">
-              INSTRUCTORS
+            <Link className="relative text-primary-light/70 hover:text-white transition-all text-sm font-bold tracking-wide py-2 group" href="/store">
+              STORE
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-light transition-all duration-300 group-hover:w-full"></span>
             </Link>
-            <Link className="relative text-primary-light/70 hover:text-white transition-all text-sm font-bold tracking-wide py-2 group" href="#">
-              CONTACT
+            <Link className="relative text-primary-light/70 hover:text-white transition-all text-sm font-bold tracking-wide py-2 group" href="/about">
+              ABOUT US
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-light transition-all duration-300 group-hover:w-full"></span>
             </Link>
           </nav>
@@ -147,8 +145,9 @@ export default function ProgramsPage() {
         <main className="flex-1">
           <section className="relative w-full px-6 md:px-10 pt-12 pb-20 max-w-7xl mx-auto perspective-1000">
             <div className="tilt-card relative overflow-hidden rounded-[3rem] border border-white/10 bg-cover bg-center min-h-[600px] flex items-center p-8 md:p-20 shadow-[0_20px_60px_rgba(0,0,0,0.5)] group" style={{ backgroundImage: 'linear-gradient(to right, rgba(26, 5, 43, 0.95) 30%, rgba(127, 19, 236, 0.1) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuDWMKhlMpSOu5CPW0MAlCQ39DTLA0uCpT7M3DdHXyiYMhjqtOxJ-mFDvgA-JVZ8Je5-6GD5_NXYd4dSlHtLA4Qj9S6dT4Anq8Zm7UR2oxs0FAM-9Qh3SirrTJcyXpUmzMQnRyTSJmufg0D--wLy8lCB1FrV3CPvcWo9sYW7Gw47-8hm2FbAFcUo00TqhWljFWRKkJeeCnm6MBX5a3haoRgcola6GXgRM6ra5QGuM9ALH9hF7zlgQX1XTmn-ztgrbYoheVSStX_CJ-Le")', transformStyle: 'preserve-3d' }}>
-              <div className="shimmer-overlay"></div>
-              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-primary/20 mix-blend-overlay opacity-50"></div>
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[radial-gradient(circle_at_center,rgba(188,19,254,0.3),transparent_60%)] animate-pulse"></div>
+              <div className="shimmer-overlay z-20"></div>
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-primary/20 opacity-50"></div>
               <div className="tilt-content relative z-10 max-w-2xl">
                 <div className="flex items-center gap-3 mb-8 reveal stagger-1 active">
                   <span className="w-12 h-[2px] bg-primary-light shadow-[0_0_10px_#a855f7]"></span>
@@ -187,6 +186,8 @@ export default function ProgramsPage() {
 
           <div className="max-w-7xl mx-auto px-6 md:px-10 pb-32 space-y-32">
             <section className="relative">
+              <div className="absolute top-20 right-[-10%] w-[600px] h-[600px] bg-[radial-gradient(circle_at_center,rgba(188,19,254,0.1),transparent_60%)] pointer-events-none"></div>
+              <div className="absolute bottom-[-10%] left-[-10%] w-[800px] h-[800px] bg-[radial-gradient(circle_at_center,rgba(192,38,211,0.05),transparent_60%)] pointer-events-none"></div>
               <div className="mb-16 reveal origin-left">
                 <div className="inline-flex items-center gap-4 bg-background-layer-1/90 backdrop-blur-xl p-6 rounded-2xl border border-white/10 shadow-[0_10px_40px_rgba(0,0,0,0.4)]">
                   <div className="w-2 h-12 bg-gradient-to-b from-primary-light to-primary shadow-[0_0_15px_#7f13ec]"></div>
@@ -250,7 +251,7 @@ export default function ProgramsPage() {
                   <div className="shimmer-overlay z-20"></div>
                   <div className="h-80 overflow-hidden relative preserve-3d">
                     <div className="absolute inset-0 bg-gradient-to-t from-card-dark via-transparent to-transparent opacity-90 z-10"></div>
-                    <img alt="Contemporary" className="tilt-content w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 mix-blend-luminosity group-hover:mix-blend-normal" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKy_1lNhetb5IEYNVmScS1AfbB7rJYvipvLv0JBswJR9lK4A7g5-bJOGZxM5PzcjAhm7KUXnqro2RK9Ri_Qe0nQiUx2Iqxzy1eTjoezcplbuzhttWT5I6vPIiTnMAYjcivld0lLFMNOpH9lMwS-CnbEFnp3aDgntSnQm9bR0TwXLdERu53j6hqRv_8lAIMHmJ93FSxjKYx22QV3MmatDzNLTYzfwhFiixcGE-T0K14bKNIM-okh2VPk5bJ51uY53LTX0N3sOpsRWnX"/>
+                    <img alt="Contemporary" className="tilt-content w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 mix-blend-luminosity group-hover:mix-blend-normal" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKy_1lNhetb5IEYNVmScS1AfB7rJYvipvLv0JBswJR9lK4A7g5-bJOGZxM5PzcjAhm7KUXnqro2RK9Ri_Qe0nQiUx2Iqxzy1eTjoezcplbuzhttWT5I6vPIiTnMAYjcivld0lLFMNOpH9lMwS-CnbEFnp3aDgntSnQm9bR0TwXLdERu53j6hqRv_8lAIMHmJ93FSxjKYx22QV3MmatDzNLTYzfwhFiixcGE-T0K14bKNIM-okh2VPk5bJ51uY53LTX0N3sOpsRWnX"/>
                     <div className="absolute top-6 left-6 flex gap-2 z-20 tilt-content">
                       <span className="px-4 py-1.5 text-[10px] font-black tracking-tighter uppercase bg-primary-light text-background-dark rounded-full shadow-lg">TEENS 13+</span>
                     </div>
@@ -274,9 +275,9 @@ export default function ProgramsPage() {
 
             <section className="reveal">
               <div className="relative overflow-hidden rounded-[4rem] bg-[#240a3a] border border-white/10 p-1 group shadow-[0_0_80px_rgba(127,19,236,0.1)] hover:shadow-[0_0_100px_rgba(127,19,236,0.2)] transition-shadow duration-500">
-                <div className="absolute -top-40 -right-40 w-[800px] h-[800px] bg-primary/10 rounded-full blur-[150px] group-hover:bg-primary/20 transition-all duration-1000"></div>
-                <div className="absolute -bottom-40 -left-40 w-[600px] h-[600px] bg-fuchsia-600/10 rounded-full blur-[120px]"></div>
-                <div className="relative bg-card-dark/80 backdrop-blur-3xl rounded-[3.9rem] p-8 md:p-20 flex flex-col lg:flex-row gap-20 items-center overflow-hidden">
+                <div className="absolute -top-40 -right-40 w-[800px] h-[800px] bg-[radial-gradient(circle_at_center,rgba(188,19,254,0.1),transparent_60%)] group-hover:bg-[radial-gradient(circle_at_center,rgba(188,19,254,0.2),transparent_60%)] transition-all duration-1000"></div>
+                <div className="absolute -bottom-40 -left-40 w-[600px] h-[600px] bg-[radial-gradient(circle_at_center,rgba(192,38,211,0.1),transparent_60%)]"></div>
+                <div className="relative bg-card-dark/80 rounded-[3.9rem] p-8 md:p-20 flex flex-col lg:flex-row gap-20 items-center overflow-hidden">
                   <div className="lg:w-1/2 space-y-10 z-10">
                     <div className="flex items-center gap-4">
                       <div className="w-14 h-14 flex items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-primary-dark border border-primary-light/30 text-white shadow-[0_0_20px_rgba(168,85,247,0.4)] animate-bounce-slow">
@@ -313,7 +314,7 @@ export default function ProgramsPage() {
                             <Image
                                 width={1200}
                                 height={800}
-                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMSS5VLQP_U-3-9v1yqbVxbW-T_h186PuhJxC8UYpUzGW2fvZtnREMjWBrSvPUXf37eNyo7Tc3SCKQtyDXPOdOZEGuDtLCG44WztaxXXVyFiFADHR-Q5QN1q-mKmOP62TZIW7uXsMJWZr4Y0Jm5Mmyz5b9UEqrAGIrT7XcnDX8QoZqdi5GF_pMxlJrk-LzqRprdkytErogPGr96anBmqQt-ZmeiBEXfau4UMk0vANJdxX0lJGk_WYYfYdAZLx5dQ-rtGtwJ5bXX1_o" 
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMSS5VLQP_U-3-9v1yqbVxbW-T_h186PuhJxC8UYpUzGW2fvZtnREMjWBrSvPUXf37eNyo7Tc3SCKQtyDXPOdOZEGuDtLCG44WztaxXXVyFiFADHR-Q5QN1q-mKmOP62TZIW7uXsMJZZr4Y0Jm5Mmyz5b9UEqrAGIrT7XcnDX8QoZqdi5GF_pMxlJrk-LzqRprdkytErogPGr96anBmqQt-ZmeiBEXfau4UMk0vANJdxX0lJGk_WYYfYdAZLx5dQ-rtGtwJ5bXX1_o" 
                                 alt="Dancers silhouetted against dramatic purple lighting" 
                                 className="w-full h-full object-cover opacity-80 mix-blend-luminosity scale-105" 
                             />
@@ -345,7 +346,7 @@ export default function ProgramsPage() {
                   <div className="shimmer-overlay z-20"></div>
                   <div className="sm:w-2/5 h-64 sm:h-auto overflow-hidden relative">
                     <div className="absolute inset-0 bg-primary/20 z-10 mix-blend-overlay"></div>
-                    <img alt="Summer" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZG_n5EEGMVNu3rzas6s3P6v-UyN8YkVIiTmK0ioE-nrAtgRYNOfZEw8k1dazMBuwOJL3hMhVosa-NrNOBJCypjC7-3Mvt2B5ELrgCcCFmTVygRC1Bur0X_EtBGF5mAIK0fXYhvzPW7KWi2wlJDT6MZ1GtRh53l1woAkBUE1ewfWE0DwNaTFswhN18fi5tvOUZrEWgxEQgCsZtzHYr0xmPzTihx29IXrgK7aat93UV8gW8q4Ya6BN8IOzrAdjbF73n_RIeMggy9QhV"/>
+                    <img alt="Summer" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZG_n5EEGMVNu3rzas6s3P6v-UyN8Yk_VIiTmK0ioE-nrAtgRYNOfZEw8k1dazMBuwOJL3hMhVosa-NrNOBJCypjC7-3Mvt2B5ELrgCcCFmTVygRC1Bur0X_EtBGF5mAIK0fXYhvzPW7KWi2wlJDT6MZ1GtRh53l1woAkBUE1ewfWE0DwNaTFswhN18fi5tvOUZrEWgxEQgCsZtzHYr0xmPzTihx29IXrgK7aat93UV8gW8q4Ya6BN8IOzrAdjbF73n_RIeMggy9QhV"/>
                   </div>
                   <div className="p-10 sm:w-3/5 flex flex-col justify-center relative bg-gradient-to-l from-[#2e0f49] to-transparent">
                     <span className="text-[10px] font-black text-primary-light uppercase tracking-[0.3em] mb-4 bg-white/5 inline-block w-fit px-2 py-1 rounded">JULY 15 - AUG 2</span>
@@ -377,7 +378,7 @@ export default function ProgramsPage() {
             <section className="reveal">
               <div className="relative rounded-[4rem] bg-gradient-to-br from-primary-dark via-primary to-purple-900 p-12 md:p-24 overflow-hidden text-center shadow-[0_20px_60px_rgba(74,0,141,0.5)] border border-white/10 tilt-card">
                 <div className="absolute inset-0 bg-[url('https://lh3.googleusercontent.com/aida-public/AB6AXuCGq2svkImppsShMnbJXknBe25QfozHsRJaNDcc7RI2gp9i_gjSPJRUqA5kVlLCiqDkvBR_99AlXO476SZ1d0LQ9uoio-7xpHSq7-EHjrDfrzrVReyc0N514evbIOeUo8g4qwLKS4M9cePHfvsY0xMd4U89_u2us4CYfhSd_2-NgUnBGJn4E3SyinpoNE2fBtFRoehIaGCSwc8Dr2XJQeOfDQrrLfLIXEu70DTFJuRIH4ia_zRBddCx_EhFFcVWHwDgMXIxBU5U8cWD')] opacity-20 bg-cover bg-center mix-blend-overlay grayscale"></div>
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-fuchsia-500/30 rounded-full blur-[100px] animate-pulse"></div>
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[radial-gradient(circle_at_center,rgba(217,70,239,0.3),transparent_60%)] animate-pulse"></div>
                 <div className="relative z-10 max-w-4xl mx-auto space-y-10 tilt-content">
                   <h2 className="text-5xl md:text-8xl font-black text-white tracking-tighter leading-[0.9] drop-shadow-2xl">STAKE YOUR <br/><span className="text-black/40 mix-blend-overlay">CLAIM.</span></h2>
                   <p className="text-xl text-purple-100 font-light leading-relaxed max-w-2xl mx-auto drop-shadow-md">

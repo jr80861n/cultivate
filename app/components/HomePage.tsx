@@ -3,6 +3,22 @@ import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from 'next/link';
 export default function HomePage() {
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.15, rootMargin: "0px 0px -50px 0px" });
+
+    document.querySelectorAll('.reveal-element, .card-fade-up, .hero-exit-anim, .section-unfold').forEach(el => {
+      observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <>
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
@@ -152,7 +168,7 @@ export default function HomePage() {
                 <div className="max-w-3xl card-entry-3d">
                   <span className="text-primary font-black uppercase tracking-[0.5em] text-xs mb-6 block drop-shadow-[0_0_10px_rgba(188,19,254,0.5)]">Our Curriculum</span>
                   <h2 className="text-6xl md:text-8xl font-black uppercase italic tracking-tighter leading-none scroll-mask-text">
-                    Forging<br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-purple-300 to-primary">The Future</span>
+                    Forging<br /><span className="text-transparent bg-clip-text bg-linear-to-r from-primary via-white to-primary animate-pulse shimmer-text-effect">The Future</span>
                   </h2>
                 </div>
                 <a className="inline-flex items-center gap-4 group font-black uppercase tracking-[0.3em] text-[10px] border-b-2 border-primary pb-3 transition-all hover:gap-8 hover:text-primary hover:shadow-[0_20px_20px_-10px_rgba(188,19,254,0.3)] interactive-hover" href="#">
@@ -160,8 +176,9 @@ export default function HomePage() {
                 </a>
               </div>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-start velocity-grid">
-                <div className="card-opacity-fade group relative bg-surface-dark/50 border border-white/10 overflow-hidden shadow-[0_0_50px_-10px_rgba(0,0,0,0.5)] hover:shadow-[0_0_80px_-20px_rgba(188,19,254,0.3)] transition-all duration-700 glitch-hover-effect cursor-pointer interactive-hover">
-                  <div className="relative h-[400px] md:h-[600px] img-parallax-container image-loader">
+                <div className="w-full relative z-10">
+                  <div className="card-fade-up group relative bg-surface-dark/50 border border-white/10 overflow-hidden shadow-[0_0_50px_-10px_rgba(0,0,0,0.5)] hover:shadow-[0_0_80px_-20px_rgba(188,19,254,0.3)] hover:border-primary/40 transition-all duration-700 cursor-pointer h-full rounded-2xl will-change-transform interactive-hover scale-[0.95] hover:scale-100">
+                    <div className="relative h-[400px] md:h-[600px] img-parallax-container image-loader">
                     <Image
                         width={800}
                         height={600}
@@ -189,8 +206,10 @@ export default function HomePage() {
                     </button>
                   </div>
                 </div>
-                <div className="card-opacity-fade stagger-2 group relative bg-surface-dark/50 border border-white/10 overflow-hidden shadow-[0_0_50px_-10px_rgba(0,0,0,0.5)] hover:shadow-[0_0_80px_-20px_rgba(188,19,254,0.3)] transition-all duration-700 lg:mt-32 interactive-hover">
-                  <div className="relative h-[400px] md:h-[600px] img-parallax-container image-loader">
+                </div>
+                <div className="w-full mt-0 lg:mt-32 relative z-20">
+                  <div className="card-fade-up stagger-delay-2 group relative bg-surface-dark/50 border border-white/10 overflow-hidden shadow-[0_0_50px_-10px_rgba(0,0,0,0.5)] hover:shadow-[0_0_80px_-20px_rgba(188,19,254,0.3)] hover:border-primary/40 transition-all duration-700 cursor-pointer h-full rounded-2xl will-change-transform interactive-hover scale-[0.95] hover:scale-100">
+                    <div className="relative h-[400px] md:h-[600px] img-parallax-container image-loader">
                     <Image
                         width={800}
                         height={600}
@@ -218,6 +237,7 @@ export default function HomePage() {
                     </button>
                   </div>
                 </div>
+                </div>
               </div>
             </div>
           </section>
@@ -227,7 +247,7 @@ export default function HomePage() {
                 <div className="max-w-2xl section-unfold">
                   <span className="text-primary font-black uppercase tracking-[0.5em] text-xs mb-6 block drop-shadow-[0_0_10px_rgba(188,19,254,0.5)]">Success Stories</span>
                   <h2 className="text-5xl md:text-7xl font-black uppercase italic tracking-tighter leading-[0.9] scroll-mask-text">
-                    Voices From<br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-white to-primary">The Studio</span>
+                    Voices From<br /><span className="text-transparent bg-clip-text bg-linear-to-r from-primary via-white to-primary animate-pulse shimmer-text-effect">The Studio</span>
                   </h2>
                 </div>
                 <div className="flex gap-4">

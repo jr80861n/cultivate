@@ -1,7 +1,6 @@
 "use client";
 import React, { useState, FormEvent } from "react";
 import Link from "next/link";
-import Image from "next/image";
 
 export default function SigninPage() {
     const [status, setStatus] = useState<"idle" | "loading" | "success">("idle");
@@ -18,9 +17,9 @@ export default function SigninPage() {
             <div className="w-full h-screen flex relative overflow-hidden">
                 <div className="hidden lg:flex lg:w-1/2 relative bg-[#231830] overflow-hidden items-center justify-center group">
                     <div className="absolute inset-0 z-0">
-                        <img alt="Dancers moving dynamically in purple light" className="w-full h-full object-cover opacity-60 mix-blend-luminosity group-hover:scale-105 transition-transform duration-[20s] ease-linear" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBdE0XU07kcfLCMr6QTTqgJGR-vD0_AHrLFdqlC2clY4mNmaY0CzZrY7e8jjE4Tc6RAa1QjVJWL5kskguHXWM6XD_ii3dFKi5TWIDZzNOvd4RSSqH4C0w8BCm-W7TUikhxEVvNMp2GnURUlYVF1kYh0slQCtCTgty8Je-UgCD-GlV_09EjeT5Yto7WUOAHYDBBmVVPmuo78D-hi0ONXLcKm_aypMvYLC3JLuEYJ7GENT8VMlRoPLRDzHVgGFeWatNp4OuUGJsRN31R_" />
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#191022] via-[#7f13ec]/30 to-[#191022] mix-blend-overlay"></div>
-                        <div className="absolute inset-0 bg-[#7f13ec]/20 mix-blend-multiply"></div>
+                        <img alt="Dancers moving dynamically in purple light" className="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-[20s] ease-linear" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBdE0XU07kcfLCMr6QTTqgJGR-vD0_AHrLFdqlC2clY4mNmaY0CzZrY7e8jjE4Tc6RAa1QjVJWL5kskguHXWM6XD_ii3dFKi5TWIDZzNOvd4RSSqH4C0w8BCm-W7TUikhxEVvNMp2GnURUlYVF1kYh0slQCtCTgty8Je-UgCD-GlV_09EjeT5Yto7WUOAHYDBBmVVPmuo78D-hi0ONXLcKm_aypMvYLC3JLuEYJ7GENT8VMlRoPLRDzHVgGFeWatNp4OuUGJsRN31R_" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#191022] via-[#7f13ec]/30 to-[#191022] opacity-80"></div>
+                        <div className="absolute inset-0 bg-[#7f13ec]/20"></div>
                     </div>
                     <div className="relative z-10 p-12 max-w-xl">
                         <div className="mb-6 inline-flex items-center space-x-2 text-[#9d4af2]/80 border border-[#7f13ec]/30 rounded-full px-4 py-1.5 backdrop-blur-sm bg-[#191022]/30">
