@@ -47,22 +47,22 @@ export default function HomePage() {
           </div>
           <div className="hidden lg:flex flex-1 justify-end gap-10 items-center">
             <nav className="flex items-center gap-10">
-              <a className="text-xs font-black uppercase tracking-[0.2em] text-purple-200/80 hover:text-white hover:text-glow transition-all relative group interactive-hover" href="#">
-                Classes
+              <Link className="text-xs font-black uppercase tracking-[0.2em] text-purple-200/80 hover:text-white hover:text-glow transition-all relative group interactive-hover" href="/programs">
+                PROGRAMS
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full box-shadow-[0_0_10px_#bc13fe]"></span>
-              </a>
-              <a className="text-xs font-black uppercase tracking-[0.2em] text-purple-200/80 hover:text-white hover:text-glow transition-all relative group interactive-hover" href="#">
-                About
+              </Link>
+              <Link className="text-xs font-black uppercase tracking-[0.2em] text-purple-200/80 hover:text-white hover:text-glow transition-all relative group interactive-hover" href="/schedule">
+                SCHEDULE
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full box-shadow-[0_0_10px_#bc13fe]"></span>
-              </a>
-              <a className="text-xs font-black uppercase tracking-[0.2em] text-purple-200/80 hover:text-white hover:text-glow transition-all relative group interactive-hover" href="#">
-                Faculty
+              </Link>
+              <Link className="text-xs font-black uppercase tracking-[0.2em] text-purple-200/80 hover:text-white hover:text-glow transition-all relative group interactive-hover" href="/store">
+                STORE
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full box-shadow-[0_0_10px_#bc13fe]"></span>
-              </a>
-              <a className="text-xs font-black uppercase tracking-[0.2em] text-purple-200/80 hover:text-white hover:text-glow transition-all relative group interactive-hover" href="#">
-                Contact
+              </Link>
+              <Link className="text-xs font-black uppercase tracking-[0.2em] text-purple-200/80 hover:text-white hover:text-glow transition-all relative group interactive-hover" href="/about">
+                ABOUT US
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full box-shadow-[0_0_10px_#bc13fe]"></span>
-              </a>
+              </Link>
             </nav>
             <button className="flex items-center justify-center rounded-none h-12 px-8 bg-primary hover:bg-white hover:text-black transition-all duration-500 text-white text-xs font-black uppercase tracking-[0.2em] shadow-[0_0_20px_rgba(188,19,254,0.4)] hover:shadow-[0_0_30px_rgba(255,255,255,0.6)] translate-x-[-4px] translate-y-[-4px] active:translate-x-0 active:translate-y-0 border border-transparent hover:border-primary magnetic-btn interactive-hover">
               Register
@@ -160,14 +160,14 @@ export default function HomePage() {
               </div>
             </div>
           </section>
-          <section className="py-40 bg-background-dark text-white relative overflow-hidden section-unfold">
+          <section className="py-24 bg-background-dark text-white relative overflow-hidden section-unfold">
             <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-background-deep to-transparent z-10"></div>
             <div className="absolute -top-24 -right-24 w-[800px] h-[800px] bg-primary/10 rounded-full blur-[150px] parallax-bg-mid pointer-events-none animate-float-bounce"></div>
             <div className="container mx-auto px-6 lg:px-12 relative z-10">
-              <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-24 gap-12">
+              <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-12 gap-12">
                 <div className="max-w-3xl card-entry-3d">
                   <span className="text-primary font-black uppercase tracking-[0.5em] text-xs mb-6 block drop-shadow-[0_0_10px_rgba(188,19,254,0.5)]">Our Curriculum</span>
-                  <h2 className="text-6xl md:text-8xl font-black uppercase italic tracking-tighter leading-none scroll-mask-text">
+                  <h2 className="text-5xl md:text-7xl font-black uppercase italic tracking-tighter leading-none scroll-mask-text">
                     Forging<br /><span className="text-transparent bg-clip-text bg-linear-to-r from-primary via-white to-primary animate-pulse shimmer-text-effect">The Future</span>
                   </h2>
                 </div>
@@ -175,9 +175,9 @@ export default function HomePage() {
                   Explore All Pathways <span className="material-symbols-outlined">arrow_forward</span>
                 </a>
               </div>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-start velocity-grid">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start velocity-grid">
                 <div className="w-full relative z-10">
-                  <div className="card-fade-up group relative bg-surface-dark/50 border border-white/10 overflow-hidden shadow-[0_0_50px_-10px_rgba(0,0,0,0.5)] hover:shadow-[0_0_80px_-20px_rgba(188,19,254,0.3)] hover:border-primary/40 transition-all duration-700 cursor-pointer h-full rounded-2xl will-change-transform interactive-hover scale-[0.95] hover:scale-100">
+                  <div className="card-fade-up group relative bg-surface-dark/50 border border-white/10 overflow-hidden shadow-[0_0_50px_-10px_rgba(0,0,0,0.5)] hover:shadow-[0_0_80px_-20px_rgba(188,19,254,0.3)] hover:border-primary/40 transition-all duration-700 cursor-pointer h-full rounded-2xl will-change-transform interactive-hover scale-[0.85] hover:scale-90">
                     <div className="relative h-[400px] md:h-[600px] img-parallax-container image-loader">
                     <Image
                         width={800}
@@ -207,8 +207,8 @@ export default function HomePage() {
                   </div>
                 </div>
                 </div>
-                <div className="w-full mt-0 lg:mt-32 relative z-20">
-                  <div className="card-fade-up stagger-delay-2 group relative bg-surface-dark/50 border border-white/10 overflow-hidden shadow-[0_0_50px_-10px_rgba(0,0,0,0.5)] hover:shadow-[0_0_80px_-20px_rgba(188,19,254,0.3)] hover:border-primary/40 transition-all duration-700 cursor-pointer h-full rounded-2xl will-change-transform interactive-hover scale-[0.95] hover:scale-100">
+                <div className="w-full mt-0 lg:mt-16 relative z-20">
+                  <div className="card-fade-up stagger-delay-2 group relative bg-surface-dark/50 border border-white/10 overflow-hidden shadow-[0_0_50px_-10px_rgba(0,0,0,0.5)] hover:shadow-[0_0_80px_-20px_rgba(188,19,254,0.3)] hover:border-primary/40 transition-all duration-700 cursor-pointer h-full rounded-2xl will-change-transform interactive-hover scale-[0.85] hover:scale-90">
                     <div className="relative h-[400px] md:h-[600px] img-parallax-container image-loader">
                     <Image
                         width={800}

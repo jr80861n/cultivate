@@ -32,10 +32,10 @@ export default function StorePage() {
                         <h2 className="text-white text-2xl font-black leading-tight tracking-tighter uppercase drop-shadow-[0_0_10px_rgba(124,58,237,0.5)]">Cultivate</h2>
                     </Link>
                     <nav className="hidden lg:flex items-center gap-10">
-                        <Link className="text-purple-300/70 hover:text-white text-xs font-black uppercase tracking-[0.2em] transition-colors hover:drop-shadow-[0_0_8px_rgba(167,139,250,0.6)]" href="/">Home</Link>
-                        <Link className="text-purple-300/70 hover:text-white text-xs font-black uppercase tracking-[0.2em] transition-colors hover:drop-shadow-[0_0_8px_rgba(167,139,250,0.6)]" href="/programs">Programs</Link>
-                        <Link className="text-purple-300/70 hover:text-white text-xs font-black uppercase tracking-[0.2em] transition-colors hover:drop-shadow-[0_0_8px_rgba(167,139,250,0.6)]" href="/schedule">Schedule</Link>
-                        <Link className="text-purple-300/70 hover:text-white text-xs font-black uppercase tracking-[0.2em] transition-colors hover:drop-shadow-[0_0_8px_rgba(167,139,250,0.6)]" href="/about">About Us</Link>
+                        <Link className="text-purple-300/70 hover:text-white text-xs font-black uppercase tracking-[0.2em] transition-colors hover:drop-shadow-[0_0_8px_rgba(167,139,250,0.6)]" href="/">HOME</Link>
+                        <Link className="text-purple-300/70 hover:text-white text-xs font-black uppercase tracking-[0.2em] transition-colors hover:drop-shadow-[0_0_8px_rgba(167,139,250,0.6)]" href="/programs">PROGRAMS</Link>
+                        <Link className="text-purple-300/70 hover:text-white text-xs font-black uppercase tracking-[0.2em] transition-colors hover:drop-shadow-[0_0_8px_rgba(167,139,250,0.6)]" href="/schedule">SCHEDULE</Link>
+                        <Link className="text-purple-300/70 hover:text-white text-xs font-black uppercase tracking-[0.2em] transition-colors hover:drop-shadow-[0_0_8px_rgba(167,139,250,0.6)]" href="/about">ABOUT US</Link>
                     </nav>
                 </div>
                 <div className="flex flex-1 justify-end gap-6 md:gap-10">

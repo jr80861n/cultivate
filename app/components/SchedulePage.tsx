@@ -85,7 +85,7 @@ export default function SchedulePage() {
     return (
         <div className="bg-background-dark text-gray-100 font-display antialiased overflow-hidden h-screen flex flex-col selection:bg-primary selection:text-white">
             <header className="h-16 border-b border-surface-border bg-surface-dark/95 backdrop-blur supports-[backdrop-filter]:bg-surface-dark/60 flex items-center justify-between px-6 z-30 relative shrink-0">
-                <div className="flex flex-1 items-center gap-8">
+                <div className="flex items-center gap-8">
                     <Link href="/" className="flex items-center gap-3 group cursor-pointer">
                         <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center text-white font-bold text-xl shadow-glow group-hover:scale-105 transition-transform">C</div>
                         <div className="flex flex-col">
@@ -93,13 +93,13 @@ export default function SchedulePage() {
                             <span className="text-[10px] text-gray-500 font-mono tracking-wider uppercase">Engineered Flow</span>
                         </div>
                     </Link>
-                    <nav className="hidden md:flex ml-4 items-center gap-8">
-                        <Link className="text-[11px] font-bold uppercase tracking-[0.2em] text-gray-400 hover:text-white transition-colors" href="/">HOME</Link>
-                        <Link className="text-[11px] font-bold uppercase tracking-[0.2em] text-gray-400 hover:text-white transition-colors" href="/programs">PROGRAMS</Link>
-                        <Link className="text-[11px] font-bold uppercase tracking-[0.2em] text-gray-400 hover:text-white transition-colors" href="/store">STORE</Link>
-                        <Link className="text-[11px] font-bold uppercase tracking-[0.2em] text-gray-400 hover:text-white transition-colors" href="/about">ABOUT US</Link>
-                    </nav>
                 </div>
+                <nav className="hidden md:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
+                    <Link className="text-[11px] font-bold uppercase tracking-[0.2em] text-gray-400 hover:text-white transition-colors" href="/">HOME</Link>
+                    <Link className="text-[11px] font-bold uppercase tracking-[0.2em] text-gray-400 hover:text-white transition-colors" href="/programs">PROGRAMS</Link>
+                    <Link className="text-[11px] font-bold uppercase tracking-[0.2em] text-gray-400 hover:text-white transition-colors" href="/store">STORE</Link>
+                    <Link className="text-[11px] font-bold uppercase tracking-[0.2em] text-gray-400 hover:text-white transition-colors" href="/about">ABOUT US</Link>
+                </nav>
                 <div className="flex items-center gap-5">
                     <div className="flex items-center gap-3 pl-4">
                         <div className="relative">
