@@ -1,9 +1,10 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function ProgramsPage() {
+  const [activeFilter, setActiveFilter] = useState('ALL');
   const blob1Ref = useRef<HTMLDivElement>(null);
   const blob2Ref = useRef<HTMLDivElement>(null);
 
@@ -175,17 +176,17 @@ export default function ProgramsPage() {
           <div className="sticky top-[85px] z-[90] w-full border-b border-white/5 bg-[#1a052b]/95 backdrop-blur-2xl mb-16 shadow-[0_10px_30px_rgba(0,0,0,0.5)] transition-all duration-300" id="filter-bar">
             <div className="max-w-7xl mx-auto px-6 md:px-10">
               <div className="flex gap-10 overflow-x-auto no-scrollbar py-6">
-                <button className="text-primary-light text-xs font-black tracking-widest whitespace-nowrap border-b-2 border-primary-light pb-6 -mb-6 shadow-[0_5px_15px_rgba(168,85,247,0.4)] transition-all hover:text-white">ALL PROGRAMS</button>
-                <button className="text-purple-300/60 hover:text-white transition-all text-xs font-black tracking-widest whitespace-nowrap hover:scale-105">BALLET ACADEMY</button>
-                <button className="text-purple-300/60 hover:text-white transition-all text-xs font-black tracking-widest whitespace-nowrap hover:scale-105">URBAN CULTURE</button>
-                <button className="text-purple-300/60 hover:text-white transition-all text-xs font-black tracking-widest whitespace-nowrap hover:scale-105">CONTEMPORARY</button>
-                <button className="text-purple-300/60 hover:text-white transition-all text-xs font-black tracking-widest whitespace-nowrap hover:scale-105">ELITE SQUAD</button>
+                <button onClick={() => setActiveFilter('ALL')} className={activeFilter === 'ALL' ? "text-primary-light text-xs font-black tracking-widest whitespace-nowrap border-b-2 border-primary-light pb-6 -mb-6 shadow-[0_5px_15px_rgba(168,85,247,0.4)] transition-all hover:text-white" : "text-purple-300/60 hover:text-white transition-all text-xs font-black tracking-widest whitespace-nowrap hover:scale-105"}>ALL PROGRAMS</button>
+                <button onClick={() => setActiveFilter('BALLET')} className={activeFilter === 'BALLET' ? "text-primary-light text-xs font-black tracking-widest whitespace-nowrap border-b-2 border-primary-light pb-6 -mb-6 shadow-[0_5px_15px_rgba(168,85,247,0.4)] transition-all hover:text-white" : "text-purple-300/60 hover:text-white transition-all text-xs font-black tracking-widest whitespace-nowrap hover:scale-105"}>BALLET ACADEMY</button>
+                <button onClick={() => setActiveFilter('URBAN')} className={activeFilter === 'URBAN' ? "text-primary-light text-xs font-black tracking-widest whitespace-nowrap border-b-2 border-primary-light pb-6 -mb-6 shadow-[0_5px_15px_rgba(168,85,247,0.4)] transition-all hover:text-white" : "text-purple-300/60 hover:text-white transition-all text-xs font-black tracking-widest whitespace-nowrap hover:scale-105"}>URBAN CULTURE</button>
+                <button onClick={() => setActiveFilter('CONTEMPORARY')} className={activeFilter === 'CONTEMPORARY' ? "text-primary-light text-xs font-black tracking-widest whitespace-nowrap border-b-2 border-primary-light pb-6 -mb-6 shadow-[0_5px_15px_rgba(168,85,247,0.4)] transition-all hover:text-white" : "text-purple-300/60 hover:text-white transition-all text-xs font-black tracking-widest whitespace-nowrap hover:scale-105"}>CONTEMPORARY</button>
+                <button onClick={() => setActiveFilter('ELITE')} className={activeFilter === 'ELITE' ? "text-primary-light text-xs font-black tracking-widest whitespace-nowrap border-b-2 border-primary-light pb-6 -mb-6 shadow-[0_5px_15px_rgba(168,85,247,0.4)] transition-all hover:text-white" : "text-purple-300/60 hover:text-white transition-all text-xs font-black tracking-widest whitespace-nowrap hover:scale-105"}>ELITE SQUAD</button>
               </div>
             </div>
           </div>
 
           <div className="max-w-7xl mx-auto px-6 md:px-10 pb-32 space-y-32">
-            <section className="relative">
+            <section className="relative" style={{ display: (activeFilter === 'ALL' || activeFilter === 'BALLET' || activeFilter === 'URBAN' || activeFilter === 'CONTEMPORARY') ? '' : 'none' }}>
               <div className="absolute top-20 right-[-10%] w-[600px] h-[600px] bg-[radial-gradient(circle_at_center,rgba(188,19,254,0.1),transparent_60%)] pointer-events-none"></div>
               <div className="absolute bottom-[-10%] left-[-10%] w-[800px] h-[800px] bg-[radial-gradient(circle_at_center,rgba(192,38,211,0.05),transparent_60%)] pointer-events-none"></div>
               <div className="mb-16 reveal origin-left">
@@ -199,7 +200,7 @@ export default function ProgramsPage() {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 perspective-1000">
-                <div className="tilt-card reveal stagger-1 group flex flex-col bg-card-dark/40 backdrop-blur-sm rounded-[2.5rem] overflow-hidden border border-white/5 hover:border-primary-light/40 transition-all duration-300 hover:shadow-[0_20px_50px_rgba(127,19,236,0.15)] relative">
+                <div className="tilt-card reveal stagger-1 group flex flex-col bg-card-dark/40 backdrop-blur-sm rounded-[2.5rem] overflow-hidden border border-white/5 hover:border-primary-light/40 transition-all duration-300 hover:shadow-[0_20px_50px_rgba(127,19,236,0.15)] relative" style={{ display: (activeFilter === 'ALL' || activeFilter === 'BALLET') ? '' : 'none' }}>
                   <div className="shimmer-overlay z-20"></div>
                   <div className="h-80 overflow-hidden relative preserve-3d">
                     <div className="absolute inset-0 bg-gradient-to-t from-card-dark via-transparent to-transparent opacity-90 z-10"></div>
@@ -223,7 +224,7 @@ export default function ProgramsPage() {
                   </div>
                 </div>
 
-                <div className="tilt-card reveal stagger-2 group flex flex-col bg-card-dark/40 backdrop-blur-sm rounded-[2.5rem] overflow-hidden border border-white/5 hover:border-primary-light/40 transition-all duration-300 hover:shadow-[0_20px_50px_rgba(127,19,236,0.15)] relative mt-0 md:mt-10 lg:mt-0">
+                <div className="tilt-card reveal stagger-2 group flex flex-col bg-card-dark/40 backdrop-blur-sm rounded-[2.5rem] overflow-hidden border border-white/5 hover:border-primary-light/40 transition-all duration-300 hover:shadow-[0_20px_50px_rgba(127,19,236,0.15)] relative mt-0 md:mt-10 lg:mt-0" style={{ display: (activeFilter === 'ALL' || activeFilter === 'URBAN') ? '' : 'none' }}>
                   <div className="shimmer-overlay z-20"></div>
                   <div className="h-80 overflow-hidden relative preserve-3d">
                     <div className="absolute inset-0 bg-gradient-to-t from-card-dark via-transparent to-transparent opacity-90 z-10"></div>
@@ -247,7 +248,7 @@ export default function ProgramsPage() {
                   </div>
                 </div>
 
-                <div className="tilt-card reveal stagger-3 group flex flex-col bg-card-dark/40 backdrop-blur-sm rounded-[2.5rem] overflow-hidden border border-white/5 hover:border-primary-light/40 transition-all duration-300 hover:shadow-[0_20px_50px_rgba(127,19,236,0.15)] relative mt-0 md:mt-20 lg:mt-0">
+                <div className="tilt-card reveal stagger-3 group flex flex-col bg-card-dark/40 backdrop-blur-sm rounded-[2.5rem] overflow-hidden border border-white/5 hover:border-primary-light/40 transition-all duration-300 hover:shadow-[0_20px_50px_rgba(127,19,236,0.15)] relative mt-0 md:mt-20 lg:mt-0" style={{ display: (activeFilter === 'ALL' || activeFilter === 'CONTEMPORARY') ? '' : 'none' }}>
                   <div className="shimmer-overlay z-20"></div>
                   <div className="h-80 overflow-hidden relative preserve-3d">
                     <div className="absolute inset-0 bg-gradient-to-t from-card-dark via-transparent to-transparent opacity-90 z-10"></div>
@@ -273,7 +274,7 @@ export default function ProgramsPage() {
               </div>
             </section>
 
-            <section className="reveal">
+            <section className="reveal" style={{ display: (activeFilter === 'ALL' || activeFilter === 'ELITE') ? '' : 'none' }}>
               <div className="relative overflow-hidden rounded-[4rem] bg-[#240a3a] border border-white/10 p-1 group shadow-[0_0_80px_rgba(127,19,236,0.1)] hover:shadow-[0_0_100px_rgba(127,19,236,0.2)] transition-shadow duration-500">
                 <div className="absolute -top-40 -right-40 w-[800px] h-[800px] bg-[radial-gradient(circle_at_center,rgba(188,19,254,0.1),transparent_60%)] group-hover:bg-[radial-gradient(circle_at_center,rgba(188,19,254,0.2),transparent_60%)] transition-all duration-1000"></div>
                 <div className="absolute -bottom-40 -left-40 w-[600px] h-[600px] bg-[radial-gradient(circle_at_center,rgba(192,38,211,0.1),transparent_60%)]"></div>
@@ -331,7 +332,7 @@ export default function ProgramsPage() {
               </div>
             </section>
 
-            <section className="relative">
+            <section className="relative" style={{ display: (activeFilter === 'ALL' || activeFilter === 'BALLET' || activeFilter === 'CONTEMPORARY') ? '' : 'none' }}>
               <div className="mb-16 reveal origin-left">
                 <div className="inline-flex items-center gap-4 bg-background-layer-2/90 backdrop-blur-xl p-6 rounded-2xl border border-white/10 shadow-[0_10px_40px_rgba(0,0,0,0.4)]">
                   <div className="w-2 h-12 bg-gradient-to-b from-fuchsia-500 to-purple-600 shadow-[0_0_15px_#c026d3]"></div>
@@ -342,7 +343,7 @@ export default function ProgramsPage() {
                 </div>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-10 perspective-1000">
-                <div className="tilt-card reveal stagger-1 flex flex-col sm:flex-row bg-background-layer-1/60 rounded-[2.5rem] overflow-hidden border border-white/5 hover:border-primary-light/40 transition-all duration-700 group relative">
+                <div className="tilt-card reveal stagger-1 flex flex-col sm:flex-row bg-background-layer-1/60 rounded-[2.5rem] overflow-hidden border border-white/5 hover:border-primary-light/40 transition-all duration-700 group relative" style={{ display: (activeFilter === 'ALL' || activeFilter === 'CONTEMPORARY') ? '' : 'none' }}>
                   <div className="shimmer-overlay z-20"></div>
                   <div className="sm:w-2/5 h-64 sm:h-auto overflow-hidden relative">
                     <div className="absolute inset-0 bg-primary/20 z-10 mix-blend-overlay"></div>
@@ -357,7 +358,7 @@ export default function ProgramsPage() {
                     </Link>
                   </div>
                 </div>
-                <div className="tilt-card reveal stagger-2 flex flex-col sm:flex-row bg-background-layer-1/60 rounded-[2.5rem] overflow-hidden border border-white/5 hover:border-primary-light/40 transition-all duration-700 group relative">
+                <div className="tilt-card reveal stagger-2 flex flex-col sm:flex-row bg-background-layer-1/60 rounded-[2.5rem] overflow-hidden border border-white/5 hover:border-primary-light/40 transition-all duration-700 group relative" style={{ display: (activeFilter === 'ALL' || activeFilter === 'BALLET') ? '' : 'none' }}>
                   <div className="shimmer-overlay z-20"></div>
                   <div className="sm:w-2/5 h-64 sm:h-auto overflow-hidden relative">
                     <div className="absolute inset-0 bg-primary/20 z-10 mix-blend-overlay"></div>

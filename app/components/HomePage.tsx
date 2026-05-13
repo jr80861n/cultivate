@@ -486,14 +486,13 @@ export default function HomePage() {
                   <div className="flex items-start gap-4 group">
                     <span className="material-symbols-outlined text-primary !text-2xl group-hover:drop-shadow-[0_0_10px_rgba(188,19,254,0.6)] transition-all">location_on</span>
                     <span className="text-xs font-black uppercase tracking-[0.2em] leading-loose group-hover:text-white transition-colors">
-                      4820 Creative Arts Way<br />
-                      Floor 4, Metro Arts District<br />
-                      Los Angeles, CA 90013
+                      123 Poplar Pointe Dr Units A & B<br />
+                      Mooresville, NC 28117
                     </span>
                   </div>
                   <div className="flex items-center gap-4 group">
                     <span className="material-symbols-outlined text-primary !text-2xl group-hover:drop-shadow-[0_0_10px_rgba(188,19,254,0.6)] transition-all">mail</span>
-                    <span className="text-xs font-black uppercase tracking-[0.2em] group-hover:text-white transition-colors">connect@cultivate.studio</span>
+                    <span className="text-xs font-black uppercase tracking-[0.2em] group-hover:text-white transition-colors">cultivatedancenc@gmail.com</span>
                   </div>
                 </div>
               </div>
