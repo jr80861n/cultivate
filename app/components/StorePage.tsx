@@ -1,16 +1,73 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Link from "next/link";
+import Lottie, { LottieRefCurrentProps } from "lottie-react";
+import cartAnimationData from "../../public/Shopping Bag Lottie Animation.json";
+
+export type Product = {
+    name: string;
+    price: number;
+    category: string;
+    image?: string;
+    icon?: string;
+    hasSizes: boolean;
+};
 
 export default function StorePage() {
     const [activeAccordion, setActiveAccordion] = useState<string | null>("price");
-    const [cartCount, setCartCount] = useState(2);
+    const [cartCount, setCartCount] = useState(0);
+    const cartLottieRef = useRef<LottieRefCurrentProps>(null);
+    
+    // Modal State
+    const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+    const [modalSize, setModalSize] = useState<string>("S");
+    
+    // Filters State
+    const [activeCategory, setActiveCategory] = useState<string>("All Products");
+    const [activeSizes, setActiveSizes] = useState<string[]>(["S"]);
+
+    const toggleSize = (size: string) => {
+        setActiveSizes(prev => 
+            prev.includes(size) ? prev.filter(s => s !== size) : [...prev, size]
+        );
+    };
+    
+    // Price Slider State
+    const [priceRange, setPriceRange] = useState([0, 150]);
+    const maxPrice = 200;
+    const sliderRef = useRef<HTMLDivElement>(null);
+    const [draggingThumb, setDraggingThumb] = useState<'min' | 'max' | null>(null);
+
+    const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>, thumb: 'min' | 'max') => {
+        setDraggingThumb(thumb);
+        e.currentTarget.setPointerCapture(e.pointerId);
+    };
+
+    const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+        if (!draggingThumb || !sliderRef.current) return;
+        const rect = sliderRef.current.getBoundingClientRect();
+        let pct = (e.clientX - rect.left) / rect.width;
+        pct = Math.max(0, Math.min(1, pct));
+        const val = Math.round(pct * maxPrice);
+        
+        if (draggingThumb === 'min') {
+            setPriceRange([Math.min(val, priceRange[1] - 5), priceRange[1]]);
+        } else {
+            setPriceRange([priceRange[0], Math.max(val, priceRange[0] + 5)]);
+        }
+    };
+
+    const handlePointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
+        setDraggingThumb(null);
+        e.currentTarget.releasePointerCapture(e.pointerId);
+    };
 
     const toggleAccordion = (id: string) => {
         setActiveAccordion(prev => prev === id ? null : id);
     };
 
     const handleAddToCart = () => {
+        cartLottieRef.current?.goToAndPlay(0, true);
         setTimeout(() => {
             setCartCount(prev => prev + 1);
         }, 800);
@@ -42,17 +99,22 @@ export default function StorePage() {
                     <label className="hidden md:flex flex-col min-w-40 !h-11 max-w-72 w-full group">
                         <div className="flex w-full flex-1 items-stretch rounded-full h-full border border-primary/30 bg-surface-dark/50 overflow-hidden focus-within:ring-2 focus-within:ring-primary/60 focus-within:border-primary transition-all shadow-inner shadow-black/40">
                             <div className="text-primary flex items-center justify-center pl-5 pr-2">
-                                <span className="material-icons text-[20px] group-focus-within:text-white transition-colors">search</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-focus-within:text-white transition-colors">
+                                    <circle cx="11" cy="11" r="8"></circle>
+                                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                </svg>
                             </div>
                             <input className="w-full min-w-0 flex-1 border-none bg-transparent text-white placeholder:text-purple-400/50 px-0 text-sm focus:ring-0 outline-none" placeholder="Search the collection..."/>
                         </div>
                     </label>
                     <div className="flex items-center gap-4">
-                        <button className="relative flex items-center justify-center rounded-full h-11 w-11 bg-surface-dark/80 border border-primary/30 hover:border-primary hover:bg-primary/20 text-primary-light hover:text-white transition-all group shadow-[0_0_15px_-3px_rgba(124,58,237,0.15)] z-20" id="cart-btn">
-                            <span className="material-icons group-hover:scale-110 transition-transform font-light">shopping_bag</span>
-                            <span key={cartCount} className="animate-shake absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-[10px] text-white font-black ring-4 ring-[#0a0512] shadow-lg shadow-primary/40">
-                                {cartCount}
-                            </span>
+                        <button className="relative flex items-center justify-center rounded-full h-14 w-14 bg-surface-dark/80 border border-primary/30 hover:border-primary hover:bg-primary/20 text-primary-light hover:text-white transition-all group shadow-[0_0_15px_-3px_rgba(124,58,237,0.15)] z-20" id="cart-btn">
+                            <Lottie lottieRef={cartLottieRef} animationData={cartAnimationData} loop={false} autoplay={false} className="w-9 h-9 group-hover:scale-110 transition-transform opacity-80 group-hover:opacity-100" />
+                            {cartCount > 0 && (
+                                <span key={cartCount} className="animate-shake absolute top-0 right-0 flex h-6 w-6 items-center justify-center rounded-full bg-primary text-[11px] text-white font-black ring-4 ring-[#0a0512] shadow-lg shadow-primary/40">
+                                    {cartCount}
+                                </span>
+                            )}
                         </button>
                         <button className="lg:hidden flex items-center justify-center rounded-xl h-11 w-11 border border-primary/20 hover:bg-primary/20 text-white transition-colors">
                             <span className="material-icons">menu</span>
@@ -65,29 +127,36 @@ export default function StorePage() {
                 <aside className="w-full md:w-72 lg:w-80 shrink-0 border-r border-primary/10 p-6 lg:p-10 hidden md:block h-[calc(100vh-120px)] sticky top-[100px] glass-panel rounded-r-3xl mr-8">
                     <div className="flex items-center justify-between mb-12">
                         <h3 className="text-xs font-black text-primary-light uppercase tracking-[0.3em] drop-shadow-sm">Marketplace</h3>
-                        <button className="text-[10px] font-black text-purple-400 hover:text-white transition-colors uppercase tracking-widest border-b border-purple-400/20 hover:border-white pb-0.5" onClick={() => setActiveAccordion(null)}>Reset Filters</button>
+                        <button className="text-[10px] font-black text-purple-400 hover:text-white transition-colors uppercase tracking-widest border-b border-purple-400/20 hover:border-white pb-0.5" onClick={() => { setActiveAccordion(null); setPriceRange([0, 150]); setActiveCategory("All Products"); setActiveSizes(["S"]); }}>Reset Filters</button>
                     </div>
                     
                     <div className="space-y-10">
                         <div className={`accordion-wrapper group/acc ${activeAccordion === 'categories' ? 'active' : ''}`}>
                             <h4 className="text-sm font-bold text-white mb-4 flex items-center justify-between cursor-pointer hover:text-primary-light transition-colors" onClick={() => toggleAccordion('categories')}>
                                 <span className="flex items-center gap-2"><span className="w-1 h-4 bg-primary rounded-full"></span>Categories</span>
-                                <span className="material-icons text-primary accordion-icon">chevron_right</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary accordion-icon"><polyline points="9 18 15 12 9 6"></polyline></svg>
                             </h4>
                             <div className="accordion-content">
-                                <div className="space-y-3 pb-4">
-                                    <button className="w-full flex items-center justify-between px-4 py-3 rounded-xl bg-primary/20 border border-primary/40 text-white text-xs font-black uppercase tracking-wider shadow-[0_0_15px_rgba(124,58,237,0.2)]">
-                                        All Products <span className="size-1.5 rounded-full bg-primary shadow-[0_0_8px_currentColor]"></span>
-                                    </button>
-                                    <button className="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-primary/10 text-purple-300 hover:text-white text-xs font-bold uppercase tracking-wider transition-all border border-transparent hover:border-primary/20 group">
-                                        Apparel <span className="material-icons text-[14px] opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all text-primary">chevron_right</span>
-                                    </button>
-                                    <button className="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-primary/10 text-purple-300 hover:text-white text-xs font-bold uppercase tracking-wider transition-all border border-transparent hover:border-primary/20 group">
-                                        Class Packs <span className="material-icons text-[14px] opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all text-primary">chevron_right</span>
-                                    </button>
-                                    <button className="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-primary/10 text-purple-300 hover:text-white text-xs font-bold uppercase tracking-wider transition-all border border-transparent hover:border-primary/20 group">
-                                        Accessories <span className="material-icons text-[14px] opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all text-primary">chevron_right</span>
-                                    </button>
+                                <div>
+                                    <div className="space-y-3 pb-4">
+                                        {['All Products', 'Apparel', 'Class Packs', 'Accessories'].map(cat => {
+                                            const isActive = activeCategory === cat;
+                                            return (
+                                                <button 
+                                                    key={cat} 
+                                                    onClick={() => setActiveCategory(cat)} 
+                                                    className={`w-full flex items-center justify-between px-4 py-3 rounded-xl transition-all border group ${isActive ? 'bg-primary/20 border-primary/40 text-white shadow-[0_0_15px_rgba(124,58,237,0.2)]' : 'hover:bg-primary/10 text-purple-300 hover:text-white border-transparent hover:border-primary/20'} text-xs font-bold uppercase tracking-wider`}
+                                                >
+                                                    {cat}
+                                                    {isActive ? (
+                                                        <span className="size-1.5 rounded-full bg-primary shadow-[0_0_8px_currentColor]"></span>
+                                                    ) : (
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all text-primary"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                                                    )}
+                                                </button>
+                                            );
+                                        })}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -95,34 +164,59 @@ export default function StorePage() {
                         <div className={`accordion-wrapper group/acc ${activeAccordion === 'size' ? 'active' : ''}`}>
                             <h4 className="text-sm font-bold text-white mb-4 flex items-center justify-between cursor-pointer hover:text-primary-light transition-colors" onClick={() => toggleAccordion('size')}>
                                 <span className="flex items-center gap-2"><span className="w-1 h-4 bg-primary/60 rounded-full"></span>Size Preference</span>
-                                <span className="material-icons text-primary accordion-icon">chevron_right</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary accordion-icon"><polyline points="9 18 15 12 9 6"></polyline></svg>
                             </h4>
                             <div className="accordion-content">
-                                <div className="grid grid-cols-3 gap-2 pb-4">
-                                    <button className="h-10 rounded-lg border border-primary/20 hover:border-primary/60 bg-surface-dark/40 text-purple-300 text-[10px] font-black hover:text-white transition-all hover:shadow-[0_0_10px_rgba(124,58,237,0.2)]">XS</button>
-                                    <button className="h-10 rounded-lg bg-primary text-white text-[10px] font-black shadow-lg shadow-primary/30 border border-primary ring-2 ring-primary/20">S</button>
-                                    <button className="h-10 rounded-lg border border-primary/20 hover:border-primary/60 bg-surface-dark/40 text-purple-300 text-[10px] font-black hover:text-white transition-all hover:shadow-[0_0_10px_rgba(124,58,237,0.2)]">M</button>
-                                    <button className="h-10 rounded-lg border border-primary/20 hover:border-primary/60 bg-surface-dark/40 text-purple-300 text-[10px] font-black hover:text-white transition-all hover:shadow-[0_0_10px_rgba(124,58,237,0.2)]">L</button>
-                                    <button className="h-10 rounded-lg border border-primary/20 hover:border-primary/60 bg-surface-dark/40 text-purple-300 text-[10px] font-black hover:text-white transition-all hover:shadow-[0_0_10px_rgba(124,58,237,0.2)]">XL</button>
+                                <div>
+                                    <div className="grid grid-cols-3 gap-2 pb-4">
+                                        {['XS', 'S', 'M', 'L', 'XL'].map(size => {
+                                            const isActive = activeSizes.includes(size);
+                                            return (
+                                                <button 
+                                                    key={size} 
+                                                    onClick={() => toggleSize(size)} 
+                                                    className={`h-10 rounded-lg text-[10px] font-black transition-all ${isActive ? 'bg-primary text-white shadow-lg shadow-primary/30 border border-primary ring-2 ring-primary/20' : 'border border-primary/20 hover:border-primary/60 bg-surface-dark/40 text-purple-300 hover:text-white hover:shadow-[0_0_10px_rgba(124,58,237,0.2)]'}`}
+                                                >
+                                                    {size}
+                                                </button>
+                                            );
+                                        })}
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div className={`accordion-wrapper group/acc ${activeAccordion === 'price' ? 'active' : ''}`}>
-                            <h4 className="text-sm font-bold text-white mb-4 flex items-center justify-between cursor-pointer hover:text-primary-light transition-colors" onClick={() => toggleAccordion('price')}>
+                        <div>
+                            <h4 className="text-sm font-bold text-white mb-4 flex items-center justify-between">
                                 <span className="flex items-center gap-2"><span className="w-1 h-4 bg-primary/40 rounded-full"></span>Price Point</span>
-                                <span className="material-icons text-primary accordion-icon rotate-90">chevron_right</span>
                             </h4>
-                            <div className="accordion-content">
+                            <div>
                                 <div className="px-2 pb-4">
-                                    <div className="relative h-1 bg-surface-dark rounded-full mb-6 ring-1 ring-white/5">
-                                        <div className="absolute left-0 right-[25%] top-0 bottom-0 bg-gradient-to-r from-primary-dark to-primary rounded-full shadow-[0_0_10px_rgba(124,58,237,0.5)]"></div>
-                                        <div className="absolute left-0 top-1/2 -translate-y-1/2 h-4 w-4 bg-white border-2 border-primary rounded-full shadow-lg cursor-pointer hover:scale-110 transition-transform"></div>
-                                        <div className="absolute right-[25%] top-1/2 -translate-y-1/2 h-4 w-4 bg-white border-2 border-primary rounded-full shadow-lg cursor-pointer hover:scale-110 transition-transform"></div>
+                                    <div className="relative h-1 bg-surface-dark rounded-full mb-6 ring-1 ring-white/5" ref={sliderRef}>
+                                        <div 
+                                            className="absolute top-0 bottom-0 bg-gradient-to-r from-primary-dark to-primary rounded-full shadow-[0_0_10px_rgba(124,58,237,0.5)]"
+                                            style={{ left: `${(priceRange[0] / maxPrice) * 100}%`, right: `${100 - (priceRange[1] / maxPrice) * 100}%` }}
+                                        ></div>
+                                        <div 
+                                            className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 h-4 w-4 bg-white border-2 border-primary rounded-full shadow-lg cursor-grab active:cursor-grabbing hover:scale-110 transition-transform touch-none"
+                                            style={{ left: `${(priceRange[0] / maxPrice) * 100}%` }}
+                                            onPointerDown={(e) => handlePointerDown(e, 'min')}
+                                            onPointerMove={handlePointerMove}
+                                            onPointerUp={handlePointerUp}
+                                            onPointerCancel={handlePointerUp}
+                                        ></div>
+                                        <div 
+                                            className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 h-4 w-4 bg-white border-2 border-primary rounded-full shadow-lg cursor-grab active:cursor-grabbing hover:scale-110 transition-transform touch-none"
+                                            style={{ left: `${(priceRange[1] / maxPrice) * 100}%` }}
+                                            onPointerDown={(e) => handlePointerDown(e, 'max')}
+                                            onPointerMove={handlePointerMove}
+                                            onPointerUp={handlePointerUp}
+                                            onPointerCancel={handlePointerUp}
+                                        ></div>
                                     </div>
                                     <div className="flex items-center justify-between text-[10px] font-black text-purple-300 uppercase tracking-widest">
-                                        <span>Min: $0</span>
-                                        <span>Max: $150</span>
+                                        <span>Min: ${priceRange[0]}</span>
+                                        <span>Max: ${priceRange[1]}</span>
                                     </div>
                                 </div>
                             </div>
@@ -139,16 +233,12 @@ export default function StorePage() {
                             </h1>
                             <p className="text-purple-300 font-medium text-lg tracking-tight max-w-xl">Precision engineered for the studio &amp; stage. Immerse yourself in the aesthetic.</p>
                         </div>
-                        <div className="flex items-center gap-4">
-                            <button className="flex items-center gap-4 px-8 h-14 rounded-2xl bg-surface-dark/50 border border-primary/30 text-white text-xs font-black uppercase tracking-widest transition-all hover:border-primary hover:bg-primary/10 hover:shadow-glow-sm group">
-                                <span>Sort By: Popularity</span>
-                                <span className="material-icons text-primary group-hover:text-white transition-colors text-[20px]">expand_more</span>
-                            </button>
-                        </div>
+
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-x-8 gap-y-12 lg:gap-x-10 lg:gap-y-16">
                         
+                        {priceRange[0] <= 35 && priceRange[1] >= 35 && (activeCategory === 'All Products' || activeCategory === 'Apparel') && (
                         <div className="group flex flex-col animate-elastic-pop stagger-1 magnetic-card">
                             <div className="magnetic-inner relative aspect-[4/5] overflow-hidden rounded-[2rem] store-glass-card mb-6 shadow-2xl">
                                 <img alt="Cultivate Cropped Tee" className="product-image-zoom h-full w-full object-cover object-center transform transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGEmWIJwuazRGC5WIOizgwjMoYID9AMbowt6QrJ2auOj4htUrV838Cm3WtBCqmomzZtfPbg5ICwgALLvSIdyw-Y3qdIv4Xaex-hBRlksKt96cKzHfzMgwxSpPjJUoJ7OQUtKHz1rduKTUPmx8mAigSEgq6F3C_LMKNHm4UmcrL0A_EyA5lq09SFymJX_IEnBsnlry_Vk-RfkYLBnJIjX67k_XteNKqnzRmJpKagbLUBpKu7ZS_gJ6VKZq9vWfjdMGorrZV707DRvQh"/>
@@ -156,14 +246,10 @@ export default function StorePage() {
                                     <span className="px-4 py-1.5 bg-primary/90 backdrop-blur-md text-white border border-white/20 rounded-full text-[9px] font-black uppercase tracking-[0.2em] shadow-lg shadow-primary/40">New Drop</span>
                                 </div>
                                 <div className="absolute inset-0 bg-gradient-to-t from-[#2e1065] via-primary/10 to-transparent opacity-0 group-hover:opacity-90 transition-opacity duration-500"></div>
-                                <button className="quick-view-btn absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-14 bg-white/20 backdrop-blur-md border border-white/40 rounded-full flex items-center justify-center opacity-0 z-20 hover:bg-white hover:text-primary transition-colors text-white shadow-xl">
-                                    <span className="material-icons text-2xl">visibility</span>
+                                <button onClick={() => setSelectedProduct({ name: 'Cropped Motion Tee', price: 35, category: 'Performance Apparel', image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAGEmWIJwuazRGC5WIOizgwjMoYID9AMbowt6QrJ2auOj4htUrV838Cm3WtBCqmomzZtfPbg5ICwgALLvSIdyw-Y3qdIv4Xaex-hBRlksKt96cKzHfzMgwxSpPjJUoJ7OQUtKHz1rduKTUPmx8mAigSEgq6F3C_LMKNHm4UmcrL0A_EyA5lq09SFymJX_IEnBsnlry_Vk-RfkYLBnJIjX67k_XteNKqnzRmJpKagbLUBpKu7ZS_gJ6VKZq9vWfjdMGorrZV707DRvQh', hasSizes: true })} className="quick-view-btn absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-14 bg-white/20 backdrop-blur-md border border-white/40 rounded-full flex items-center justify-center opacity-0 z-20 hover:bg-white hover:text-primary transition-colors text-white shadow-xl">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
                                 </button>
-                                <button onClick={handleAddToCart} className="btn-loading-bar flying-item-trigger absolute bottom-6 left-1/2 -translate-x-1/2 w-[85%] py-4 bg-white text-primary-dark rounded-xl font-black text-[10px] uppercase tracking-[0.2em] flex items-center justify-center gap-3 opacity-0 translate-y-6 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 shadow-[0_0_20px_rgba(255,255,255,0.4)] hover:scale-105 active:scale-95">
-                                    <span className="material-icons text-[18px]">add_shopping_cart</span>
-                                    Secure Item
-                                    <span className="fly-animation-target hidden absolute left-1/2 top-1/2 w-8 h-8 bg-primary rounded-full z-50 pointer-events-none"></span>
-                                </button>
+
                             </div>
                             <div className="px-2">
                                 <div className="flex justify-between items-start mb-2">
@@ -177,7 +263,9 @@ export default function StorePage() {
                                 </div>
                             </div>
                         </div>
+                        )}
 
+                        {priceRange[0] <= 180 && priceRange[1] >= 180 && (activeCategory === 'All Products' || activeCategory === 'Class Packs') && (
                         <div className="group flex flex-col animate-elastic-pop stagger-2 magnetic-card">
                             <div className="magnetic-inner relative aspect-[4/5] overflow-hidden rounded-[2rem] bg-gradient-to-br from-primary-dark via-purple-900 to-black mb-6 shadow-2xl border border-primary/30">
                                 <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-8 z-10 product-image-zoom">
@@ -188,13 +276,10 @@ export default function StorePage() {
                                     <p className="text-accent-purple/80 text-[10px] font-black uppercase tracking-[0.3em] mt-2 border border-accent-purple/30 px-3 py-1 rounded-full">Full Studio Access</p>
                                 </div>
                                 <div className="absolute inset-0 opacity-60 bg-[radial-gradient(circle_at_50%_120%,rgba(139,92,246,0.8),transparent)] mix-blend-overlay"></div>
-                                <button className="quick-view-btn absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-14 bg-white/20 backdrop-blur-md border border-white/40 rounded-full flex items-center justify-center opacity-0 z-20 hover:bg-white hover:text-primary transition-colors text-white shadow-xl">
-                                    <span className="material-icons text-2xl">visibility</span>
+                                <button onClick={() => setSelectedProduct({ name: 'Monthly Unlimited', price: 180, category: 'Membership Plans', icon: 'auto_awesome', hasSizes: false })} className="quick-view-btn absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-14 bg-white/20 backdrop-blur-md border border-white/40 rounded-full flex items-center justify-center opacity-0 z-20 hover:bg-white hover:text-primary transition-colors text-white shadow-xl">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
                                 </button>
-                                <button onClick={handleAddToCart} className="btn-loading-bar flying-item-trigger absolute bottom-6 left-1/2 -translate-x-1/2 w-[85%] py-4 bg-primary text-white rounded-xl font-black text-[10px] uppercase tracking-[0.2em] flex items-center justify-center gap-3 opacity-0 translate-y-6 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 shadow-glow border border-white/20 hover:bg-primary-light active:scale-95">
-                                    Select Membership
-                                    <span className="fly-animation-target hidden absolute left-1/2 top-1/2 w-8 h-8 bg-primary-light rounded-full z-50 pointer-events-none"></span>
-                                </button>
+
                             </div>
                             <div className="px-2">
                                 <div className="flex justify-between items-start mb-2">
@@ -204,7 +289,9 @@ export default function StorePage() {
                                 <p className="text-[10px] font-black text-purple-400 uppercase tracking-widest">Membership Plans</p>
                             </div>
                         </div>
+                        )}
 
+                        {priceRange[0] <= 45 && priceRange[1] >= 45 && (activeCategory === 'All Products' || activeCategory === 'Class Packs') && (
                         <div className="group flex flex-col animate-elastic-pop stagger-3 magnetic-card">
                             <div className="magnetic-inner relative aspect-[4/5] overflow-hidden rounded-[2rem] store-glass-card mb-6 shadow-2xl">
                                 <img alt="Contemporary Jazz Workshop" className="product-image-zoom h-full w-full object-cover object-center brightness-90 group-hover:brightness-100 transition-all" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCd9yNaWgv6t691EHuagJsLnQ7q7aVs1ftYF66qRkSJfSljhWskg4TvJk6ev5e0kzZBz702VANWzuYs4VVC72tA6lmzw-OfdoROwBE2wxuC4boblL74HL-sgzUtg52MXcMf-3yOzV46-6LooOZMTza1Y6kUpCyOQaKkqkvD7VoCx6YpaStdmvIyVBauslYvMW-xXgxn-goOQcB7lMyDddgrf6CRFFfTNFv94y9dZzjhWEY1euRtvm4bFIzKMzUj1Mhbdm-rsoqTBn_o"/>
@@ -212,13 +299,10 @@ export default function StorePage() {
                                     <span className="px-4 py-1.5 bg-white text-primary-dark rounded-full text-[9px] font-black uppercase tracking-[0.2em] shadow-xl border border-primary/20">Limited Entry</span>
                                 </div>
                                 <div className="absolute inset-0 bg-gradient-to-t from-[#2e1065] via-primary/10 to-transparent opacity-0 group-hover:opacity-90 transition-opacity duration-500"></div>
-                                <button className="quick-view-btn absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-14 bg-white/20 backdrop-blur-md border border-white/40 rounded-full flex items-center justify-center opacity-0 z-20 hover:bg-white hover:text-primary transition-colors text-white shadow-xl">
-                                    <span className="material-icons text-2xl">visibility</span>
+                                <button onClick={() => setSelectedProduct({ name: 'Contemporary Lab', price: 45, category: 'Masterclass • Sept 24', image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCd9yNaWgv6t691EHuagJsLnQ7q7aVs1ftYF66qRkSJfSljhWskg4TvJk6ev5e0kzZBz702VANWzuYs4VVC72tA6lmzw-OfdoROwBE2wxuC4boblL74HL-sgzUtg52MXcMf-3yOzV46-6LooOZMTza1Y6kUpCyOQaKkqkvD7VoCx6YpaStdmvIyVBauslYvMW-xXgxn-goOQcB7lMyDddgrf6CRFFfTNFv94y9dZzjhWEY1euRtvm4bFIzKMzUj1Mhbdm-rsoqTBn_o', hasSizes: false })} className="quick-view-btn absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-14 bg-white/20 backdrop-blur-md border border-white/40 rounded-full flex items-center justify-center opacity-0 z-20 hover:bg-white hover:text-primary transition-colors text-white shadow-xl">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
                                 </button>
-                                <button onClick={handleAddToCart} className="btn-loading-bar flying-item-trigger absolute bottom-6 left-1/2 -translate-x-1/2 w-[85%] py-4 bg-primary-dark text-white rounded-xl font-black text-[10px] uppercase tracking-[0.2em] flex items-center justify-center gap-3 opacity-0 translate-y-6 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 shadow-glow border border-white/10 hover:bg-primary hover:border-white/30 active:scale-95">
-                                    Reserve Spot
-                                    <span className="fly-animation-target hidden absolute left-1/2 top-1/2 w-8 h-8 bg-white rounded-full z-50 pointer-events-none"></span>
-                                </button>
+
                             </div>
                             <div className="px-2">
                                 <div className="flex justify-between items-start mb-2">
@@ -228,18 +312,17 @@ export default function StorePage() {
                                 <p className="text-[10px] font-black text-purple-400 uppercase tracking-widest">Masterclass • Sept 24</p>
                             </div>
                         </div>
+                        )}
 
+                        {priceRange[0] <= 24 && priceRange[1] >= 24 && (activeCategory === 'All Products' || activeCategory === 'Accessories') && (
                         <div className="group flex flex-col animate-elastic-pop stagger-4 magnetic-card">
                             <div className="magnetic-inner relative aspect-[4/5] overflow-hidden rounded-[2rem] store-glass-card mb-6 shadow-2xl">
                                 <img alt="Studio Matte Bottle" className="product-image-zoom h-full w-full object-cover object-center" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAaAiTcC5ITlvaBUSr14P2dkGEnsS18WUpGqzaTQ1iPS4ttalLRebbaKtgqNE2mTX7KOE81LxB3witLWjFIwGPmvgsYOvMHvLR3BzvU_o3K2PkhbcItfW8-9QOXgtCUTMg1-imvcumt1vpf0UkyItHJpCJbv50JKlJ59ctcUKH9hCb56WzvzIQxZ4XOPp1tFzUhoVLohsG9uR6-B9G2UkFXugdnCnP3Qk9SIoEtpchoIaLdzIb64Ws6QcuO5a3ibHrHt_UKV3Jo4Ef8"/>
                                 <div className="absolute inset-0 bg-gradient-to-t from-[#2e1065] via-primary/10 to-transparent opacity-0 group-hover:opacity-90 transition-opacity duration-500"></div>
-                                <button className="quick-view-btn absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-14 bg-white/20 backdrop-blur-md border border-white/40 rounded-full flex items-center justify-center opacity-0 z-20 hover:bg-white hover:text-primary transition-colors text-white shadow-xl">
-                                    <span className="material-icons text-2xl">visibility</span>
+                                <button onClick={() => setSelectedProduct({ name: 'Matte Hydration Cell', price: 24, category: 'Studio Accessories', image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAaAiTcC5ITlvaBUSr14P2dkGEnsS18WUpGqzaTQ1iPS4ttalLRebbaKtgqNE2mTX7KOE81LxB3witLWjFIwGPmvgsYOvMHvLR3BzvU_o3K2PkhbcItfW8-9QOXgtCUTMg1-imvcumt1vpf0UkyItHJpCJbv50JKlJ59ctcUKH9hCb56WzvzIQxZ4XOPp1tFzUhoVLohsG9uR6-B9G2UkFXugdnCnP3Qk9SIoEtpchoIaLdzIb64Ws6QcuO5a3ibHrHt_UKV3Jo4Ef8', hasSizes: false })} className="quick-view-btn absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-14 bg-white/20 backdrop-blur-md border border-white/40 rounded-full flex items-center justify-center opacity-0 z-20 hover:bg-white hover:text-primary transition-colors text-white shadow-xl">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
                                 </button>
-                                <button onClick={handleAddToCart} className="btn-loading-bar flying-item-trigger absolute bottom-6 left-1/2 -translate-x-1/2 w-[85%] py-4 bg-white text-primary-dark rounded-xl font-black text-[10px] uppercase tracking-[0.2em] flex items-center justify-center gap-3 opacity-0 translate-y-6 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 shadow-[0_0_20px_rgba(255,255,255,0.4)] hover:scale-105 active:scale-95">
-                                    Add to Bag
-                                    <span className="fly-animation-target hidden absolute left-1/2 top-1/2 w-8 h-8 bg-primary rounded-full z-50 pointer-events-none"></span>
-                                </button>
+
                             </div>
                             <div className="px-2">
                                 <div className="flex justify-between items-start mb-2">
@@ -249,18 +332,17 @@ export default function StorePage() {
                                 <p className="text-[10px] font-black text-purple-400 uppercase tracking-widest">Studio Accessories</p>
                             </div>
                         </div>
+                        )}
 
+                        {priceRange[0] <= 68 && priceRange[1] >= 68 && (activeCategory === 'All Products' || activeCategory === 'Apparel') && (
                         <div className="group flex flex-col animate-elastic-pop stagger-5 magnetic-card">
                             <div className="magnetic-inner relative aspect-[4/5] overflow-hidden rounded-[2rem] store-glass-card mb-6 border border-primary/10 hover:border-primary/40 transition-colors">
                                 <img alt="Movement Joggers" className="product-image-zoom h-full w-full object-cover object-center" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAif6zcgqJvksz9fC8wpAyKmUdpPLPkYjKit00fTdOnBB9mty4NUgJI7MyHCeK7RQ_iMhMSy1jptk4eO70DTdda1-PG4u6Km1fjRhEgq2-jbXd5etm4AmTmRjHT4K-AWSFQzKMKM6pcVVA8JXVrvgmMxbpzLQQMRN9MceKsMZ3Ud4sZbY_lU4N8D8Hm1BcOIv5WPJOunGxHEXyV0hZKPPBIJSLeK9_NcQ3A5lP-cZYt8rGY8s-c2IGhanNi-xMh1ExiN9s-shFopUB1"/>
                                 <div className="absolute inset-0 bg-gradient-to-t from-[#2e1065] via-primary/10 to-transparent opacity-0 group-hover:opacity-90 transition-opacity duration-500"></div>
-                                <button className="quick-view-btn absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-14 bg-white/20 backdrop-blur-md border border-white/40 rounded-full flex items-center justify-center opacity-0 z-20 hover:bg-white hover:text-primary transition-colors text-white shadow-xl">
-                                    <span className="material-icons text-2xl">visibility</span>
+                                <button onClick={() => setSelectedProduct({ name: 'Flowstate Joggers', price: 68, category: 'Apparel', image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAif6zcgqJvksz9fC8wpAyKmUdpPLPkYjKit00fTdOnBB9mty4NUgJI7MyHCeK7RQ_iMhMSy1jptk4eO70DTdda1-PG4u6Km1fjRhEgq2-jbXd5etm4AmTmRjHT4K-AWSFQzKMKM6pcVVA8JXVrvgmMxbpzLQQMRN9MceKsMZ3Ud4sZbY_lU4N8D8Hm1BcOIv5WPJOunGxHEXyV0hZKPPBIJSLeK9_NcQ3A5lP-cZYt8rGY8s-c2IGhanNi-xMh1ExiN9s-shFopUB1', hasSizes: true })} className="quick-view-btn absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-14 bg-white/20 backdrop-blur-md border border-white/40 rounded-full flex items-center justify-center opacity-0 z-20 hover:bg-white hover:text-primary transition-colors text-white shadow-xl">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
                                 </button>
-                                <button onClick={handleAddToCart} className="btn-loading-bar flying-item-trigger absolute bottom-6 left-1/2 -translate-x-1/2 w-[85%] py-4 bg-primary text-white rounded-xl font-black text-[10px] uppercase tracking-[0.2em] opacity-0 translate-y-6 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 shadow-glow hover:bg-primary-light active:scale-95">
-                                    Secure Item
-                                    <span className="fly-animation-target hidden absolute left-1/2 top-1/2 w-8 h-8 bg-primary-light rounded-full z-50 pointer-events-none"></span>
-                                </button>
+
                             </div>
                             <div className="px-2">
                                 <div className="flex justify-between items-start mb-2">
@@ -270,7 +352,9 @@ export default function StorePage() {
                                 <p className="text-[10px] font-black text-purple-400 uppercase tracking-widest">Apparel</p>
                             </div>
                         </div>
+                        )}
 
+                        {priceRange[0] <= 28 && priceRange[1] >= 28 && (activeCategory === 'All Products' || activeCategory === 'Class Packs') && (
                         <div className="group flex flex-col animate-elastic-pop stagger-6 magnetic-card">
                             <div className="magnetic-inner relative aspect-[4/5] overflow-hidden rounded-[2rem] bg-surface-dark mb-6 border border-primary/20 group-hover:border-primary transition-colors shadow-2xl">
                                 <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-8 z-10 product-image-zoom">
@@ -278,13 +362,10 @@ export default function StorePage() {
                                     <h4 className="text-4xl font-black text-white leading-none uppercase tracking-tighter drop-shadow-lg">Single<br/>Session</h4>
                                 </div>
                                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(124,58,237,0.4),transparent)] mix-blend-screen"></div>
-                                <button className="quick-view-btn absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-14 bg-white/20 backdrop-blur-md border border-white/40 rounded-full flex items-center justify-center opacity-0 z-20 hover:bg-white hover:text-primary transition-colors text-white shadow-xl">
-                                    <span className="material-icons text-2xl">visibility</span>
+                                <button onClick={() => setSelectedProduct({ name: 'Drop-In Credit', price: 28, category: 'Class Packs', icon: 'confirmation_number', hasSizes: false })} className="quick-view-btn absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-14 bg-white/20 backdrop-blur-md border border-white/40 rounded-full flex items-center justify-center opacity-0 z-20 hover:bg-white hover:text-primary transition-colors text-white shadow-xl">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
                                 </button>
-                                <button onClick={handleAddToCart} className="btn-loading-bar flying-item-trigger absolute bottom-6 left-1/2 -translate-x-1/2 w-[85%] py-4 bg-primary-dark text-white rounded-xl font-black text-[10px] uppercase tracking-[0.2em] opacity-0 translate-y-6 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 shadow-glow border border-primary/40 hover:bg-primary active:scale-95">
-                                    Purchase Session
-                                    <span className="fly-animation-target hidden absolute left-1/2 top-1/2 w-8 h-8 bg-white rounded-full z-50 pointer-events-none"></span>
-                                </button>
+
                             </div>
                             <div className="px-2">
                                 <div className="flex justify-between items-start mb-2">
@@ -294,7 +375,9 @@ export default function StorePage() {
                                 <p className="text-[10px] font-black text-purple-400 uppercase tracking-widest">Class Packs</p>
                             </div>
                         </div>
+                        )}
 
+                        {priceRange[0] <= 20 && priceRange[1] >= 20 && (activeCategory === 'All Products' || activeCategory === 'Apparel') && (
                         <div className="group flex flex-col animate-elastic-pop stagger-7 magnetic-card">
                             <div className="magnetic-inner relative aspect-[4/5] overflow-hidden rounded-[2rem] store-glass-card mb-6 shadow-2xl">
                                 <img alt="Core Logo Tee" className="product-image-zoom h-full w-full object-cover object-center" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8akC0d94uenOuGdujI7uS8fqofVsC7gnpSlWFoPKLJFMJIaohj5PePsF2-z_WnH9Id56zvIUW-37e_6NElbX3xQyGswma5spWClPfi0VDBSt8QCMQaZ0mPYvDas73nvx5FPOuJSl1qJBPKbDg4xMZT4oNmAKs_cSGGYEFbAJQO7k3P3FGTLhJ2T6Hg1g3JNuhukRUBLOROm6awUaQL6D0G6Ab5FE4Bd4044ARVHFBNlEYzkhlxBQJV9DwJrEFprkA9ayN18rjG7o0"/>
@@ -302,13 +385,10 @@ export default function StorePage() {
                                     <span className="px-4 py-1.5 bg-rose-600/90 text-white rounded-full text-[9px] font-black uppercase tracking-[0.2em] shadow-xl shadow-rose-900/40 backdrop-blur-sm border border-rose-400/30">Archive Sale</span>
                                 </div>
                                 <div className="absolute inset-0 bg-gradient-to-t from-[#2e1065] via-primary/10 to-transparent opacity-0 group-hover:opacity-90 transition-opacity duration-500"></div>
-                                <button className="quick-view-btn absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-14 bg-white/20 backdrop-blur-md border border-white/40 rounded-full flex items-center justify-center opacity-0 z-20 hover:bg-white hover:text-primary transition-colors text-white shadow-xl">
-                                    <span className="material-icons text-2xl">visibility</span>
+                                <button onClick={() => setSelectedProduct({ name: 'Legacy Signature Tee', price: 20, category: 'Apparel', image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuA8akC0d94uenOuGdujI7uS8fqofVsC7gnpSlWFoPKLJFMJIaohj5PePsF2-z_WnH9Id56zvIUW-37e_6NElbX3xQyGswma5spWClPfi0VDBSt8QCMQaZ0mPYvDas73nvx5FPOuJSl1qJBPKbDg4xMZT4oNmAKs_cSGGYEFbAJQO7k3P3FGTLhJ2T6Hg1g3JNuhukRUBLOROm6awUaQL6D0G6Ab5FE4Bd4044ARVHFBNlEYzkhlxBQJV9DwJrEFprkA9ayN18rjG7o0', hasSizes: true })} className="quick-view-btn absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-14 bg-white/20 backdrop-blur-md border border-white/40 rounded-full flex items-center justify-center opacity-0 z-20 hover:bg-white hover:text-primary transition-colors text-white shadow-xl">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
                                 </button>
-                                <button onClick={handleAddToCart} className="btn-loading-bar flying-item-trigger absolute bottom-6 left-1/2 -translate-x-1/2 w-[85%] py-4 bg-white text-primary-dark rounded-xl font-black text-[10px] uppercase tracking-[0.2em] opacity-0 translate-y-6 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 shadow-[0_0_20px_rgba(255,255,255,0.4)] hover:scale-105 active:scale-95">
-                                    Add to Bag
-                                    <span className="fly-animation-target hidden absolute left-1/2 top-1/2 w-8 h-8 bg-rose-500 rounded-full z-50 pointer-events-none"></span>
-                                </button>
+
                             </div>
                             <div className="px-2">
                                 <div className="flex justify-between items-start mb-2">
@@ -321,18 +401,17 @@ export default function StorePage() {
                                 <p className="text-[10px] font-black text-purple-400 uppercase tracking-widest">Apparel</p>
                             </div>
                         </div>
+                        )}
 
+                        {priceRange[0] <= 18 && priceRange[1] >= 18 && (activeCategory === 'All Products' || activeCategory === 'Accessories') && (
                         <div className="group flex flex-col animate-elastic-pop stagger-8 magnetic-card">
                             <div className="magnetic-inner relative aspect-[4/5] overflow-hidden rounded-[2rem] store-glass-card mb-6 shadow-2xl">
                                 <img alt="Pro Grip Socks" className="product-image-zoom h-full w-full object-cover object-center" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDADhjEo0tu9heeyQeh7KBIlX1Ln4njkkklGlYKqotcEUvOi5ERPEnI35HYqjDsVwfd9kx1boxtJDi-3lB_9WyeXp5OMy--pciRut3IWEVWudvbt64JlEPxIcmoDB_NJl6hrEMcvHQlv30utqoIfddHthk-Uf88khoT0mxFZk1NQPVwqtq8uCjfjG7tix-3DkYW4zRjLwsacPq2rogqJyZdrPCl9eoMzvHQTxhcIqmDaVIp1iCWV1EUebfqys-DYPsJ_GL3QR26p6bU"/>
                                 <div className="absolute inset-0 bg-gradient-to-t from-[#2e1065] via-primary/10 to-transparent opacity-0 group-hover:opacity-90 transition-opacity duration-500"></div>
-                                <button className="quick-view-btn absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-14 bg-white/20 backdrop-blur-md border border-white/40 rounded-full flex items-center justify-center opacity-0 z-20 hover:bg-white hover:text-primary transition-colors text-white shadow-xl">
-                                    <span className="material-icons text-2xl">visibility</span>
+                                <button onClick={() => setSelectedProduct({ name: 'Pro Studio Grips', price: 18, category: 'Accessories', image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDADhjEo0tu9heeyQeh7KBIlX1Ln4njkkklGlYKqotcEUvOi5ERPEnI35HYqjDsVwfd9kx1boxtJDi-3lB_9WyeXp5OMy--pciRut3IWEVWudvbt64JlEPxIcmoDB_NJl6hrEMcvHQlv30utqoIfddHthk-Uf88khoT0mxFZk1NQPVwqtq8uCjfjG7tix-3DkYW4zRjLwsacPq2rogqJyZdrPCl9eoMzvHQTxhcIqmDaVIp1iCWV1EUebfqys-DYPsJ_GL3QR26p6bU', hasSizes: true })} className="quick-view-btn absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-14 bg-white/20 backdrop-blur-md border border-white/40 rounded-full flex items-center justify-center opacity-0 z-20 hover:bg-white hover:text-primary transition-colors text-white shadow-xl">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
                                 </button>
-                                <button onClick={handleAddToCart} className="btn-loading-bar flying-item-trigger absolute bottom-6 left-1/2 -translate-x-1/2 w-[85%] py-4 bg-primary text-white rounded-xl font-black text-[10px] uppercase tracking-[0.2em] opacity-0 translate-y-6 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 shadow-glow hover:bg-primary-light active:scale-95">
-                                    Add to Bag
-                                    <span className="fly-animation-target hidden absolute left-1/2 top-1/2 w-8 h-8 bg-primary-light rounded-full z-50 pointer-events-none"></span>
-                                </button>
+
                             </div>
                             <div className="px-2">
                                 <div className="flex justify-between items-start mb-2">
@@ -342,6 +421,7 @@ export default function StorePage() {
                                 <p className="text-[10px] font-black text-purple-400 uppercase tracking-widest">Accessories</p>
                             </div>
                         </div>
+                        )}
 
                     </div>
 
@@ -351,13 +431,7 @@ export default function StorePage() {
                             <p className="text-[10px] font-black text-purple-300 tracking-[0.4em] uppercase whitespace-nowrap drop-shadow-sm">End of Archive</p>
                             <div className="flex-1 h-px bg-gradient-to-r from-transparent via-primary to-transparent shadow-[0_0_8px_rgba(124,58,237,0.8)]"></div>
                         </div>
-                        <button className="group relative px-16 h-16 rounded-2xl bg-gradient-to-r from-primary to-primary-dark text-white font-black text-[11px] tracking-[0.3em] uppercase transition-all hover:scale-105 active:scale-95 shadow-glow overflow-hidden ring-1 ring-white/20">
-                            <span className="relative z-10 flex items-center gap-4">
-                                Explore More
-                                <span className="material-icons text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
-                            </span>
-                            <div className="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-500 backdrop-blur-sm"></div>
-                        </button>
+
                     </div>
                 </div>
             </main>
@@ -419,6 +493,80 @@ export default function StorePage() {
                     </div>
                 </div>
             </footer>
+
+            {/* Quick View Modal */}
+            {selectedProduct && (
+                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6">
+                    <div className="absolute inset-0 bg-black/60 backdrop-blur-md" onClick={() => setSelectedProduct(null)}></div>
+                    <div className="relative w-full max-w-6xl bg-[#0a0512]/95 border border-primary/30 rounded-[2rem] overflow-hidden flex flex-col md:flex-row shadow-[0_0_50px_rgba(124,58,237,0.3)] animate-elastic-pop">
+                        
+                        {/* Close Button */}
+                        <button 
+                            className="absolute top-4 right-4 z-10 size-10 bg-black/40 hover:bg-primary/40 backdrop-blur-md border border-white/10 hover:border-white/40 rounded-full flex items-center justify-center text-white transition-colors"
+                            onClick={() => setSelectedProduct(null)}
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                        </button>
+
+                        {/* Image/Icon Section */}
+                        <div className="w-full md:w-1/2 relative bg-gradient-to-br from-[#1a0b2e] to-[#0a0512] aspect-square md:aspect-auto min-h-[300px] flex items-center justify-center border-b md:border-b-0 md:border-r border-primary/20 overflow-hidden group">
+                            {selectedProduct.image ? (
+                                <img src={selectedProduct.image} alt={selectedProduct.name} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                            ) : (
+                                <span className="material-icons text-8xl text-primary drop-shadow-[0_0_30px_rgba(124,58,237,0.8)] group-hover:scale-110 transition-transform duration-700">
+                                    {selectedProduct.icon}
+                                </span>
+                            )}
+                            <div className="absolute inset-0 bg-gradient-to-t from-[#0a0512] via-transparent to-transparent opacity-80"></div>
+                        </div>
+
+                        {/* Details Section */}
+                        <div className="w-full md:w-1/2 p-8 md:p-12 flex flex-col justify-center">
+                            <p className="text-primary text-[10px] font-black uppercase tracking-[0.3em] mb-3">{selectedProduct.category}</p>
+                            <h2 className="text-3xl md:text-4xl font-black text-white leading-tight tracking-tighter mb-4">{selectedProduct.name}</h2>
+                            <p className="text-3xl font-black text-primary-light mb-10 drop-shadow-sm">${selectedProduct.price}</p>
+                            
+                            {selectedProduct.hasSizes && (
+                                <div className="mb-10">
+                                    <div className="flex justify-between items-center mb-5">
+                                        <p className="text-[10px] font-black text-white/80 uppercase tracking-[0.2em]">Select Size</p>
+                                        <p className="text-[10px] font-bold text-primary hover:text-primary-light transition-colors cursor-pointer underline underline-offset-4 tracking-wider">Size Guide</p>
+                                    </div>
+                                    <div className="grid grid-cols-5 gap-2">
+                                        {['XS', 'S', 'M', 'L', 'XL'].map(size => {
+                                            const isActive = modalSize === size;
+                                            return (
+                                                <button 
+                                                    key={size}
+                                                    onClick={() => setModalSize(size)}
+                                                    className={`h-12 rounded-xl text-xs font-black transition-all ${isActive ? 'bg-primary text-white shadow-lg shadow-primary/30 border border-primary ring-2 ring-primary/20' : 'border border-primary/20 hover:border-primary/60 bg-surface-dark/40 text-purple-300 hover:text-white hover:shadow-[0_0_10px_rgba(124,58,237,0.2)]'}`}
+                                                >
+                                                    {size}
+                                                </button>
+                                            )
+                                        })}
+                                    </div>
+                                </div>
+                            )}
+
+                            <button 
+                                onClick={() => {
+                                    handleAddToCart();
+                                    setTimeout(() => setSelectedProduct(null), 300);
+                                }} 
+                                className="group/btn relative w-full h-16 bg-surface-dark border border-primary/50 hover:border-primary rounded-xl font-black text-xs uppercase tracking-[0.3em] overflow-hidden transition-all duration-500 hover:shadow-[0_0_40px_rgba(124,58,237,0.4)] flex items-center justify-center mt-4"
+                            >
+                                <div className="absolute inset-0 bg-primary translate-y-[101%] group-hover/btn:translate-y-0 transition-transform duration-500 ease-out"></div>
+                                <span className="relative z-10 flex items-center gap-3 text-white group-hover/btn:scale-105 transition-transform duration-500">
+                                    Add to Bag
+                                </span>
+                            </button>
+                            
+                            <p className="text-center text-purple-400/50 text-[10px] font-bold mt-6 uppercase tracking-[0.2em]">Free shipping on orders over $150</p>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

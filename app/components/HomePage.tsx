@@ -2,6 +2,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from 'next/link';
+import ReviewsSection from "./ReviewsSection";
 export default function HomePage() {
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -241,166 +242,9 @@ export default function HomePage() {
               </div>
             </div>
           </section>
-          <section className="py-32 relative bg-background-deep border-t border-white/5 overflow-hidden">
-            <div className="container mx-auto px-6 lg:px-12 relative z-10">
-              <div className="flex flex-col lg:flex-row items-end justify-between mb-20 gap-8">
-                <div className="max-w-2xl section-unfold">
-                  <span className="text-primary font-black uppercase tracking-[0.5em] text-xs mb-6 block drop-shadow-[0_0_10px_rgba(188,19,254,0.5)]">Success Stories</span>
-                  <h2 className="text-5xl md:text-7xl font-black uppercase italic tracking-tighter leading-[0.9] scroll-mask-text">
-                    Voices From<br /><span className="text-transparent bg-clip-text bg-linear-to-r from-primary via-white to-primary animate-pulse shimmer-text-effect">The Studio</span>
-                  </h2>
-                </div>
-                <div className="flex gap-4">
-                  <button className="size-14 rounded-full border border-white/10 flex items-center justify-center hover:bg-white/10 hover:border-primary transition-all magnetic-btn interactive-hover group" onClick={() => document.getElementById("reviews-scroller")?.scrollBy({ left: -400, behavior: "smooth" })}>
-                    <span className="material-symbols-outlined text-white group-hover:text-primary transition-colors">arrow_back</span>
-                  </button>
-                  <button className="size-14 rounded-full border border-white/10 flex items-center justify-center hover:bg-white/10 hover:border-primary transition-all magnetic-btn interactive-hover group" onClick={() => document.getElementById("reviews-scroller")?.scrollBy({ left: 400, behavior: "smooth" })}>
-                    <span className="material-symbols-outlined text-white group-hover:text-primary transition-colors">arrow_forward</span>
-                  </button>
-                </div>
-              </div>
-              <div className="flex overflow-x-auto gap-8 pb-10 scrollbar-hide snap-x snap-mandatory -mx-6 px-6 lg:mx-0 lg:px-0" id="reviews-scroller">
-                <div className="min-w-[85vw] md:min-w-[450px] snap-center">
-                  <div className="h-full bg-surface-dark/20 backdrop-blur-md border border-white/5 p-10 rounded-sm relative group review-card-hover card-fade-up stagger-delay-1 interactive-hover hover:border-primary/30 transition-all duration-500 hover:shadow-[0_0_40px_-10px_rgba(188,19,254,0.15)] flex flex-col justify-between">
-                    <div>
-                      <div className="flex justify-between items-start mb-8">
-                        <div className="review-quote-icon">
-                          <span className="material-symbols-outlined text-6xl text-primary opacity-80 drop-shadow-[0_0_15px_rgba(188,19,254,0.6)]">format_quote</span>
-                        </div>
-                        <div className="flex gap-1 text-primary text-sm">
-                          <span className="material-symbols-outlined fill-current text-sm">star</span>
-                          <span className="material-symbols-outlined fill-current text-sm">star</span>
-                          <span className="material-symbols-outlined fill-current text-sm">star</span>
-                          <span className="material-symbols-outlined fill-current text-sm">star</span>
-                          <span className="material-symbols-outlined fill-current text-sm">star</span>
-                        </div>
-                      </div>
-                      <p className="text-xl md:text-2xl font-light text-slate-300 italic leading-relaxed mb-8">
-                        &quot;Cultivate didn&apos;t just teach me dance; they reconstructed my entire approach to movement. The intensity here is unmatched.&quot;
-                      </p>
-                    </div>
-                    <div className="flex items-center gap-5 mt-auto border-t border-white/5 pt-6">
-                      <div className="size-14 rounded-full overflow-hidden border-2 border-primary/30 group-hover:border-primary transition-all duration-500 shadow-[0_0_20px_rgba(188,19,254,0.2)]">
-                        <Image
-                            width={56}
-                            height={56}
-                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMSS5VLQP_U-3-9v1yqbVxbW-T_h186PuhJxC8UYpUzGW2fvZtnREMjWBrSvPUXf37eNyo7Tc3SCKQtyDXPOdOZEGuDtLCG44WztaxWXVyFiFADHR-Q5QN1q-mKmOP62TZIW7uXsMJWZr4Y0Jm5Mmyz5b9UEqrAGIrT7XcnDX8QoZqdi5GF_pMxlJrk-LzqRprdkytErogPGr96anBmqQt-ZmeiBEXfau4UMk0vANJdxX0lJGk_WYYfYdAZLx5dQ-rtGtwJ5bXX1_o" 
-                            alt="Contemporary dancer in dark studio with dramatic lighting" 
-                            className="w-full h-full object-cover review-img transition-transform duration-700 ease-out" 
-                        />
-                      </div>
-                      <div>
-                        <h4 className="text-white font-black uppercase tracking-wider text-sm">Sarah Jenkins</h4>
-                        <p className="text-primary text-[10px] uppercase tracking-[0.2em] font-bold">Professional Artist</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="min-w-[85vw] md:min-w-[450px] snap-center">
-                  <div className="h-full bg-surface-dark/20 backdrop-blur-md border border-white/5 p-10 rounded-sm relative group review-card-hover card-fade-up stagger-delay-2 interactive-hover hover:border-primary/30 transition-all duration-500 hover:shadow-[0_0_40px_-10px_rgba(188,19,254,0.15)] flex flex-col justify-between">
-                    <div>
-                      <div className="flex justify-between items-start mb-8">
-                        <div className="review-quote-icon">
-                          <span className="material-symbols-outlined text-6xl text-primary opacity-80 drop-shadow-[0_0_15px_rgba(188,19,254,0.6)]">format_quote</span>
-                        </div>
-                        <div className="flex gap-1 text-primary text-sm">
-                          <span className="material-symbols-outlined fill-current text-sm">star</span>
-                          <span className="material-symbols-outlined fill-current text-sm">star</span>
-                          <span className="material-symbols-outlined fill-current text-sm">star</span>
-                          <span className="material-symbols-outlined fill-current text-sm">star</span>
-                          <span className="material-symbols-outlined fill-current text-sm">star</span>
-                        </div>
-                      </div>
-                      <p className="text-xl md:text-2xl font-light text-slate-300 italic leading-relaxed mb-8">
-                        &quot;The faculty pushes you to find your own voice. I walked in a technician and walked out an artist ready for the world stage.&quot;
-                      </p>
-                    </div>
-                    <div className="flex items-center gap-5 mt-auto border-t border-white/5 pt-6">
-                      <div className="size-14 rounded-full overflow-hidden border-2 border-primary/30 group-hover:border-primary transition-all duration-500 shadow-[0_0_20px_rgba(188,19,254,0.2)]">
-                        <Image
-                            width={56}
-                            height={56}
-                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCx3iVHL6r2PI4HML_2OITQBESMft9Qdd3l5ghNebgJfIvFk02fngN_zMcPIWMg6y8pfUCHtgtj5xjpFViTx1rN4bzg6jolmPJWxVF29OFYVq5f-uz6YWx4_DkQ51FEC8yL6EVdAHiQsL5DCblfcg_zS34yN7YQ-ixo_gT36uMaTw9SbvbHVQ8507CPp7kdho_JPY85CUG--qFG9ZWRG2xYLX3LG6ejIq3JjS2izzr3Cl68rwzbU2VKbjqL1ptIPoLUnqZqPAFRX5Hy" 
-                            alt="Hip hop dancers performing a routine" 
-                            className="w-full h-full object-cover review-img transition-transform duration-700 ease-out opacity-80" 
-                        />
-                      </div>
-                      <div>
-                        <h4 className="text-white font-black uppercase tracking-wider text-sm">Marcus Thorne</h4>
-                        <p className="text-primary text-[10px] uppercase tracking-[0.2em] font-bold">NXTLVL Graduate</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="min-w-[85vw] md:min-w-[450px] snap-center">
-                  <div className="h-full bg-surface-dark/20 backdrop-blur-md border border-white/5 p-10 rounded-sm relative group review-card-hover card-fade-up stagger-delay-3 interactive-hover hover:border-primary/30 transition-all duration-500 hover:shadow-[0_0_40px_-10px_rgba(188,19,254,0.15)] flex flex-col justify-between">
-                    <div>
-                      <div className="flex justify-between items-start mb-8">
-                        <div className="review-quote-icon">
-                          <span className="material-symbols-outlined text-6xl text-primary opacity-80 drop-shadow-[0_0_15px_rgba(188,19,254,0.6)]">format_quote</span>
-                        </div>
-                        <div className="flex gap-1 text-primary text-sm">
-                          <span className="material-symbols-outlined fill-current text-sm">star</span>
-                          <span className="material-symbols-outlined fill-current text-sm">star</span>
-                          <span className="material-symbols-outlined fill-current text-sm">star</span>
-                          <span className="material-symbols-outlined fill-current text-sm">star</span>
-                          <span className="material-symbols-outlined fill-current text-sm">star</span>
-                        </div>
-                      </div>
-                      <p className="text-xl md:text-2xl font-light text-slate-300 italic leading-relaxed mb-8">
-                        &quot;A deeply immersive experience. The studio culture is demanding yet incredibly supportive. It&apos;s truly elite training.&quot;
-                      </p>
-                    </div>
-                    <div className="flex items-center gap-5 mt-auto border-t border-white/5 pt-6">
-                      <div className="size-14 rounded-full overflow-hidden border-2 border-primary/30 group-hover:border-primary transition-all duration-500 shadow-[0_0_20px_rgba(188,19,254,0.2)]">
-                         <Image
-                            width={56}
-                            height={56}
-                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNnAsNgUKbJOtuHSz-rCK5vvrvfVdYIyYUIiOAv6L1IuE8_nzpFTo0TAhKsrhiUwDhMGlq4huiRZl79HplaZudlUrcG2a4yV781R1lEDdCBhTU6bOXwIki8D-hwU3bu40ldq8A2DmcKnaAgNRzlQELurjFQG3h0eXlnsjYV3aA-H51klbLMc_ywpuEGPPZZu2TVGDz96v8U-p39n-t6ez_K6RfEuTF1htWoqLglqKv0JPgaZgoRDGvEMPixatBU-R-WyWyKbwGOhfN" 
-                            alt="Ballet dancer in motion blur" 
-                            className="w-full h-full object-cover review-img transition-transform duration-700 ease-out" 
-                        />
-                      </div>
-                      <div>
-                        <h4 className="text-white font-black uppercase tracking-wider text-sm">Elena Rodriguez</h4>
-                        <p className="text-primary text-[10px] uppercase tracking-[0.2em] font-bold">Choreographer</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="min-w-[85vw] md:min-w-[450px] snap-center">
-                  <div className="h-full bg-surface-dark/20 backdrop-blur-md border border-white/5 p-10 rounded-sm relative group review-card-hover card-fade-up stagger-delay-1 interactive-hover hover:border-primary/30 transition-all duration-500 hover:shadow-[0_0_40px_-10px_rgba(188,19,254,0.15)] flex flex-col justify-between">
-                    <div>
-                      <div className="flex justify-between items-start mb-8">
-                        <div className="review-quote-icon">
-                          <span className="material-symbols-outlined text-6xl text-primary opacity-80 drop-shadow-[0_0_15px_rgba(188,19,254,0.6)]">format_quote</span>
-                        </div>
-                        <div className="flex gap-1 text-primary text-sm">
-                          <span className="material-symbols-outlined fill-current text-sm">star</span>
-                          <span className="material-symbols-outlined fill-current text-sm">star</span>
-                          <span className="material-symbols-outlined fill-current text-sm">star</span>
-                          <span className="material-symbols-outlined fill-current text-sm">star</span>
-                          <span className="material-symbols-outlined fill-current text-sm">star</span>
-                        </div>
-                      </div>
-                      <p className="text-xl md:text-2xl font-light text-slate-300 italic leading-relaxed mb-8">
-                        &quot;From the warm-up to the final cooldown, every second is purposeful. Cultivate respects the art form like no other.&quot;
-                      </p>
-                    </div>
-                    <div className="flex items-center gap-5 mt-auto border-t border-white/5 pt-6">
-                      <div className="size-14 rounded-full overflow-hidden border-2 border-primary/30 group-hover:border-primary transition-all duration-500 shadow-[0_0_20px_rgba(188,19,254,0.2)]">
-                        <img alt="Davon L." className="w-full h-full object-cover review-img transition-transform duration-700 ease-out" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCATw6KfMPvLuWU5dSBVt2ra_05vYe2gRQLWG0yYLYpmRux7DaWs7IpKSOsF3pYUnUme-usppww85dmuu6uQ_vWoW2TtPfr2PK2Be2GPtWdp-9Gi9RB5a4Ngo7V7Xw--THW7MaaoBi6VGjD5QbkjFNYoJ9_1eosTUrsq7TLT1LZjZBF3XGOd9chIHE6KFcefu6M6NN6ROzkwKXkTxxD60K_KyHeWcWZsrE21l2YdZvXddvkuzTmHnk9XLwJtg6pFnCIzMMC0m6vaFf5" />
-                      </div>
-                      <div>
-                        <h4 className="text-white font-black uppercase tracking-wider text-sm">Davon Lewis</h4>
-                        <p className="text-primary text-[10px] uppercase tracking-[0.2em] font-bold">Company Member</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
+
+
+          <ReviewsSection />
           <section className="py-40 relative overflow-hidden bg-background-deep section-unfold">
             <div className="absolute inset-0 bg-gradient-to-br from-primary-dark/20 to-background-deep"></div>
             <div className="absolute inset-0 opacity-30 parallax-bg-deep animate-float-bounce" style={{ animationDuration: "8s" }}>

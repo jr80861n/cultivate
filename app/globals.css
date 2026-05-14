@@ -461,6 +461,7 @@
     }
     .accordion-content > div {
         overflow: hidden;
+        min-height: 0;
     }
     .accordion-wrapper:hover .accordion-content,
     .accordion-wrapper.active .accordion-content {
