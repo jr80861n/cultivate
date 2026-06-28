@@ -65,9 +65,9 @@ export default function HomePage() {
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full box-shadow-[0_0_10px_#bc13fe]"></span>
               </Link>
             </nav>
-            <button className="flex items-center justify-center rounded-none h-12 px-8 bg-primary hover:bg-white hover:text-black transition-all duration-500 text-white text-xs font-black uppercase tracking-[0.2em] shadow-[0_0_20px_rgba(188,19,254,0.4)] hover:shadow-[0_0_30px_rgba(255,255,255,0.6)] translate-x-[-4px] translate-y-[-4px] active:translate-x-0 active:translate-y-0 border border-transparent hover:border-primary magnetic-btn interactive-hover">
+            <Link href="/signup" className="flex items-center justify-center rounded-none h-12 px-8 bg-primary hover:bg-white hover:text-black transition-all duration-500 text-white text-xs font-black uppercase tracking-[0.2em] shadow-[0_0_20px_rgba(188,19,254,0.4)] hover:shadow-[0_0_30px_rgba(255,255,255,0.6)] translate-x-[-4px] translate-y-[-4px] active:translate-x-0 active:translate-y-0 border border-transparent hover:border-primary magnetic-btn interactive-hover">
               Register
-            </button>
+            </Link>
           </div>
           <button className="lg:hidden text-white hover:text-primary transition-colors interactive-hover">
             <span className="material-symbols-outlined !text-3xl">menu</span>

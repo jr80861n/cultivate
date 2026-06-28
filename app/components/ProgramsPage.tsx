@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import UserMenu from "./UserMenu";
 
 export default function ProgramsPage() {
   const [activeFilter, setActiveFilter] = useState('ALL');
@@ -133,13 +134,14 @@ export default function ProgramsPage() {
             </Link>
           </nav>
           <div className="flex items-center gap-4">
-            <button className="register-btn hidden sm:flex h-11 px-8 items-center justify-center rounded-full bg-gradient-to-r from-primary to-primary-light text-white text-sm font-black transition-all shadow-[0_0_25px_rgba(127,19,236,0.4)] hover:shadow-[0_0_35px_rgba(168,85,247,0.6)] hover:-translate-y-0.5 active:scale-95 relative overflow-hidden group">
+            <Link href="/signup" className="register-btn hidden sm:flex h-11 px-8 items-center justify-center rounded-full bg-gradient-to-r from-primary to-primary-light text-white text-sm font-black transition-all shadow-[0_0_25px_rgba(127,19,236,0.4)] hover:shadow-[0_0_35px_rgba(168,85,247,0.6)] hover:-translate-y-0.5 active:scale-95 relative overflow-hidden group">
               <span className="btn-text relative z-10">REGISTER NOW</span>
               <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
-            </button>
+            </Link>
             <button className="md:hidden text-primary-light p-2 hover:bg-white/5 rounded-lg transition-colors">
               <span className="material-symbols-outlined">menu</span>
             </button>
+            <UserMenu />
           </div>
         </header>
 
@@ -386,9 +388,9 @@ export default function ProgramsPage() {
                     The next generation of dance starts here. Secure your spot in the Fall curriculum and join a legacy of movement.
                   </p>
                   <div className="flex flex-col sm:flex-row justify-center gap-6 pt-6">
-                    <button className="register-btn h-20 px-16 rounded-full bg-white text-primary font-black text-xl hover:scale-105 transition-all shadow-[0_0_30px_rgba(255,255,255,0.3)] relative overflow-hidden flex items-center justify-center">
+                    <Link href="/signup" className="register-btn h-20 px-16 rounded-full bg-white text-primary font-black text-xl hover:scale-105 transition-all shadow-[0_0_30px_rgba(255,255,255,0.3)] relative overflow-hidden flex items-center justify-center">
                       <span className="btn-text">REGISTER NOW</span>
-                    </button>
+                    </Link>
                     <button className="h-20 px-16 rounded-full bg-black/30 border-2 border-white/30 text-white font-black text-xl hover:bg-white/10 transition-all backdrop-blur-sm">BOOK TOUR</button>
                   </div>
                 </div>

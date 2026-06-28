@@ -3,6 +3,7 @@ import { useState, useRef } from "react";
 import Link from "next/link";
 import Lottie, { LottieRefCurrentProps } from "lottie-react";
 import cartAnimationData from "../../public/Shopping Bag Lottie Animation.json";
+import UserMenu from "./UserMenu";
 
 export type Product = {
     name: string;
@@ -84,7 +85,7 @@ export default function StorePage() {
                 <div className="flex items-center gap-12">
                     <Link href="/" className="flex items-center gap-4 text-primary group cursor-pointer">
                         <div className="size-11 flex items-center justify-center bg-gradient-to-br from-primary to-primary-dark rounded-2xl text-white shadow-lg shadow-primary/30 group-hover:rotate-12 group-hover:shadow-primary/50 transition-all duration-500 border border-white/10">
-                            <span className="material-icons text-2xl font-light">diamond</span>
+                            <span className="material-symbols-outlined text-2xl font-light">diamond</span>
                         </div>
                         <h2 className="text-white text-2xl font-black leading-tight tracking-tighter uppercase drop-shadow-[0_0_10px_rgba(124,58,237,0.5)]">Cultivate</h2>
                     </Link>
@@ -117,8 +118,9 @@ export default function StorePage() {
                             )}
                         </button>
                         <button className="lg:hidden flex items-center justify-center rounded-xl h-11 w-11 border border-primary/20 hover:bg-primary/20 text-white transition-colors">
-                            <span className="material-icons">menu</span>
+                            <span className="material-symbols-outlined">menu</span>
                         </button>
+                        <UserMenu />
                     </div>
                 </div>
             </header>
@@ -270,7 +272,7 @@ export default function StorePage() {
                             <div className="magnetic-inner relative aspect-[4/5] overflow-hidden rounded-[2rem] bg-gradient-to-br from-primary-dark via-purple-900 to-black mb-6 shadow-2xl border border-primary/30">
                                 <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-8 z-10 product-image-zoom">
                                     <div className="size-24 bg-white/5 border border-white/10 rounded-full flex items-center justify-center mb-6 backdrop-blur-md shadow-[0_0_30px_rgba(124,58,237,0.3)] group-hover:scale-110 transition-transform duration-500">
-                                        <span className="material-icons text-5xl text-accent-purple drop-shadow-[0_0_10px_currentColor]">auto_awesome</span>
+                                        <span className="material-symbols-outlined text-5xl text-accent-purple drop-shadow-[0_0_10px_currentColor]">auto_awesome</span>
                                     </div>
                                     <h4 className="text-4xl font-black text-white mb-2 leading-[0.9] tracking-tighter uppercase drop-shadow-md">Unlimited<br/>Pass</h4>
                                     <p className="text-accent-purple/80 text-[10px] font-black uppercase tracking-[0.3em] mt-2 border border-accent-purple/30 px-3 py-1 rounded-full">Full Studio Access</p>
@@ -358,7 +360,7 @@ export default function StorePage() {
                         <div className="group flex flex-col animate-elastic-pop stagger-6 magnetic-card">
                             <div className="magnetic-inner relative aspect-[4/5] overflow-hidden rounded-[2rem] bg-surface-dark mb-6 border border-primary/20 group-hover:border-primary transition-colors shadow-2xl">
                                 <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-8 z-10 product-image-zoom">
-                                    <span className="material-icons text-6xl text-primary mb-6 font-thin drop-shadow-[0_0_15px_rgba(124,58,237,0.8)] animate-pulse">confirmation_number</span>
+                                    <span className="material-symbols-outlined text-6xl text-primary mb-6 font-thin drop-shadow-[0_0_15px_rgba(124,58,237,0.8)] animate-pulse">confirmation_number</span>
                                     <h4 className="text-4xl font-black text-white leading-none uppercase tracking-tighter drop-shadow-lg">Single<br/>Session</h4>
                                 </div>
                                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(124,58,237,0.4),transparent)] mix-blend-screen"></div>
@@ -442,7 +444,7 @@ export default function StorePage() {
                     <div className="space-y-8">
                         <div className="flex items-center gap-4 text-primary group">
                             <div className="p-2 rounded-xl border border-primary/30 group-hover:border-primary transition-colors bg-surface-dark/50">
-                                <span className="material-icons text-4xl group-hover:scale-110 transition-transform duration-500">diamond</span>
+                                <span className="material-symbols-outlined text-4xl group-hover:scale-110 transition-transform duration-500">diamond</span>
                             </div>
                             <h2 className="text-2xl font-black uppercase tracking-tighter text-white leading-none drop-shadow-lg">Cultivate</h2>
                         </div>
@@ -474,13 +476,13 @@ export default function StorePage() {
                         <div className="relative group">
                             <input className="bg-surface-dark border border-primary/20 rounded-xl text-xs font-bold px-6 py-4 w-full flex focus:ring-2 focus:ring-primary focus:border-primary transition-all placeholder:text-purple-500/50 text-white shadow-inner outline-none" placeholder="Identity@Email.com"/>
                             <button className="absolute right-2 top-2 bottom-2 aspect-square bg-primary text-white rounded-lg hover:bg-primary-light transition-colors flex items-center justify-center shadow-lg shadow-primary/30">
-                                <span className="material-icons text-[20px]">arrow_forward</span>
+                                <span className="material-symbols-outlined text-[20px]">arrow_forward</span>
                             </button>
                         </div>
                         <div className="flex gap-6 text-purple-400">
-                            <Link className="hover:text-white hover:scale-110 transition-all" href="#"><span className="material-icons font-light">public</span></Link>
-                            <Link className="hover:text-white hover:scale-110 transition-all" href="#"><span className="material-icons font-light">groups</span></Link>
-                            <Link className="hover:text-white hover:scale-110 transition-all" href="#"><span className="material-icons font-light">language</span></Link>
+                            <Link className="hover:text-white hover:scale-110 transition-all" href="#"><span className="material-symbols-outlined font-light">public</span></Link>
+                            <Link className="hover:text-white hover:scale-110 transition-all" href="#"><span className="material-symbols-outlined font-light">groups</span></Link>
+                            <Link className="hover:text-white hover:scale-110 transition-all" href="#"><span className="material-symbols-outlined font-light">language</span></Link>
                         </div>
                     </div>
                 </div>
@@ -513,7 +515,7 @@ export default function StorePage() {
                             {selectedProduct.image ? (
                                 <img src={selectedProduct.image} alt={selectedProduct.name} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                             ) : (
-                                <span className="material-icons text-8xl text-primary drop-shadow-[0_0_30px_rgba(124,58,237,0.8)] group-hover:scale-110 transition-transform duration-700">
+                                <span className="material-symbols-outlined text-8xl text-primary drop-shadow-[0_0_30px_rgba(124,58,237,0.8)] group-hover:scale-110 transition-transform duration-700">
                                     {selectedProduct.icon}
                                 </span>
                             )}

@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect } from "react";
 import Link from "next/link";
+import UserMenu from "./UserMenu";
 
 export default function AboutPage() {
     useEffect(() => {
@@ -102,9 +103,12 @@ export default function AboutPage() {
                         <Link className="text-sm font-bold tracking-wider hover:text-primary transition-colors text-white" href="/schedule">SCHEDULE</Link>
                         <Link className="text-sm font-bold tracking-wider hover:text-primary transition-colors text-white" href="/store">STORE</Link>
                     </nav>
-                    <button className="bg-primary hover:bg-white hover:text-primary-dark text-white px-8 py-2.5 text-sm font-bold tracking-widest uppercase transition-all shadow-[0_0_20px_rgba(168,85,247,0.4)] border border-primary hover:border-white">
-                        JOIN NOW
-                    </button>
+                    <div className="flex items-center gap-4">
+                        <Link href="/signup" className="bg-primary hover:bg-white hover:text-primary-dark text-white px-8 py-2.5 text-sm font-bold tracking-widest uppercase transition-all shadow-[0_0_20px_rgba(168,85,247,0.4)] border border-primary hover:border-white">
+                            JOIN NOW
+                        </Link>
+                        <UserMenu />
+                    </div>
                 </div>
             </header>
 

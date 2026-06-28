@@ -69,7 +69,7 @@ export default function SigninPage() {
                                     Email Address
                                 </label>
                                 <div className="absolute right-4 top-4 text-emerald-500 opacity-0 peer-valid:opacity-100 transition-opacity duration-300">
-                                    <span className="material-icons text-sm">check_circle</span>
+                                    <span className="material-symbols-outlined text-sm">check_circle</span>
                                 </div>
                             </div>
                             <div className="float-label-input relative border border-slate-300 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-[#231830] transition-all duration-300 hover:border-slate-400 dark:hover:border-slate-600">
@@ -78,7 +78,7 @@ export default function SigninPage() {
                                     Password
                                 </label>
                                 <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-4 top-[14px] text-slate-400 hover:text-white transition-colors">
-                                    <span className="material-icons text-lg">{showPassword ? "visibility_off" : "visibility"}</span>
+                                    <span className="material-symbols-outlined text-lg">{showPassword ? "visibility_off" : "visibility"}</span>
                                 </button>
                             </div>
                             <div className="flex items-center justify-between text-sm">
@@ -86,7 +86,7 @@ export default function SigninPage() {
                                     <div className="relative">
                                         <input className="peer sr-only" type="checkbox" />
                                         <div className="w-4 h-4 border border-slate-600 rounded bg-transparent peer-checked:bg-[#7f13ec] peer-checked:border-[#7f13ec] transition-all duration-200"></div>
-                                        <span className="material-icons absolute top-[-2px] left-[-1px] text-white text-base opacity-0 peer-checked:opacity-100 pointer-events-none transform scale-75">check</span>
+                                        <span className="material-symbols-outlined absolute top-[-2px] left-[-1px] text-white text-base opacity-0 peer-checked:opacity-100 pointer-events-none transform scale-75">check</span>
                                     </div>
                                     <span className="text-slate-500 dark:text-slate-400 group-hover:text-slate-300 transition-colors">Remember me</span>
                                 </label>
@@ -96,7 +96,7 @@ export default function SigninPage() {
                                 {status === "idle" && (
                                     <span className="btn-text relative z-10 flex items-center gap-2">
                                         Sign In
-                                        <span className="material-icons text-sm transition-transform group-hover:translate-x-1">arrow_forward</span>
+                                        <span className="material-symbols-outlined text-sm transition-transform group-hover:translate-x-1">arrow_forward</span>
                                     </span>
                                 )}
                                 {status === "loading" && (
@@ -106,7 +106,7 @@ export default function SigninPage() {
                                 )}
                                 {status === "success" && (
                                     <div className="absolute inset-0 flex items-center justify-center bg-emerald-600 z-20">
-                                        <span className="material-icons text-white animate-bounce">check</span>
+                                        <span className="material-symbols-outlined text-white animate-bounce">check</span>
                                     </div>
                                 )}
                             </button>
@@ -141,8 +141,8 @@ export default function SigninPage() {
 
                         <div className="mt-12 text-center">
                             <p className="text-sm text-slate-500 dark:text-slate-400">
-                                Don&apos;t have a membership?
-                                <Link className="text-[#7f13ec] hover:text-[#9d4af2] font-medium transition-colors link-underline pb-0.5 ml-1" href="/signup">Apply now</Link>
+                                Don&apos;t have an account?
+                                <Link className="text-[#7f13ec] hover:text-[#9d4af2] font-medium transition-colors link-underline pb-0.5 ml-1" href="/signup">Sign up</Link>
                             </p>
                         </div>
                     </div>

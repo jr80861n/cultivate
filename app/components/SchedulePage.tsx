@@ -2,6 +2,7 @@
 import { useState, useEffect, useMemo, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import UserMenu from "./UserMenu";
 
 export default function SchedulePage() {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -9,7 +10,6 @@ export default function SchedulePage() {
     const [activeView, setActiveView] = useState<"month" | "week" | "day">("day");
     const [activeFilters, setActiveFilters] = useState<string[]>(['Hip Hop']);
     const [animateClass, setAnimateClass] = useState('translate-x-0 opacity-100');
-    const [showNotifications, setShowNotifications] = useState(false);
     const [currentDate, setCurrentDate] = useState(new Date());
     const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
     const [activeLevels, setActiveLevels] = useState<string[]>([]);
@@ -100,81 +100,7 @@ export default function SchedulePage() {
                     <Link className="text-[11px] font-bold uppercase tracking-[0.2em] text-gray-400 hover:text-white transition-colors" href="/store">STORE</Link>
                     <Link className="text-[11px] font-bold uppercase tracking-[0.2em] text-gray-400 hover:text-white transition-colors" href="/about">ABOUT US</Link>
                 </nav>
-                <div className="flex items-center gap-5">
-                    <div className="flex items-center gap-3 pl-4">
-                        <div className="relative">
-                            <button 
-                                onClick={() => setShowNotifications(!showNotifications)}
-                                aria-label="Notifications" 
-                                className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-white/5 transition-colors relative text-gray-400 hover:text-white btn-physics"
-                            >
-                                <span className="material-symbols-outlined text-[20px]">notifications</span>
-                                <span className="absolute top-2.5 right-2.5 w-1.5 h-1.5 bg-primary rounded-full ring-2 ring-surface-dark"></span>
-                            </button>
-                            
-                            {/* Notification Dropdown */}
-                            {showNotifications && (
-                                <div className="absolute right-0 mt-2 w-80 bg-surface-darker border border-surface-border rounded-xl shadow-2xl z-50 overflow-hidden backdrop-blur-xl">
-                                    <div className="p-4 border-b border-surface-border flex justify-between items-center">
-                                        <div className="flex items-center gap-2">
-                                            <span className="material-symbols-outlined text-gray-400 text-[18px]">notifications</span>
-                                        </div>
-                                        <span className="text-[10px] font-bold uppercase tracking-wider text-primary cursor-pointer hover:underline">Mark all read</span>
-                                    </div>
-                                    <div className="flex flex-col max-h-96 overflow-y-auto">
-                                        <div className="p-4 border-b border-surface-border/50 hover:bg-surface-dark cursor-pointer transition-colors relative">
-                                            <div className="absolute left-0 top-0 bottom-0 w-1 bg-green-500"></div>
-                                            <div className="flex gap-3">
-                                                <div className="w-8 h-8 rounded-full bg-green-500/20 text-green-400 flex items-center justify-center shrink-0">
-                                                    <span className="material-icons text-[16px]">check_circle</span>
-                                                </div>
-                                                <div>
-                                                    <h4 className="text-xs font-bold text-gray-200">Booking Confirmed</h4>
-                                                    <p className="text-[11px] text-gray-400 mt-1">You&apos;re booked for Adv. Hip Hop with Sarah Jenkins on {currentDate.toLocaleDateString()}.</p>
-                                                    <span className="text-[9px] text-gray-500 mt-2 inline-block">2 hours ago</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="p-4 border-b border-surface-border/50 hover:bg-surface-dark cursor-pointer transition-colors relative">
-                                            <div className="flex gap-3">
-                                                <div className="w-8 h-8 rounded-full bg-red-500/20 text-red-400 flex items-center justify-center shrink-0">
-                                                    <span className="material-icons text-[16px]">cancel</span>
-                                                </div>
-                                                <div>
-                                                    <h4 className="text-xs font-bold text-gray-200">Cancelation Confirmed</h4>
-                                                    <p className="text-[11px] text-gray-400 mt-1">Your reservation for Morning Flow has been successfully canceled.</p>
-                                                    <span className="text-[9px] text-gray-500 mt-2 inline-block">1 day ago</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="p-4 border-b border-surface-border/50 hover:bg-surface-dark cursor-pointer transition-colors relative">
-                                            <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-500"></div>
-                                            <div className="flex gap-3">
-                                                <div className="w-8 h-8 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center shrink-0">
-                                                    <span className="material-icons text-[16px]">fiber_new</span>
-                                                </div>
-                                                <div>
-                                                    <h4 className="text-xs font-bold text-gray-200">New Class Added!</h4>
-                                                    <p className="text-[11px] text-gray-400 mt-1">Maria K. just added a new Contemporary masterclass next week. Book now!</p>
-                                                    <span className="text-[9px] text-gray-500 mt-2 inline-block">3 days ago</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            )}
-                        </div>
-                        <div className="w-9 h-9 flex items-center justify-center shrink-0">
-                            <Image
-                                width={800}
-                                height={600}
-                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZX63nJc4zAdXtqSazpUtffBpJBoGT9RPHZnL6sCAQspylNubUG0qLqtIAl0x87CUvcyhcvg6GimhTINppEcaKd35RY7_y46qb3qqTAkWtBfCgxEd2FOwfPXVBgwjRqZTRRPXnoTMYtiBfAd7-bKZzTVX_cGTwMUubYx4IyNWgbBKUEs9RUELAVigk06PISP9i-tD7PAnqnZk46M95FMPhfeicT2gd0GTK6fRkPtXhGxO2l9klyzSY9hmNiRGuIs2oQtymgk2i9DpN"
-                                alt="User Avatar"
-                                className="w-full h-full rounded-lg object-cover"
-                            />
-                        </div>
-                    </div>
-                </div>
+                <UserMenu />
             </header>
             
             <main className="flex-1 flex overflow-hidden relative">
@@ -259,7 +185,7 @@ export default function SchedulePage() {
                             <div className="absolute -right-4 -top-4 w-16 h-16 bg-primary/20 rounded-full blur-xl group-hover:bg-primary/30 transition-colors"></div>
                             <div className="relative z-10">
                                 <div className="flex items-center gap-2 mb-1 text-primary-light">
-                                    <span className="material-icons text-sm">bolt</span>
+                                    <span className="material-symbols-outlined text-sm">bolt</span>
                                     <span className="text-xs font-bold uppercase">Power User</span>
                                 </div>
                                 <p className="text-[10px] text-gray-400 leading-relaxed">
@@ -351,15 +277,15 @@ export default function SchedulePage() {
                                         <div className="flex-1 overflow-hidden hover:overflow-y-auto space-y-1 disabled-scrollbar min-h-0 pt-1">
                                             {day === 4 && (!isTodayOverride || monthDate?.getMonth() === new Date().getMonth()) && (
                                                 <>
-                                                    <div className="text-[10px] bg-blue-500/20 text-blue-300 px-1.5 py-0.5 rounded truncate border border-blue-500/30 font-medium">10a Morning Flow</div>
-                                                    <div onClick={(e) => { e.stopPropagation(); setIsDrawerOpen(true); }} className="text-[10px] bg-primary/20 text-primary-light px-1.5 py-0.5 rounded truncate border border-primary/40 font-bold shadow-[0_0_10px_rgba(127,19,236,0.2)]">11:45a Adv. Hip Hop</div>
-                                                    <div className="text-[10px] bg-orange-500/20 text-orange-300 px-1.5 py-0.5 rounded truncate border border-orange-500/30 font-medium">2p Kids Ballet</div>
+                                                    <div onClick={(e) => { e.stopPropagation(); setIsDrawerOpen(true); }} className="text-[10px] bg-blue-500/20 text-blue-300 px-1.5 py-0.5 rounded truncate border border-blue-500/30 font-medium cursor-pointer">10a Morning Flow</div>
+                                                    <div onClick={(e) => { e.stopPropagation(); setIsDrawerOpen(true); }} className="text-[10px] bg-primary/20 text-primary-light px-1.5 py-0.5 rounded truncate border border-primary/40 font-bold shadow-[0_0_10px_rgba(127,19,236,0.2)] cursor-pointer">11:45a Adv. Hip Hop</div>
+                                                    <div onClick={(e) => { e.stopPropagation(); setIsDrawerOpen(true); }} className="text-[10px] bg-orange-500/20 text-orange-300 px-1.5 py-0.5 rounded truncate border border-orange-500/30 font-medium cursor-pointer">2p Kids Ballet</div>
                                                 </>
                                             )}
                                             {day === 14 && (!isTodayOverride || monthDate?.getMonth() === new Date().getMonth()) && (
                                                 <>
-                                                    <div className="text-[10px] bg-teal-500/20 text-teal-300 px-1.5 py-0.5 rounded truncate border border-teal-500/30 font-medium">12:15p Contemp Fusion</div>
-                                                    <div className="text-[10px] bg-gray-500/20 text-gray-300 px-1.5 py-0.5 rounded truncate border border-gray-500/30 font-medium text-center">Open Floor Available</div>
+                                                    <div onClick={(e) => { e.stopPropagation(); setIsDrawerOpen(true); }} className="text-[10px] bg-teal-500/20 text-teal-300 px-1.5 py-0.5 rounded truncate border border-teal-500/30 font-medium cursor-pointer">12:15p Contemp Fusion</div>
+                                                    <div onClick={(e) => { e.stopPropagation(); setIsDrawerOpen(true); }} className="text-[10px] bg-gray-500/20 text-gray-300 px-1.5 py-0.5 rounded truncate border border-gray-500/30 font-medium text-center cursor-pointer">Open Floor Available</div>
                                                 </>
                                             )}
                                             {(day === 2 || day === 7 || day === 18 || day === 22 || day === 29) && (!isTodayOverride || monthDate?.getMonth() === new Date().getMonth()) && (
@@ -480,12 +406,12 @@ export default function SchedulePage() {
                                     </div>
                                 </div>
                                 <div className="flex-1 relative grid-bg-pattern flex items-center">
-                                    <div className="absolute left-[35px] w-[200px] top-6 bottom-6 glass-card rounded-xl p-3 flex flex-col justify-between group/card overflow-hidden cursor-pointer hover:-translate-y-1 transition-transform duration-300">
+                                    <div onClick={() => setIsDrawerOpen(true)} className="absolute left-[35px] w-[200px] top-6 bottom-6 glass-card rounded-xl p-3 flex flex-col justify-between group/card overflow-hidden cursor-pointer hover:-translate-y-1 transition-transform duration-300">
                                         <div className="absolute top-0 left-0 w-1 h-full bg-blue-500"></div>
                                         <div>
                                             <div className="flex justify-between items-start">
                                                 <h4 className="text-xs font-bold text-white truncate w-32">Afternoon Flow</h4>
-                                                <span className="material-icons text-[12px] text-gray-500">lock_clock</span>
+                                                <span className="material-symbols-outlined text-[12px] text-gray-500">lock_clock</span>
                                             </div>
                                             <div className="text-[10px] text-gray-400 mt-1 font-mono">01:15 - 02:45 PM</div>
                                         </div>
@@ -533,7 +459,7 @@ export default function SchedulePage() {
                                     </button>
 
                                     {/* Class Block 3 */}
-                                    <div className="absolute left-[490px] w-[210px] top-6 bottom-6 glass-card rounded-xl p-3 flex flex-col justify-between group/card overflow-hidden cursor-pointer hover:border-orange-500/50 transition-colors opacity-70 hover:opacity-100">
+                                    <div onClick={() => setIsDrawerOpen(true)} className="absolute left-[490px] w-[210px] top-6 bottom-6 glass-card rounded-xl p-3 flex flex-col justify-between group/card overflow-hidden cursor-pointer hover:border-orange-500/50 transition-colors opacity-70 hover:opacity-100">
                                         <div className="absolute top-0 left-0 w-1 h-full bg-orange-500"></div>
                                         <div>
                                             <h4 className="text-xs font-bold text-white truncate">Kids Ballet</h4>
@@ -560,7 +486,7 @@ export default function SchedulePage() {
                                     </div>
                                 </div>
                                 <div className="flex-1 relative grid-bg-pattern flex items-center">
-                                    <div className="absolute left-[105px] w-[210px] top-6 bottom-6 glass-card rounded-xl p-3 flex flex-col justify-between group/card overflow-hidden hover:border-teal-500/50 hover:shadow-[0_0_15px_rgba(20,184,166,0.1)] transition-all cursor-pointer">
+                                    <div onClick={() => setIsDrawerOpen(true)} className="absolute left-[105px] w-[210px] top-6 bottom-6 glass-card rounded-xl p-3 flex flex-col justify-between group/card overflow-hidden hover:border-teal-500/50 hover:shadow-[0_0_15px_rgba(20,184,166,0.1)] transition-all cursor-pointer">
                                         <div className="absolute top-0 left-0 w-1 h-full bg-teal-500"></div>
                                         <div className="flex gap-3">
                                             <div className="relative">
@@ -576,7 +502,7 @@ export default function SchedulePage() {
                                                     }}
                                                 />
                                                 <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-surface-dark rounded-full flex items-center justify-center border border-surface-border">
-                                                    <span className="material-icons text-[10px] text-teal-400">verified</span>
+                                                    <span className="material-symbols-outlined text-[10px] text-teal-400">verified</span>
                                                 </div>
                                             </div>
                                             <div>
@@ -628,17 +554,17 @@ export default function SchedulePage() {
                                             type="button"
                                         >
                                             <span className="sr-only">Close panel</span>
-                                            <span className="material-icons text-[20px]">close</span>
+                                            <span className="material-symbols-outlined text-[20px]">close</span>
                                         </button>
                                     </div>
                                 </div>
                                 <div className="mt-6 flex items-center gap-4">
                                     <div className="px-3 py-1.5 rounded-lg bg-surface-dark border border-surface-border flex items-center gap-2 text-xs font-medium text-gray-300">
-                                        <span className="material-icons text-[14px] text-gray-500">schedule</span>
+                                        <span className="material-symbols-outlined text-[14px] text-gray-500">schedule</span>
                                         11:45 AM - 1:00 PM
                                     </div>
                                     <div className="px-3 py-1.5 rounded-lg bg-surface-dark border border-surface-border flex items-center gap-2 text-xs font-medium text-gray-300">
-                                        <span className="material-icons text-[14px] text-gray-500">location_on</span>
+                                        <span className="material-symbols-outlined text-[14px] text-gray-500">location_on</span>
                                         Studio A
                                     </div>
 
@@ -668,7 +594,7 @@ export default function SchedulePage() {
                                                     <div>
                                                         <h4 className="text-sm font-bold text-white group-hover:text-primary-light transition-colors">Sarah Jenkins</h4>
                                                         <div className="flex text-[10px] text-gray-400 mt-0.5">
-                                                            <span className="material-icons text-[10px] text-yellow-500 mr-0.5">star</span>
+                                                            <span className="material-symbols-outlined text-[10px] text-yellow-500 mr-0.5">star</span>
                                                             4.9 (120 reviews)
                                                         </div>
                                                     </div>
@@ -686,7 +612,7 @@ export default function SchedulePage() {
                                 </div>
                                 <div className="space-y-3">
                                     <div className="bg-surface-darker border border-surface-border rounded-xl p-4">
-                                        <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 flex items-center gap-1.5"><span className="material-icons text-[14px]">check_circle</span> Preparation</h3>
+                                        <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 flex items-center gap-1.5"><span className="material-symbols-outlined text-[14px]">check_circle</span> Preparation</h3>
                                         <ul className="text-sm text-gray-300 space-y-1.5 list-disc pl-4">
                                             <li>Clean indoor sneakers required</li>
                                             <li>Bring water & sweat towel</li>
@@ -714,10 +640,10 @@ export default function SchedulePage() {
                             <div className="p-6 border-t border-surface-border bg-surface-darker sticky bottom-0 z-20 pb-8">
                                 <button className="w-full bg-gradient-to-r from-primary to-primary-light hover:to-primary text-white font-bold py-4 px-4 rounded-xl shadow-[0_0_20px_rgba(127,19,236,0.4)] hover:shadow-[0_0_30px_rgba(127,19,236,0.6)] hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 btn-physics group">
                                     <span>Confirm Booking</span>
-                                    <span className="material-icons text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                                    <span className="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
                                 </button>
                                 <p className="text-center text-[10px] text-gray-500 mt-4 flex items-center justify-center gap-1">
-                                    <span className="material-icons text-[12px]">info</span>
+                                    <span className="material-symbols-outlined text-[12px]">info</span>
                                     Cancellation available up to 2 hours before class.
                                 </p>
                             </div>
@@ -755,7 +681,7 @@ export default function SchedulePage() {
                             type="button"
                         >
                             <span className="sr-only">Close modal</span>
-                            <span className="material-icons text-[20px]">close</span>
+                            <span className="material-symbols-outlined text-[20px]">close</span>
                         </button>
                     </div>
 
@@ -783,12 +709,12 @@ export default function SchedulePage() {
                             <p className="text-primary-light font-medium mt-1">Lead Choreographer & Hip Hop Instructor</p>
                             <div className="flex justify-center items-center gap-4 mt-3">
                                 <div className="flex items-center text-sm text-gray-300">
-                                    <span className="material-icons text-[16px] text-yellow-500 mr-1">star</span>
+                                    <span className="material-symbols-outlined text-[16px] text-yellow-500 mr-1">star</span>
                                     4.9 <span className="text-gray-500 ml-1">(120 reviews)</span>
                                 </div>
                                 <div className="w-1 h-1 rounded-full bg-surface-border"></div>
                                 <div className="flex items-center text-sm text-gray-300">
-                                    <span className="material-icons text-[16px] text-gray-400 mr-1">history</span>
+                                    <span className="material-symbols-outlined text-[16px] text-gray-400 mr-1">history</span>
                                     5+ Years
                                 </div>
                             </div>
@@ -856,7 +782,7 @@ export default function SchedulePage() {
                             type="button"
                         >
                             <span className="sr-only">Close modal</span>
-                            <span className="material-icons text-[20px]">close</span>
+                            <span className="material-symbols-outlined text-[20px]">close</span>
                         </button>
                     </div>
 
@@ -884,12 +810,12 @@ export default function SchedulePage() {
                             <p className="text-primary-light font-medium mt-1">Lead Choreographer & Hip Hop Instructor</p>
                             <div className="flex justify-center items-center gap-4 mt-3">
                                 <div className="flex items-center text-sm text-gray-300">
-                                    <span className="material-icons text-[16px] text-yellow-500 mr-1">star</span>
+                                    <span className="material-symbols-outlined text-[16px] text-yellow-500 mr-1">star</span>
                                     4.9 <span className="text-gray-500 ml-1">(120 reviews)</span>
                                 </div>
                                 <div className="w-1 h-1 rounded-full bg-surface-border"></div>
                                 <div className="flex items-center text-sm text-gray-300">
-                                    <span className="material-icons text-[16px] text-gray-400 mr-1">history</span>
+                                    <span className="material-symbols-outlined text-[16px] text-gray-400 mr-1">history</span>
                                     5+ Years
                                 </div>
                             </div>

@@ -86,7 +86,7 @@ export default function SignupPage() {
                                     Email Address
                                 </label>
                                 <div className="absolute right-4 top-4 text-emerald-500 opacity-0 peer-valid:opacity-100 transition-opacity duration-300">
-                                    <span className="material-icons text-sm">check_circle</span>
+                                    <span className="material-symbols-outlined text-sm">check_circle</span>
                                 </div>
                             </div>
                             <div className="float-label-input relative border border-slate-300 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-[#231830] transition-all duration-300 hover:border-slate-400 dark:hover:border-slate-600">
@@ -95,7 +95,7 @@ export default function SignupPage() {
                                     Password
                                 </label>
                                 <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-4 top-[14px] text-slate-400 hover:text-white transition-colors">
-                                    <span className="material-icons text-lg">{showPassword ? "visibility_off" : "visibility"}</span>
+                                    <span className="material-symbols-outlined text-lg">{showPassword ? "visibility_off" : "visibility"}</span>
                                 </button>
                             </div>
                             <div className="space-y-1">
@@ -109,11 +109,11 @@ export default function SignupPage() {
                                 <div className="text-[10px] text-slate-500 pt-1">Must be at least 8 characters.</div>
                             </div>
                             <div className="flex items-start space-x-2 pt-2">
-                                <div className="relative flex items-center h-5">
+                                <label htmlFor="terms" className="relative flex items-center h-5 cursor-pointer">
                                     <input className="peer sr-only" id="terms" required type="checkbox" />
-                                    <div className="w-4 h-4 border border-slate-600 rounded bg-transparent peer-checked:bg-[#7f13ec] peer-checked:border-[#7f13ec] transition-all duration-200 cursor-pointer"></div>
-                                    <span className="material-icons absolute top-[-1px] left-[-1px] text-white text-base opacity-0 peer-checked:opacity-100 pointer-events-none transform scale-75">check</span>
-                                </div>
+                                    <div className="w-4 h-4 border border-slate-600 rounded bg-transparent peer-checked:bg-[#7f13ec] peer-checked:border-[#7f13ec] transition-all duration-200"></div>
+                                    <span className="material-symbols-outlined absolute top-[-1px] left-[-1px] text-white text-base opacity-0 peer-checked:opacity-100 pointer-events-none transform scale-75">check</span>
+                                </label>
                                 <label className="text-sm text-slate-500 dark:text-slate-400 cursor-pointer select-none" htmlFor="terms">
                                     I agree to the <Link className="text-[#7f13ec] hover:text-[#9d4af2] link-underline pb-0.5" href="#">Terms of Service</Link> and <Link className="text-[#7f13ec] hover:text-[#9d4af2] link-underline pb-0.5" href="#">Privacy Policy</Link>.
                                 </label>
@@ -122,7 +122,6 @@ export default function SignupPage() {
                                 {status === "idle" && (
                                     <span className="btn-text relative z-10 flex items-center gap-2">
                                         Create Account
-                                        <span className="material-icons text-sm transition-transform group-hover:translate-x-1">arrow_forward</span>
                                     </span>
                                 )}
                                 {status === "loading" && (
@@ -132,7 +131,7 @@ export default function SignupPage() {
                                 )}
                                 {status === "success" && (
                                     <div className="absolute inset-0 flex items-center justify-center bg-emerald-600 z-20">
-                                        <span className="material-icons text-white animate-bounce">check</span>
+                                        <span className="material-symbols-outlined text-white animate-bounce">check</span>
                                     </div>
                                 )}
                             </button>
