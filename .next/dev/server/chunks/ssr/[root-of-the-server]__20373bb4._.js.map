@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 17, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":""}},
+    {"offset": {"line": 21, "column": 0}, "map": {"version":3,"sources":["file:///home/user/cultivate/app/about/page.tsx"],"sourcesContent":["import AboutPage from \"../components/AboutPage\";\n\nexport const metadata = {\n  title: \"About Cultivate | Premium Dance Education\",\n  description: \"Learn more about Cultivate Dance Studio and our history.\",\n};\n\nexport default function About() {\n  return <AboutPage />;\n}\n"],"names":[],"mappings":";;;;;;;AAAA;;;AAEO,MAAM,WAAW;IACtB,OAAO;IACP,aAAa;AACf;AAEe,SAAS;IACtB,qBAAO,8OAAC,0IAAS;;;;;AACnB"}}]
+}
