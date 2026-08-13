@@ -1,5 +1,4 @@
-''
-'use client';
+"use client";
 import React, { useEffect } from "react";
 import Link from "next/link";
 import UserMenu from "./UserMenu";
@@ -123,20 +122,12 @@ export default function AboutPage() {
                     <div className="relative z-10 text-center px-6 max-w-6xl w-full">
                         <div className="inline-flex items-center gap-4 px-6 py-2 border border-primary/50 rounded-full bg-black/40 mb-12 reveal-element">
                             <div className="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
-                            <span className="text-primary-light text-xs font-bold tracking-[0.3em] uppercase">
-                                The Purple World
-                            </span>
                         </div>
                         <h1 className="relative font-black uppercase tracking-tighter leading-[0.8] mb-8">
                             <span className="block text-6xl md:text-8xl lg:text-[11rem] text-transparent bg-clip-text bg-gradient-to-b from-white to-purple-200 drop-shadow-2xl reveal-element stagger-1 variable-weight-text">About</span>
                             <span className="block text-6xl md:text-8xl lg:text-[11rem] text-stroke-purple absolute top-1 left-1 -z-10 opacity-50 reveal-element stagger-1">About</span>
                             <span className="block text-6xl md:text-8xl lg:text-[11rem] text-primary italic relative z-10 reveal-element stagger-2 variable-weight-text">Cultivate</span>
                         </h1>
-                        <p className="text-xl md:text-2xl text-white font-light max-w-2xl mx-auto reveal-element stagger-3 mt-12 leading-relaxed drop-shadow-md">
-                        Where Dancers Grow with Purpose, Confidence, and Excellence.
-                        <br />
-                        Plant Your Roots. Cultivate Your Gift.
-                        </p>
                     </div>
                     <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 reveal-element stagger-4">
                         <div className="flex flex-col items-center gap-3">
@@ -153,24 +144,16 @@ export default function AboutPage() {
                     </div>
                     <div className="max-w-7xl mx-auto px-6 relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
                         <div className="bg-black/80 p-12 md:p-16 border border-white/10 rounded-2xl shadow-[0_0_50px_rgba(168,85,247,0.15)] reveal-element">
-                            <h2 className="text-primary-light font-bold text-sm tracking-[0.4em] uppercase mb-8 flex items-center gap-4">
+                            <h2 className="text-primary-light font-bold text-2xl tracking-[0.4em] uppercase mb-8 flex items-center gap-4">
                                 <span className="w-12 h-[1px] bg-primary"></span>
                                 Our Story
                             </h2>
-                            <h3 className="text-5xl md:text-6xl font-black uppercase tracking-tight mb-10 leading-[0.9] text-white variable-weight-text">
-                                Designed for <br />
-                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-white italic">Evolution</span>
-                            </h3>
                             <div className="space-y-6 text-lg text-purple-100 font-light leading-relaxed">
-<p>A place to plant your dance roots. Be cultivated up from foundational dance technique to reap the harvest and rewards of advanced dance movement and skills. </p>
-
-<p>A studio home with classes in various dance styles, including, but not limited to Ballet, Tap, Jazz, Hip Hop, Lyrical, Contemporary, and Musical Theater. </p>
-
-<p>A positive, nurturing environment where every dancer is encouraged, supported, and pushed to their fullest potential.</p>
-
-<p>A family-friendly environment dedicated to the appropriateness of each age level. </p>
-
-<p>A professional and disciplined setting where instructors are prepared for class, dancers are prepared for class and we make the most of every minute in class. </p>
+                                <p>A place to plant your dance roots. Be cultivated up from foundational dance technique to reap the harvest and rewards of advanced dance movement and skills. </p>
+                                <p>A studio home with classes in various dance styles, including, but not limited to Ballet, Tap, Jazz, Hip Hop, Lyrical, Contemporary, and Musical Theater.</p>
+                                <p>A positive, nurturing environment where every dancer is encouraged, supported, and pushed to their fullest potential.</p>
+                                <p>A family-friendly environment dedicated to the appropriateness of each age level.</p>
+                                <p>A professional and disciplined setting where instructors are prepared for class, dancers are prepared for class and we make the most of every minute in class.</p>
                             </div>
                         </div>
                         <div className="hidden lg:block relative h-[600px] reveal-element stagger-2">
@@ -187,95 +170,62 @@ export default function AboutPage() {
                     <div className="max-w-7xl mx-auto relative z-10">
                         <div className="flex flex-col md:flex-row md:items-end justify-between mb-32 gap-8 reveal-element">
                             <div className="max-w-2xl">
-                                <h2 className="text-primary font-bold text-sm tracking-[0.4em] uppercase mb-4">The Faculty</h2>
+                                <h2 className="text-primary font-bold text-sm tracking-[0.4em] uppercase mb-4"></h2>
                                 <h3 className="text-5xl md:text-7xl font-black uppercase tracking-tighter leading-none mb-6 text-white variable-weight-text">
-                                    Architects of <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-400">Motion</span>
+                                    The Cultivate <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-400">Faculty</span>
                                 </h3>
                             </div>
                             <div className="hidden md:block w-32 h-32 border border-white/10 rounded-full flex items-center justify-center">
                                 <span className="material-symbols-outlined text-4xl text-white animate-bounce">arrow_downward</span>
                             </div>
                         </div>
-                        <div className="flex overflow-x-auto snap-x snap-mandatory -mx-6 px-6 custom-scrollbar">
-                            <div className="w-full snap-center flex-shrink-0 px-8 relative group">
-                                <div className="grid grid-cols-1 md:grid-cols-2 items-center bg-[#160e1f] rounded-xl border border-white/5 h-[600px] overflow-hidden">
-                                    <div className="p-8 md:p-12 h-full flex flex-col justify-center relative">
-                                        <div className="h-[2px] bg-primary mb-4 w-0 group-hover:w-10 transition-all duration-300"></div>
-                                        <div className="transition-all duration-300 ease-in-out group-hover:-translate-y-16 group-hover:opacity-0 delay-2000">
-                                            <h4 className="text-3xl lg:text-4xl font-black uppercase tracking-tight text-white mb-2">Krista <br />Locklear</h4>
-                                            <p className="text-primary font-bold text-xs tracking-widest uppercase mb-4">Owner</p>
-                                        </div>
-                                        <div className="absolute bottom-8 left-8 right-8 translate-y-16 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 ease-in-out delay-2000">
-                                            <p className="text-sm text-slate-300 font-light max-w-xs">Krista is a Huntersville native who began dancing at age 3 and competed throughout her youth, earning scholarships, overall awards, and judges’ choice honors. She trained with top industry instructors, attended conventions across the Southeast, and performed at Walt Disney World with her competition team.</p>
-<p>She began teaching at a young age and later earned a degree in Sociology with minors in Children’s Literature and Childhood Studies from University of North Carolina at Charlotte. Over the past 13 years, she has taught and choreographed throughout the Charlotte and Lake Norman area, with her students earning numerous regional and national awards and scholarships.</p>
-<p>Committed to lifelong learning, Krista continues her training through conventions and certifications, including Progressing Ballet Technique. She is passionate about mentoring the next generation of dancers both in and beyond the studio.</p>
-                                        </div>
-                                    </div>
-                                    <div className="relative w-full h-full">
-                                        <img alt="Krista Locklear" className="absolute inset-0 w-full h-full object-contain duotone-filter group-hover:scale-110 transition-transform duration-500" src="/team/Krista Locklear Background Removed.png" />
-                                    </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                            <div className="group card-fade-up relative h-[400px] md:h-[600px] overflow-hidden rounded-xl border border-white/5 bg-[#160e1f] stagger-1">
+                                <div className="absolute inset-0 overflow-hidden">
+                                    <img alt="Krista Locklear" className="absolute top-0 right-[-10%] w-[175%] max-w-none h-full object-cover object-right duotone-filter scale-[0.85] origin-[85%_center] transition-transform duration-700 group-hover:scale-[0.90] group-hover:-translate-x-4" src="/team/krista-locklear.jpeg" />
                                 </div>
-                                <div className="absolute top-1/2 -right-4 -translate-y-1/2 z-30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-                                    <span className="material-symbols-outlined text-6xl text-white animate-bounce">arrow_forward_ios</span>
+                                <div className="absolute inset-0 bg-gradient-to-t from-[#0a060e] via-transparent to-transparent opacity-90 transition-opacity duration-300 group-hover:opacity-60"></div>
+                                <div className="absolute bottom-0 left-0 p-8 w-full z-20 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                                    <div className="h-[2px] bg-primary mb-4 w-0 group-hover:w-10 transition-all duration-300"></div>
+                                    <h4 className="text-3xl font-black uppercase tracking-tight text-white mb-2 name-slide-reveal">Krista <br />Locklear</h4>
+                                    <p className="text-primary font-bold text-xs tracking-widest uppercase mb-4 name-slide-reveal delay-100">Owner</p>
+                                    <p className="text-sm text-slate-300 font-light opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">Choreography & Instructor</p>
                                 </div>
                             </div>
-                             <div className="w-full snap-center flex-shrink-0 px-8 relative group">
-                                <div className="grid grid-cols-1 md:grid-cols-2 items-center bg-[#160e1f] rounded-xl border border-white/5 h-[600px] overflow-hidden">
-                                    <div className="p-8 md:p-12 h-full flex flex-col justify-center relative">
-                                        <div className="h-[2px] bg-primary mb-4 w-0 group-hover:w-10 transition-all duration-300"></div>
-                                        <div className="transition-all duration-300 ease-in-out group-hover:-translate-y-16 group-hover:opacity-0 delay-2000">
-                                            <h4 className="text-3xl lg:text-4xl font-black uppercase tracking-tight text-white mb-2">Leah <br />Schwandt</h4>
-                                            <p className="text-primary font-bold text-xs tracking-widest uppercase mb-4">Instructor</p>
-                                        </div>
-                                        <div className="absolute bottom-8 left-8 right-8 translate-y-16 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 ease-in-out delay-2000">
-                                            <p className="text-sm text-slate-300 font-light max-w-xs">Leah's innovative choreography has won numerous awards, and she is passionate about helping students find their own artistic voice.</p>
-                                        </div>
-                                    </div>
-                                    <div className="relative w-full h-full">
-                                        <img alt="Leah Schwandt" className="absolute inset-0 w-full h-full object-contain object-bottom duotone-filter group-hover:scale-110 transition-transform duration-500" src="/team/leah-schwandt-2.png" />
-                                    </div>
+                            <div className="group card-fade-up relative h-[400px] md:h-[600px] overflow-hidden rounded-xl border border-white/5 bg-[#160e1f] stagger-2">
+                                <div className="absolute inset-0 overflow-hidden">
+                                    <img alt="Leah Schwandt" className="w-full h-[70%] object-contain object-bottom duotone-filter transition-transform duration-700 group-hover:scale-150 group-hover:-translate-y-2" src="/team/leah-schwandt-2.png" />
                                 </div>
-                                <div className="absolute top-1/2 -right-4 -translate-y-1/2 z-30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-                                    <span className="material-symbols-outlined text-6xl text-white animate-bounce">arrow_forward_ios</span>
+                                <div className="absolute inset-0 bg-gradient-to-t from-[#0a060e] via-transparent to-transparent opacity-90 transition-opacity duration-300 group-hover:opacity-60"></div>
+                                <div className="absolute bottom-0 left-0 p-8 w-full z-20 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                                    <div className="h-[2px] bg-primary mb-4 w-0 group-hover:w-10 transition-all duration-300"></div>
+                                    <h4 className="text-3xl font-black uppercase tracking-tight text-white mb-2 name-slide-reveal">Leah <br />Schwandt</h4>
+                                    <p className="text-primary font-bold text-xs tracking-widest uppercase mb-4 name-slide-reveal delay-100">Instructor</p>
+                                    <p className="text-sm text-slate-300 font-light opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">Choreographer</p>
                                 </div>
                             </div>
-                             <div className="w-full snap-center flex-shrink-0 px-8 relative group">
-                                <div className="grid grid-cols-1 md:grid-cols-2 items-center bg-[#160e1f] rounded-xl border border-white/5 h-[600px] overflow-hidden">
-                                    <div className="p-8 md:p-12 h-full flex flex-col justify-center relative">
-                                        <div className="h-[2px] bg-primary mb-4 w-0 group-hover:w-10 transition-all duration-300"></div>
-                                        <div className="transition-all duration-300 ease-in-out group-hover:-translate-y-16 group-hover:opacity-0 delay-2000">
-                                            <h4 className="text-3xl lg:text-4xl font-black uppercase tracking-tight text-white mb-2">Carli <br />Camporeale</h4>
-                                            <p className="text-primary font-bold text-xs tracking-widest uppercase mb-4">Instructor</p>
-                                        </div>
-                                        <div className="absolute bottom-8 left-8 right-8 translate-y-16 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 ease-in-out delay-2000">
-                                            <p className="text-sm text-slate-300 font-light max-w-xs">Carli is a master of rhythm and musicality, bringing a deep understanding of jazz and tap to her students.</p>
-                                        </div>
-                                    </div>
-                                    <div className="relative w-full h-full">
-                                        <img alt="Carli Rodriguez" className="absolute inset-0 w-full h-full object-cover duotone-filter group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNMnhNKh2i4Prc1XT8SDqSHl99v7Kue8W0haEOWr5ivycZmeOmwJT2OQVV-TDD_HO0l5lJqg48vFadK5UE2bVBDPCxmx1iY6yVa4Tfa_RZHMH8URHYOrzP7FwD9rqufgGVFti5Ct8cFT7Gr_bez0y-50OC0WXe3i7yQ27R1E-87Tpw9o2kFVC3J-ZgQgMlKkCcqVakcq5ODC_W0_eROwmOAARtpYl7vyXG_jcHptUeUliWiwAbCo-JK-rTjkiAVMRwKLN7KCzNWGIt" />
-                                    </div>
-                                -                                <div className="absolute top-1/2 -right-4 -translate-y-1/2 z-30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-                                    <span className="material-symbols-outlined text-6xl text-white animate-bounce">arrow_forward_ios</span>
+                            <div className="group card-fade-up relative h-[400px] md:h-[600px] overflow-hidden rounded-xl border border-white/5 bg-[#160e1f] stagger-3">
+                                <div className="absolute inset-0 overflow-hidden">
+                                    <img alt="Elena Rodriguez" className="lazy-parallax-img w-full h-[120%] -mt-[10%] object-cover duotone-filter" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNMnhNKh2i4Prc1XT8SDqSHl99v7Kue8W0haEOWr5ivycZmeOmwJT2OQVV-TDD_HO0l5lJqg48vFadK5UE2bVBDPCxmx1iY6yVa4Tfa_RZHMH8URHYOrzP7FwD9rqufgGVFti5Ct8cFT7Gr_bez0y-50OC0WXe3i7yQ27R1E-87Tpw9o2kFVC3J-ZgQgMlKkCcqVakcq5ODC_W0_eROwmOAARtpYl7vyXG_jcHptUeUliWiwAbCo-JK-rTjkiAVMRwKLN7KCzNWGIt" />
+                                </div>
+                                <div className="absolute inset-0 bg-gradient-to-t from-[#0a060e] via-transparent to-transparent opacity-90 transition-opacity duration-300 group-hover:opacity-60"></div>
+                                <div className="absolute bottom-0 left-0 p-8 w-full z-20 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                                    <div className="h-[2px] bg-primary mb-4 w-0 group-hover:w-10 transition-all duration-300"></div>
+                                    <h4 className="text-3xl font-black uppercase tracking-tight text-white mb-2 name-slide-reveal">Elena <br />Rodriguez</h4>
+                                    <p className="text-primary font-bold text-xs tracking-widest uppercase mb-4 name-slide-reveal delay-100">Technique</p>
+                                    <p className="text-sm text-slate-300 font-light opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">Masters in Dance Pedagogy</p>
                                 </div>
                             </div>
-                            <div className="w-full snap-center flex-shrink-0 px-8 relative group">
-                                <div className="grid grid-cols-1 md:grid-cols-2 items-center bg-[#160e1f] rounded-xl border border-white/5 h-[600px] overflow-hidden">
-                                    <div className="p-8 md:p-12 h-full flex flex-col justify-center relative">
-                                        <div className="h-[2px] bg-primary mb-4 w-0 group-hover:w-10 transition-all duration-300"></div>
-                                        <div className="transition-all duration-300 ease-in-out group-hover:-translate-y-16 group-hover:opacity-0 delay-2000">
-                                            <h4 className="text-3xl lg:text-4xl font-black uppercase tracking-tight text-white mb-2">David <br />Chen</h4>
-                                            <p className="text-primary font-bold text-xs tracking-widest uppercase mb-4">Contemporary</p>
-                                        </div>
-                                        <div className="absolute bottom-8 left-8 right-8 translate-y-16 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 ease-in-out delay-2000">
-                                            <p className="text-sm text-slate-300 font-light max-w-xs">David is a celebrated performance artist, known for his powerful stage presence and ability to connect with audiences.</p>
-                                        </div>
-                                    </div>
-                                    <div className="relative w-full h-full">
-                                        <img alt="David Chen" className="absolute inset-0 w-full h-full object-cover duotone-filter group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBdWIbkkRFvpo7qT1Ok3b2XFtEzO8PZnoA-Q9X4CPgrvbv_0N2PdpNkyRuYWf2Ukmk3I9jIy9yG5DAQXkpdlk5tG4MPC6TrtQOfsAinuoQVjcMDjRPD023tSVB554vChO0rSBNnrSYyNGZCsdRC3uz1b13ym5BLNbHNQxOPsNUieLzaRWjMRm7GARvveFz1vsj5wDxi3fDJs-C4W7yvgU3wKbWT4yDdlYJyR-piXJsTMPHRuxMWdEP_SQ3ryUt7ANAX-r-Xu2Kf9uW7" />
-                                    </div>
+                            <div className="group card-fade-up relative h-[400px] md:h-[600px] overflow-hidden rounded-xl border border-white/5 bg-[#160e1f] stagger-4">
+                                <div className="absolute inset-0 overflow-hidden">
+                                    <img alt="David Chen" className="lazy-parallax-img w-full h-[120%] -mt-[10%] object-cover duotone-filter" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBdWIbkkRFvpo7qT1Ok3b2XFtEzO8PZnoA-Q9X4CPgrvbv_0N2PdpNkyRuYWf2Ukmk3I9jIy9yG5DAQXkpdlk5tG4MPC6TrtQOfsAinuoQVjcMDjRPD023tSVB554vChO0rSBNnrSYyNGZCsdRC3uz1b13ym5BLNbHNQxOPsNUieLzaRWjMRm7GARvveFz1vsj5wDxi3fDJs-C4W7yvgU3wKbWT4yDdlYJyR-piXJsTMPHRuxMWdEP_SQ3ryUt7ANAX-r-Xu2Kf9uW7" />
                                 </div>
-                                <div className="absolute top-1/2 -right-4 -translate-y-1/2 z-30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-                                    <span className="material-symbols-outlined text-6xl text-white animate-bounce">arrow_forward_ios</span>
+                                <div className="absolute inset-0 bg-gradient-to-t from-[#0a060e] via-transparent to-transparent opacity-90 transition-opacity duration-300 group-hover:opacity-60"></div>
+                                <div className="absolute bottom-0 left-0 p-8 w-full z-20 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                                    <div className="h-[2px] bg-primary mb-4 w-0 group-hover:w-10 transition-all duration-300"></div>
+                                    <h4 className="text-3xl font-black uppercase tracking-tight text-white mb-2 name-slide-reveal">David <br />Chen</h4>
+                                    <p className="text-primary font-bold text-xs tracking-widest uppercase mb-4 name-slide-reveal delay-100">Contemporary</p>
+                                    <p className="text-sm text-slate-300 font-light opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">Performance Artist</p>
                                 </div>
                             </div>
                         </div>
@@ -317,7 +267,7 @@ export default function AboutPage() {
                                     <span className="text-transparent bg-clip-text bg-gradient-to-b from-white to-slate-400 text-7xl font-black mb-2 block">2018</span>
                                     <h4 className="text-2xl font-bold uppercase tracking-widest mb-4 text-primary">Mainstage Debut</h4>
                                     <p className="text-[#e9d5ff] font-light leading-relaxed text-lg">
-                                        'Cultivate Collective' sold out the Grand Theater residency. Critics called it "The new purple standard of modern ballet."
+                                        &apos;Cultivate Collective&apos; sold out the Grand Theater residency. Critics called it &quot;The new purple standard of modern ballet.&quot;
                                     </p>
                                 </div>
                             </div>
