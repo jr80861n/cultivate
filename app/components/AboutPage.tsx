@@ -2,6 +2,7 @@
 import React, { useEffect } from "react";
 import Link from "next/link";
 import UserMenu from "./UserMenu";
+import StaffCarousel from "./StaffCarousel";
 
 export default function AboutPage() {
     useEffect(() => {
@@ -179,55 +180,8 @@ export default function AboutPage() {
                                 <span className="material-symbols-outlined text-4xl text-white animate-bounce">arrow_downward</span>
                             </div>
                         </div>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                            <div className="group card-fade-up relative h-[400px] md:h-[600px] overflow-hidden rounded-xl border border-white/5 bg-[#160e1f] stagger-1">
-                                <div className="absolute inset-0 overflow-hidden">
-                                    <img alt="Krista Locklear" className="absolute top-0 right-[-10%] w-[175%] max-w-none h-full object-cover object-right duotone-filter scale-[0.85] origin-[85%_center] transition-transform duration-700 group-hover:scale-[0.90] group-hover:-translate-x-4" src="/team/krista-locklear.jpeg" />
-                                </div>
-                                <div className="absolute inset-0 bg-gradient-to-t from-[#0a060e] via-transparent to-transparent opacity-90 transition-opacity duration-300 group-hover:opacity-60"></div>
-                                <div className="absolute bottom-0 left-0 p-8 w-full z-20 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                                    <div className="h-[2px] bg-primary mb-4 w-0 group-hover:w-10 transition-all duration-300"></div>
-                                    <h4 className="text-3xl font-black uppercase tracking-tight text-white mb-2 name-slide-reveal">Krista <br />Locklear</h4>
-                                    <p className="text-primary font-bold text-xs tracking-widest uppercase mb-4 name-slide-reveal delay-100">Owner</p>
-                                    <p className="text-sm text-slate-300 font-light opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">Choreography & Instructor</p>
-                                </div>
-                            </div>
-                            <div className="group card-fade-up relative h-[400px] md:h-[600px] overflow-hidden rounded-xl border border-white/5 bg-[#160e1f] stagger-2">
-                                <div className="absolute inset-0 overflow-hidden">
-                                    <img alt="Leah Schwandt" className="w-full h-[70%] object-contain object-bottom duotone-filter transition-transform duration-700 group-hover:scale-150 group-hover:-translate-y-2" src="/team/leah-schwandt-2.png" />
-                                </div>
-                                <div className="absolute inset-0 bg-gradient-to-t from-[#0a060e] via-transparent to-transparent opacity-90 transition-opacity duration-300 group-hover:opacity-60"></div>
-                                <div className="absolute bottom-0 left-0 p-8 w-full z-20 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                                    <div className="h-[2px] bg-primary mb-4 w-0 group-hover:w-10 transition-all duration-300"></div>
-                                    <h4 className="text-3xl font-black uppercase tracking-tight text-white mb-2 name-slide-reveal">Leah <br />Schwandt</h4>
-                                    <p className="text-primary font-bold text-xs tracking-widest uppercase mb-4 name-slide-reveal delay-100">Instructor</p>
-                                    <p className="text-sm text-slate-300 font-light opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">Choreographer</p>
-                                </div>
-                            </div>
-                            <div className="group card-fade-up relative h-[400px] md:h-[600px] overflow-hidden rounded-xl border border-white/5 bg-[#160e1f] stagger-3">
-                                <div className="absolute inset-0 overflow-hidden">
-                                    <img alt="Elena Rodriguez" className="lazy-parallax-img w-full h-[120%] -mt-[10%] object-cover duotone-filter" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNMnhNKh2i4Prc1XT8SDqSHl99v7Kue8W0haEOWr5ivycZmeOmwJT2OQVV-TDD_HO0l5lJqg48vFadK5UE2bVBDPCxmx1iY6yVa4Tfa_RZHMH8URHYOrzP7FwD9rqufgGVFti5Ct8cFT7Gr_bez0y-50OC0WXe3i7yQ27R1E-87Tpw9o2kFVC3J-ZgQgMlKkCcqVakcq5ODC_W0_eROwmOAARtpYl7vyXG_jcHptUeUliWiwAbCo-JK-rTjkiAVMRwKLN7KCzNWGIt" />
-                                </div>
-                                <div className="absolute inset-0 bg-gradient-to-t from-[#0a060e] via-transparent to-transparent opacity-90 transition-opacity duration-300 group-hover:opacity-60"></div>
-                                <div className="absolute bottom-0 left-0 p-8 w-full z-20 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                                    <div className="h-[2px] bg-primary mb-4 w-0 group-hover:w-10 transition-all duration-300"></div>
-                                    <h4 className="text-3xl font-black uppercase tracking-tight text-white mb-2 name-slide-reveal">Elena <br />Rodriguez</h4>
-                                    <p className="text-primary font-bold text-xs tracking-widest uppercase mb-4 name-slide-reveal delay-100">Technique</p>
-                                    <p className="text-sm text-slate-300 font-light opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">Masters in Dance Pedagogy</p>
-                                </div>
-                            </div>
-                            <div className="group card-fade-up relative h-[400px] md:h-[600px] overflow-hidden rounded-xl border border-white/5 bg-[#160e1f] stagger-4">
-                                <div className="absolute inset-0 overflow-hidden">
-                                    <img alt="David Chen" className="lazy-parallax-img w-full h-[120%] -mt-[10%] object-cover duotone-filter" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBdWIbkkRFvpo7qT1Ok3b2XFtEzO8PZnoA-Q9X4CPgrvbv_0N2PdpNkyRuYWf2Ukmk3I9jIy9yG5DAQXkpdlk5tG4MPC6TrtQOfsAinuoQVjcMDjRPD023tSVB554vChO0rSBNnrSYyNGZCsdRC3uz1b13ym5BLNbHNQxOPsNUieLzaRWjMRm7GARvveFz1vsj5wDxi3fDJs-C4W7yvgU3wKbWT4yDdlYJyR-piXJsTMPHRuxMWdEP_SQ3ryUt7ANAX-r-Xu2Kf9uW7" />
-                                </div>
-                                <div className="absolute inset-0 bg-gradient-to-t from-[#0a060e] via-transparent to-transparent opacity-90 transition-opacity duration-300 group-hover:opacity-60"></div>
-                                <div className="absolute bottom-0 left-0 p-8 w-full z-20 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                                    <div className="h-[2px] bg-primary mb-4 w-0 group-hover:w-10 transition-all duration-300"></div>
-                                    <h4 className="text-3xl font-black uppercase tracking-tight text-white mb-2 name-slide-reveal">David <br />Chen</h4>
-                                    <p className="text-primary font-bold text-xs tracking-widest uppercase mb-4 name-slide-reveal delay-100">Contemporary</p>
-                                    <p className="text-sm text-slate-300 font-light opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">Performance Artist</p>
-                                </div>
-                            </div>
+                        <div className="h-[600px]">
+                          <StaffCarousel />
                         </div>
                     </div>
                 </section>
