@@ -4,6 +4,8 @@ import Link from "next/link";
 import Lottie, { LottieRefCurrentProps } from "lottie-react";
 import cartAnimationData from "../../public/Shopping Bag Lottie Animation.json";
 import UserMenu from "./UserMenu";
+import Footer from "./Footer";
+import Image from "next/image";
 
 export type Product = {
     name: string;
@@ -438,63 +440,7 @@ export default function StorePage() {
                 </div>
             </main>
 
-            <footer className="border-t border-primary/20 bg-[#0a0512]/90 backdrop-blur-xl py-20 px-10 z-10 relative">
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent"></div>
-                <div className="max-w-[1536px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16">
-                    <div className="space-y-8">
-                        <div className="flex items-center gap-4 text-primary group">
-                            <div className="p-2 rounded-xl border border-primary/30 group-hover:border-primary transition-colors bg-surface-dark/50">
-                                <span className="material-symbols-outlined text-4xl group-hover:scale-110 transition-transform duration-500">diamond</span>
-                            </div>
-                            <h2 className="text-2xl font-black uppercase tracking-tighter text-white leading-none drop-shadow-lg">Cultivate</h2>
-                        </div>
-                        <p className="max-w-xs text-purple-300/70 font-medium leading-relaxed text-sm">
-                            The intersection of technical precision and artistic expression. Outfitting the next generation of modern movement.
-                        </p>
-                    </div>
-                    
-                    <div className="space-y-6">
-                        <h5 className="text-[11px] font-black uppercase tracking-[0.4em] text-primary-light">Dimensions</h5>
-                        <ul className="space-y-3 text-sm font-bold text-purple-100">
-                            <li><Link className="hover:text-primary-light transition-colors flex items-center gap-2 group" href="#"><span className="w-0 group-hover:w-4 h-0.5 bg-primary transition-all duration-300 shadow-[0_0_5px_currentColor]"></span>Studio Schedule</Link></li>
-                            <li><Link className="hover:text-primary-light transition-colors flex items-center gap-2 group" href="#"><span className="w-0 group-hover:w-4 h-0.5 bg-primary transition-all duration-300 shadow-[0_0_5px_currentColor]"></span>New Arrivals</Link></li>
-                            <li><Link className="hover:text-primary-light transition-colors flex items-center gap-2 group" href="#"><span className="w-0 group-hover:w-4 h-0.5 bg-primary transition-all duration-300 shadow-[0_0_5px_currentColor]"></span>Workshops</Link></li>
-                        </ul>
-                    </div>
-
-                    <div className="space-y-6">
-                        <h5 className="text-[11px] font-black uppercase tracking-[0.4em] text-primary-light">Service</h5>
-                        <ul className="space-y-3 text-sm font-bold text-purple-100">
-                            <li><Link className="hover:text-primary-light transition-colors flex items-center gap-2 group" href="#"><span className="w-0 group-hover:w-4 h-0.5 bg-primary transition-all duration-300 shadow-[0_0_5px_currentColor]"></span>Logistics</Link></li>
-                            <li><Link className="hover:text-primary-light transition-colors flex items-center gap-2 group" href="#"><span className="w-0 group-hover:w-4 h-0.5 bg-primary transition-all duration-300 shadow-[0_0_5px_currentColor]"></span>Terms</Link></li>
-                            <li><Link className="hover:text-primary-light transition-colors flex items-center gap-2 group" href="#"><span className="w-0 group-hover:w-4 h-0.5 bg-primary transition-all duration-300 shadow-[0_0_5px_currentColor]"></span>Contact</Link></li>
-                        </ul>
-                    </div>
-
-                    <div className="space-y-8">
-                        <h5 className="text-[11px] font-black uppercase tracking-[0.4em] text-primary-light">Sync</h5>
-                        <div className="relative group">
-                            <input className="bg-surface-dark border border-primary/20 rounded-xl text-xs font-bold px-6 py-4 w-full flex focus:ring-2 focus:ring-primary focus:border-primary transition-all placeholder:text-purple-500/50 text-white shadow-inner outline-none" placeholder="Identity@Email.com"/>
-                            <button className="absolute right-2 top-2 bottom-2 aspect-square bg-primary text-white rounded-lg hover:bg-primary-light transition-colors flex items-center justify-center shadow-lg shadow-primary/30">
-                                <span className="material-symbols-outlined text-[20px]">arrow_forward</span>
-                            </button>
-                        </div>
-                        <div className="flex gap-6 text-purple-400">
-                            <Link className="hover:text-white hover:scale-110 transition-all" href="#"><span className="material-symbols-outlined font-light">public</span></Link>
-                            <Link className="hover:text-white hover:scale-110 transition-all" href="#"><span className="material-symbols-outlined font-light">groups</span></Link>
-                            <Link className="hover:text-white hover:scale-110 transition-all" href="#"><span className="material-symbols-outlined font-light">language</span></Link>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="max-w-[1536px] mx-auto pt-16 mt-16 border-t border-primary/10 flex flex-col md:flex-row justify-between items-center gap-8 text-[10px] font-black uppercase tracking-[0.3em] text-purple-500">
-                    <div>Cultivate Motion Studio © MMXXIV</div>
-                    <div className="flex gap-10">
-                        <Link className="hover:text-primary-light transition-colors" href="#">Privacy Protocol</Link>
-                        <Link className="hover:text-primary-light transition-colors" href="#">Terms of Access</Link>
-                    </div>
-                </div>
-            </footer>
+            <Footer />
 
             {/* Quick View Modal */}
             {selectedProduct && (

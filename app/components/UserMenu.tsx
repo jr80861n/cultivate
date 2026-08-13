@@ -36,7 +36,7 @@ export default function UserMenu() {
                                     </div>
                                     <div>
                                         <h4 className="text-xs font-bold text-gray-200">Booking Confirmed</h4>
-                                        <p className="text-[11px] text-gray-400 mt-1">You're booked for Adv. Hip Hop with Sarah Jenkins on {currentDate.toLocaleDateString()}.</p>
+                                        <p className="text-[11px] text-gray-400 mt-1">You&apos;re booked for Adv. Hip Hop with Sarah Jenkins on {currentDate.toLocaleDateString()}.</p>
                                         <span className="text-[9px] text-gray-500 mt-2 inline-block">2 hours ago</span>
                                     </div>
                                 </div>

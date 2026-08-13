@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import UserMenu from "./UserMenu";
+import Footer from "./Footer";
 
 export default function ProgramsPage() {
   const [activeFilter, setActiveFilter] = useState('ALL');
@@ -399,62 +400,7 @@ export default function ProgramsPage() {
           </div>
         </main>
 
-        <footer className="bg-[#0f031b] border-t border-white/10 pt-24 pb-12 px-6 md:px-10 relative overflow-hidden">
-          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary to-transparent opacity-50"></div>
-          <div className="max-w-7xl mx-auto relative z-10">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-16 mb-24">
-              <div className="md:col-span-1 space-y-8">
-                <div className="flex items-center gap-3">
-                  <div className="size-10 flex items-center justify-center rounded-xl bg-gradient-to-br from-primary to-primary-dark text-white shadow-lg shadow-primary/30">
-                    <span className="material-symbols-outlined !text-[24px]">music_note</span>
-                  </div>
-                  <h3 className="text-2xl font-black tracking-tighter uppercase text-white">Cultivate</h3>
-                </div>
-                <p className="text-purple-300/60 text-sm leading-relaxed">
-                  Redefining performance through disciplined training and boundary-pushing artistic direction.
-                </p>
-                <div className="flex gap-4">
-                  <a className="w-12 h-12 flex items-center justify-center rounded-full bg-white/5 text-purple-300 hover:bg-primary hover:text-white transition-all hover:scale-110" href="#"><span className="material-symbols-outlined">photo_camera</span></a>
-                  <a className="w-12 h-12 flex items-center justify-center rounded-full bg-white/5 text-purple-300 hover:bg-primary hover:text-white transition-all hover:scale-110" href="#"><span className="material-symbols-outlined">play_circle</span></a>
-                  <a className="w-12 h-12 flex items-center justify-center rounded-full bg-white/5 text-purple-300 hover:bg-primary hover:text-white transition-all hover:scale-110" href="#"><span className="material-symbols-outlined">mail</span></a>
-                </div>
-              </div>
-              <div>
-                <h4 className="text-primary-light font-black tracking-widest text-xs uppercase mb-8 shadow-primary/50 drop-shadow-sm">PROGRAMS</h4>
-                <ul className="space-y-4 text-purple-300/60 text-sm font-bold">
-                  <li><Link className="hover:text-primary-light transition-all hover:translate-x-1 inline-block" href="#">BALLET ACADEMY</Link></li>
-                  <li><Link className="hover:text-primary-light transition-all hover:translate-x-1 inline-block" href="#">URBAN CULTURE</Link></li>
-                  <li><Link className="hover:text-primary-light transition-all hover:translate-x-1 inline-block" href="#">CONTEMPORARY</Link></li>
-                  <li><Link className="hover:text-primary-light transition-all hover:translate-x-1 inline-block" href="#">COMPETITIVE TEAM</Link></li>
-                </ul>
-              </div>
-              <div>
-                <h4 className="text-primary-light font-black tracking-widest text-xs uppercase mb-8 shadow-primary/50 drop-shadow-sm">STUDIO</h4>
-                <ul className="space-y-4 text-purple-300/60 text-sm font-bold">
-                  <li><Link className="hover:text-primary-light transition-all hover:translate-x-1 inline-block" href="#">THE MISSION</Link></li>
-                  <li><Link className="hover:text-primary-light transition-all hover:translate-x-1 inline-block" href="#">FACULTY</Link></li>
-                  <li><Link className="hover:text-primary-light transition-all hover:translate-x-1 inline-block" href="#">CAREERS</Link></li>
-                  <li><Link className="hover:text-primary-light transition-all hover:translate-x-1 inline-block" href="#">PARTNERS</Link></li>
-                </ul>
-              </div>
-              <div>
-                <h4 className="text-primary-light font-black tracking-widest text-xs uppercase mb-8 shadow-primary/50 drop-shadow-sm">LOCATION</h4>
-                <ul className="space-y-4 text-purple-300/60 text-sm">
-                  <li className="flex items-start gap-3"><span className="material-symbols-outlined !text-[18px] text-primary">location_on</span> 123 Arts District<br/>Creative City, NY 10012</li>
-                  <li className="flex items-center gap-3"><span className="material-symbols-outlined !text-[18px] text-primary">phone</span> (555) 012-3456</li>
-                </ul>
-              </div>
-            </div>
-            <div className="border-t border-white/5 pt-12 flex flex-col md:flex-row justify-between items-center gap-8">
-              <p className="text-purple-300/40 text-[10px] font-black tracking-[0.2em]">© 2024 CULTIVATE DANCE STUDIO. ALL RIGHTS RESERVED.</p>
-              <div className="flex gap-10 text-purple-300/40 text-[10px] font-black tracking-[0.2em] uppercase">
-                <Link className="hover:text-white transition-all" href="#">PRIVACY</Link>
-                <Link className="hover:text-white transition-all" href="#">TERMS</Link>
-                <Link className="hover:text-white transition-all" href="#">STUDENT PORTAL</Link>
-              </div>
-            </div>
-          </div>
-        </footer>
+        <Footer />
       </div>
     </>
   );
