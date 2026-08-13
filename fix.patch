@@ -1,0 +1,338 @@
+--- app/components/SchedulePage.tsx
++++ app/components/SchedulePage.tsx
+@@ -399,233 +399,232 @@
+                 ></div>
+                 <div className="pointer-events-auto w-screen max-w-md transform transition duration-500 ease-in-out translate-x-full sm:duration-700 drawer-slide body-[.drawer-open]_&:translate-x-0">
+-                        <div className="flex h-full flex-col overflow-y-scroll bg-surface-dark border-l border-surface-border shadow-2xl relative">
+-                            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-purple-400 to-primary"></div>
+-                            <div className="px-6 py-6 border-b border-surface-border bg-surface-darker sticky top-0 z-10 backdrop-blur-md bg-opacity-90">
+-                                <div className="flex items-start justify-between">
+-                                    <div>
+-                                        <h2 className="text-xl font-bold text-white tracking-tight" id="slide-over-title">Advanced Hip Hop</h2>
+-                                        <div className="flex items-center gap-2 mt-1.5">
+-                                            <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+-                                            <p className="text-sm text-primary-light font-medium">3 spots left • <span className="text-gray-400 font-normal">Filling fast</span></p>
+-                                        </div>
+-                                    </div>
+-                                    <div className="ml-3 flex h-7 items-center">
+-                                        <button 
+-                                            className="rounded-lg p-1 bg-surface-dark border border-surface-border text-gray-400 hover:text-white focus:outline-none transition-colors" 
+-                                            onClick={() => setIsDrawerOpen(false)} 
+-                                            type="button"
+-                                        >
+-                                            <span className="sr-only">Close panel</span>
+-                                            <span className="material-icons text-[20px]">close</span>
+-                                        </button>
+-                                    </div>
+-                                </div>
+-                                <div className="mt-6 flex items-center gap-4">
+-                                    <div className="px-3 py-1.5 rounded-lg bg-surface-dark border border-surface-border flex items-center gap-2 text-xs font-medium text-gray-300">
+-                                        <span className="material-icons text-[14px] text-gray-500">schedule</span>
+-                                        11:45 AM - 1:00 PM
+-                                    </div>
+-                                    <div className="px-3 py-1.5 rounded-lg bg-surface-dark border border-surface-border flex items-center gap-2 text-xs font-medium text-gray-300">
+-                                        <span className="material-icons text-[14px] text-gray-500">location_on</span>
+-                                        Studio A
+-                                    </div>
+-                                </div>
+-                            </div>
+-                            <div className="relative flex-1 px-6 py-6 space-y-8">
+-                                <div className="perspective-container">
+-                                    <div className="card-3d bg-surface-darker border border-surface-border rounded-xl p-5 hover:border-primary/50 cursor-pointer group relative overflow-hidden">
+-                                        <div className="absolute top-0 right-0 w-20 h-20 bg-primary/10 blur-2xl rounded-full group-hover:bg-primary/20 transition-colors"></div>
+-                                        <div className="flex gap-4 relative z-10">
+-                                            <div className="relative">
+-                                                <Image
+-                                                    width={400}
+-                                                    height={400}
+-                                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBaxO1ejHNsmNaF4m4B0ku43SeveyFVcpoWotzQTFIbAjpVKwkLXuJ2tQkyr8EfriMa0BFX1omCOYdXS9u5fckiBM-f0_91cCRjWrmXjvENfM9ncLy6THw7f-0B3DpTOFc5yTrhSiwC6Ms1GCymet19pOQB-KROcaXq5R1cog_XpD6HLfLMfJNfHmZbE-aqnIR3YxA0KrW-wHr3YKLN6cO3CWSFW6BlGq1BOaymNOSsKu99It-NX3GRHt720djxcOuIASSuEmgWLCfN"
+-                                                    alt="Instructor"
+-                                                    className="h-14 w-14 rounded-xl object-cover ring-2 ring-surface-border group-hover:ring-primary transition-all"
+-                                                    onError={(e) => {
+-                                                        e.currentTarget.style.display = 'none';
+-                                                        e.currentTarget.parentElement!.innerHTML = '<span class="material-icons text-[16px] text-[#9d4af2]">person</span>';
+-                                                    }}
+-                                                />
+-                                                <div className="absolute -bottom-1 -right-1 bg-primary text-white text-[9px] px-1.5 py-0.5 rounded border border-surface-darker font-bold">PRO</div>
+-                                            </div>
+-                                            <div className="flex-1">
+-                                                <div className="flex justify-between items-start">
+-                                                    <div>
+-                                                        <h4 className="text-sm font-bold text-white group-hover:text-primary-light transition-colors">Sarah Jenkins</h4>
+-                                                        <div className="flex text-[10px] text-gray-400 mt-0.5">
+-                                                            <span className="material-icons text-[10px] text-yellow-500 mr-0.5">star</span>
+-                                                            4.9 (120 reviews)
+-                                                        </div>
+-                                                    </div>
+-                                                    <button className="text-xs text-primary hover:text-white font-medium transition-colors">View Profile</button>
+-                                                </div>
+-                                                <p className="text-xs text-gray-400 mt-2 leading-relaxed">High-energy choreography focusing on musicality. 10 years LA industry experience.</p>
+-                                            </div>
+-                                        </div>
+-                                    </div>
+-                                </div>
+-                                <div className="grid grid-cols-2 gap-3">
+-                                    <div className="p-4 bg-surface-darker rounded-xl border border-surface-border flex flex-col justify-between hover:bg-surface-darker/80 transition-colors">
+-                                        <div className="flex justify-between items-start mb-2">
+-                                            <span className="text-xs text-gray-500 font-medium uppercase tracking-wider">Intensity</span>
+-                                            <span className="material-icons text-[16px] text-red-400">local_fire_department</span>
+-                                        </div>
+-                                        <div>
+-                                            <div className="flex gap-1 h-1.5 mb-2">
+-                                                <div className="flex-1 bg-red-500 rounded-sm"></div>
+-                                                <div className="flex-1 bg-red-500 rounded-sm"></div>
+-                                                <div className="flex-1 bg-red-500 rounded-sm"></div>
+-                                                <div className="flex-1 bg-red-500/50 rounded-sm"></div>
+-                                                <div className="flex-1 bg-surface-border rounded-sm"></div>
+-                                            </div>
+-                                            <span className="text-sm font-bold text-white">High Heat</span>
+-                                        </div>
+-                                    </div>
+-                                    <div className="p-4 bg-surface-darker rounded-xl border border-surface-border flex flex-col justify-between hover:bg-surface-darker/80 transition-colors">
+-                                        <div className="flex justify-between items-start mb-2">
+-                                            <span className="text-xs text-gray-500 font-medium uppercase tracking-wider">Est. Burn</span>
+-                                            <span className="material-icons text-[16px] text-orange-400">monitor_heart</span>
+-                                        </div>
+-                                        <div className="text-sm font-bold text-white mt-auto">~550 kcal</div>
+-                                    </div>
+-                                </div>
+-                                <div>
+-                                    <div className="flex justify-between items-center mb-3">
+-                                        <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider">Who&apos;s Going</h3>
+-                                        <span className="text-xs font-mono text-primary-light bg-primary/10 px-2 py-0.5 rounded border border-primary/20">22 / 25</span>
+-                                    </div>
+-                                    <div className="flex -space-x-2 overflow-hidden py-2 pl-1">
+-                                        <Image
+-                                            width={40}
+-                                            height={40}
+-                                            alt="User"
+-                                            className="inline-block h-10 w-10 rounded-full ring-2 ring-surface-dark object-cover grayscale hover:grayscale-0 hover:z-10 hover:scale-110 transition-all duration-300"
+-                                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzOCXq59zG_rCtE-OIcH-LvztG09LoF8EdKfnRJSmkawNbp0zPOoH9OXUUXGkcfQFBoHHKsjIp-wwhngePXKWUP8ERfyKEAuvQSxEXJFQgp-Mk4TRXEwI89V-I070a-KKIT62LsG-20ETSP8Msw89eLXbjMcj6d5-ESMFCr21SGNWr0CpbX0oWjjSbQiyv3K2e3xjSmidlJU4t3MkI6Eb7qxGL-bt2l6XE-J5fEyWtr3cU9AwA2susH170KeZkAE5Uk6CKHPTPAqwr"
+-                                        />
+-                                        <Image
+-                                            width={40}
+-                                            height={40}
+-                                            alt="User"
+-                                            className="inline-block h-10 w-10 rounded-full ring-2 ring-surface-dark object-cover grayscale hover:grayscale-0 hover:z-10 hover:scale-110 transition-all duration-300"
+-                                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjZlmeTF-Cf8N8EWyGHh55y1LZRlEOMJJVdLZnm0QWnN4EUfIVQT3KA6biAMPZ2_vhSb0cgFV9dJBvgaiCgXLqFay737toaA2GNTN60OgBnbYaYuYqJVfGWFF4o8tqHhSDQTpSfDjLuv9el7kgfqUmC2_XfEFPbe0X1q15yDYmrmQNRKi2xjmSxxYivPSybBi2_anrRJHiAQQMYSy2TFsQViDYHqMJkOYjvcUHk6vDn3t5n_NVGMnKW4cO3CWSFW6BlGq1BOaymNOSsKu99It-NX3GRHt720djxcOuIASSuEmgWLCfN"
+-                                        />
+-                                        <Image
+-                                            width={40}
+-                                            height={40}
+-                                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuArnKh4ihwygFaM66kmNrUlyYwVWc00939cJ3GhMDPyBQbuJmPPJB0Bn0qIg5GEhLHKY0VbPMxLRt3n2bYLL2dhVFhEWPj9lnU1Oqpa4Eq127-EfL0r8S3VUQ4WU5o3zmRt4w30y-JaWuTeYLKzHmGPrIJJ4K8CM3UrcHj0xEkhWk2Ho041eGsZ9m6_oBfxf4rO4U2qP3GrIpNmaM6E6rwsqQz7hd4Z3JvufI0k37KDcUFl50V56Vb4kCmn8ms4iheJCZTRMXC0iB4"
+-                                            alt="User"
+-                                            className="inline-block h-10 w-10 rounded-full ring-2 ring-surface-dark object-cover grayscale hover:grayscale-0 hover:z-10 hover:scale-110 transition-all duration-300"
+-                                            onError={(e) => {
+-                                                e.currentTarget.style.display = 'none';
+-                                                e.currentTarget.parentElement!.innerHTML = '<span class="material-icons text-[16px] text-[#f43f5e]">person</span>';
+-                                            }}
+-                                        />
+-                                        <Image
+-                                            width={40}
+-                                            height={40}
+-                                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAEqP2nJtZZTQxAvpfW7QWA26HtK0qOtYiQFZXZ_Zslsog0vOubXT04sddljQHWHpt_Kk8wNild5lhDPWt8lg5NdDXMo9RX_3eIuL67a3mhkuiRNjmG4SRf2Bw0dJtYOd6KB0kqL018YsjoPhWEEUvSO_o_LkagxL1LEaw-Bpbp3FrGdfLAbTKXMCvCf5UFJtuNDh5OI_5gH0UwloUNKYvRlhCTuBaiofB6P5biIAoNhaLjpSIbWGW1oQveNwhVNjM6KXFioLDa-ATJ"
+-                                            alt="User"
+-                                            className="inline-block h-10 w-10 rounded-full ring-2 ring-surface-dark object-cover grayscale hover:grayscale-0 hover:z-10 hover:scale-110 transition-all duration-300"
+-                                            onError={(e) => {
+-                                                e.currentTarget.style.display = 'none';
+-                                                e.currentTarget.parentElement!.innerHTML = '<span class="material-icons text-[16px] text-[#f43f5e]">person</span>';
+-                                            }}
+-                                        />
+-                                        <div className="h-10 w-10 rounded-full ring-2 ring-surface-dark bg-surface-border flex items-center justify-center text-xs text-white font-bold hover:bg-primary transition-colors cursor-pointer">+18</div>
+-                                    </div>
+-                                </div>
+-                                <div className="bg-surface-darker border border-surface-border rounded-xl p-5 space-y-3 relative overflow-hidden">
+-                                    <div className="absolute inset-0 opacity-5 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary via-transparent to-transparent"></div>
+-                                    <div className="flex justify-between text-sm relative z-10">
+-                                        <span className="text-gray-400">Drop-in Rate</span>
+-                                        <span className="text-white font-mono">$25.00</span>
+-                                    </div>
+-                                    <div className="flex justify-between text-sm relative z-10">
+-                                        <span className="text-gray-400">Service Fee</span>
+-                                        <span className="text-white font-mono">$1.50</span>
+-                                    </div>
+-                                    <div className="h-px bg-surface-border my-2 relative z-10"></div>
+-                                    <div className="flex justify-between text-base font-bold relative z-10">
+-                                        <span className="text-white">Total</span>
+-                                        <span className="text-primary-light font-mono text-lg">$26.50</span>
+-                                    </div>
+-                                </div>
+-                            </div>
+-                            <div className="p-6 border-t border-surface-border bg-surface-darker sticky bottom-0 z-20 pb-8">
+-                                <button className="w-full bg-gradient-to-r from-primary to-primary-light hover:to-primary text-white font-bold py-4 px-4 rounded-xl shadow-[0_0_20px_rgba(127,19,236,0.4)] hover:shadow-[0_0_30px_rgba(127,19,236,0.6)] hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 btn-physics group">
+-                                    <span>Confirm Booking</span>
+-                                    <span className="material-icons text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+-                                </button>
+-                                <p className="text-center text-[10px] text-gray-500 mt-4 flex items-center justify-center gap-1">
+-                                    <span className="material-icons text-[12px]">info</span>
+-                                    Cancellation available up to 2 hours before class.
+-                                </p>
+-                            </div>
+-                        </div>
++                    <div className="flex h-full flex-col overflow-y-scroll bg-surface-dark border-l border-surface-border shadow-2xl relative">
++                        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-purple-400 to-primary"></div>
++                        <div className="px-6 py-6 border-b border-surface-border bg-surface-darker sticky top-0 z-10 backdrop-blur-md bg-opacity-90">
++                            <div className="flex items-start justify-between">
++                                <div>
++                                    <h2 className="text-xl font-bold text-white tracking-tight" id="slide-over-title">Advanced Hip Hop</h2>
++                                    <div className="flex items-center gap-2 mt-1.5">
++                                        <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
++                                        <p className="text-sm text-primary-light font-medium">3 spots left • <span className="text-gray-400 font-normal">Filling fast</span></p>
++                                    </div>
++                                </div>
++                                <div className="ml-3 flex h-7 items-center">
++                                    <button 
++                                        className="rounded-lg p-1 bg-surface-dark border border-surface-border text-gray-400 hover:text-white focus:outline-none transition-colors" 
++                                        onClick={() => setIsDrawerOpen(false)} 
++                                        type="button"
++                                    >
++                                        <span className="sr-only">Close panel</span>
++                                        <span className="material-icons text-[20px]">close</span>
++                                    </button>
++                                </div>
++                            </div>
++                            <div className="mt-6 flex items-center gap-4">
++                                <div className="px-3 py-1.5 rounded-lg bg-surface-dark border border-surface-border flex items-center gap-2 text-xs font-medium text-gray-300">
++                                    <span className="material-icons text-[14px] text-gray-500">schedule</span>
++                                    11:45 AM - 1:00 PM
++                                </div>
++                                <div className="px-3 py-1.5 rounded-lg bg-surface-dark border border-surface-border flex items-center gap-2 text-xs font-medium text-gray-300">
++                                    <span className="material-icons text-[14px] text-gray-500">location_on</span>
++                                    Studio A
++                                </div>
++                            </div>
++                        </div>
++                        <div className="relative flex-1 px-6 py-6 space-y-8">
++                            <div className="perspective-container">
++                                <div className="card-3d bg-surface-darker border border-surface-border rounded-xl p-5 hover:border-primary/50 cursor-pointer group relative overflow-hidden">
++                                    <div className="absolute top-0 right-0 w-20 h-20 bg-primary/10 blur-2xl rounded-full group-hover:bg-primary/20 transition-colors"></div>
++                                    <div className="flex gap-4 relative z-10">
++                                        <div className="relative">
++                                            <Image
++                                                width={400}
++                                                height={400}
++                                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBaxO1ejHNsmNaF4m4B0ku43SeveyFVcpoWotzQTFIbAjpVKwkLXuJ2tQkyr8EfriMa0BFX1omCOYdXS9u5fckiBM-f0_91cCRjWrmXjvENfM9ncLy6THw7f-0B3DpTOFc5yTrhSiwC6Ms1GCymet19pOQB-KROcaXq5R1cog_XpD6HLfLMfJNfHmZbE-aqnIR3YxA0KrW-wHr3YKLN6cO3CWSFW6BlGq1BOaymNOSsKu99It-NX3GRHt720djxcOuIASSuEmgWLCfN"
++                                                alt="Instructor"
++                                                className="h-14 w-14 rounded-xl object-cover ring-2 ring-surface-border group-hover:ring-primary transition-all"
++                                                onError={(e) => {
++                                                    e.currentTarget.style.display = 'none';
++                                                    e.currentTarget.parentElement!.innerHTML = '<span class="material-icons text-[16px] text-[#9d4af2]">person</span>';
++                                                }}
++                                            />
++                                            <div className="absolute -bottom-1 -right-1 bg-primary text-white text-[9px] px-1.5 py-0.5 rounded border border-surface-darker font-bold">PRO</div>
++                                        </div>
++                                        <div className="flex-1">
++                                            <div className="flex justify-between items-start">
++                                                <div>
++                                                    <h4 className="text-sm font-bold text-white group-hover:text-primary-light transition-colors">Sarah Jenkins</h4>
++                                                    <div className="flex text-[10px] text-gray-400 mt-0.5">
++                                                        <span className="material-icons text-[10px] text-yellow-500 mr-0.5">star</span>
++                                                        4.9 (120 reviews)
++                                                    </div>
++                                                </div>
++                                                <button className="text-xs text-primary hover:text-white font-medium transition-colors">View Profile</button>
++                                            </div>
++                                            <p className="text-xs text-gray-400 mt-2 leading-relaxed">High-energy choreography focusing on musicality. 10 years LA industry experience.</p>
++                                        </div>
++                                    </div>
++                                </div>
++                            </div>
++                            <div className="grid grid-cols-2 gap-3">
++                                <div className="p-4 bg-surface-darker rounded-xl border border-surface-border flex flex-col justify-between hover:bg-surface-darker/80 transition-colors">
++                                    <div className="flex justify-between items-start mb-2">
++                                        <span className="text-xs text-gray-500 font-medium uppercase tracking-wider">Intensity</span>
++                                        <span className="material-icons text-[16px] text-red-400">local_fire_department</span>
++                                    </div>
++                                    <div>
++                                        <div className="flex gap-1 h-1.5 mb-2">
++                                            <div className="flex-1 bg-red-500 rounded-sm"></div>
++                                            <div className="flex-1 bg-red-500 rounded-sm"></div>
++                                            <div className="flex-1 bg-red-500 rounded-sm"></div>
++                                            <div className="flex-1 bg-red-500/50 rounded-sm"></div>
++                                            <div className="flex-1 bg-surface-border rounded-sm"></div>
++                                        </div>
++                                        <span className="text-sm font-bold text-white">High Heat</span>
++                                    </div>
++                                </div>
++                                <div className="p-4 bg-surface-darker rounded-xl border border-surface-border flex flex-col justify-between hover:bg-surface-darker/80 transition-colors">
++                                    <div className="flex justify-between items-start mb-2">
++                                        <span className="text-xs text-gray-500 font-medium uppercase tracking-wider">Est. Burn</span>
++                                        <span className="material-icons text-[16px] text-orange-400">monitor_heart</span>
++                                    </div>
++                                    <div className="text-sm font-bold text-white mt-auto">~550 kcal</div>
++                                </div>
++                            </div>
++                            <div>
++                                <div className="flex justify-between items-center mb-3">
++                                    <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider">Who&apos;s Going</h3>
++                                    <span className="text-xs font-mono text-primary-light bg-primary/10 px-2 py-0.5 rounded border border-primary/20">22 / 25</span>
++                                </div>
++                                <div className="flex -space-x-2 overflow-hidden py-2 pl-1">
++                                    <Image
++                                        width={40}
++                                        height={40}
++                                        alt="User"
++                                        className="inline-block h-10 w-10 rounded-full ring-2 ring-surface-dark object-cover grayscale hover:grayscale-0 hover:z-10 hover:scale-110 transition-all duration-300"
++                                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzOCXq59zG_rCtE-OIcH-LvztG09LoF8EdKfnRJSmkawNbp0zPOoH9OXUUXGkcfQFBoHHKsjIp-wwhngePXKWUP8ERfyKEAuvQSxEXJFQgp-Mk4TRXEwI89V-I070a-KKIT62LsG-20ETSP8Msw89eLXbjMcj6d5-ESMFCr21SGNWr0CpbX0oWjjSbQiyv3K2e3xjSmidlJU4t3MkI6Eb7qxGL-bt2l6XE-J5fEyWtr3cU9AwA2susH170KeZkAE5Uk6CKHPTPAqwr"
++                                    />
++                                    <Image
++                                        width={40}
++                                        height={40}
++                                        alt="User"
++                                        className="inline-block h-10 w-10 rounded-full ring-2 ring-surface-dark object-cover grayscale hover:grayscale-0 hover:z-10 hover:scale-110 transition-all duration-300"
++                                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjZlmeTF-Cf8N8EWyGHh55y1LZRlEOMJJVdLZnm0QWnN4EUfIVQT3KA6biAMPZ2_vhSb0cgFV9dJBvgaiCgXLqFay737toaA2GNTN60OgBnbYaYuYqJVfGWFF4o8tqHhSDQTpSfDjLuv9el7kgfqUmC2_XfEFPbe0X1q15yDYmrmQNRKi2xjmSxxYivPSybBi2_anrRJHiAQQMYSy2TFsQViDYHqMJkOYjvcUHk6vDn3t5n_NVGMnKW4cO3CWSFW6BlGq1BOaymNOSsKu99It-NX3GRHt720djxcOuIASSuEmgWLCfN"
++                                    />
++                                    <Image
++                                        width={40}
++                                        height={40}
++                                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuArnKh4ihwygFaM66kmNrUlyYwVWc00939cJ3GhMDPyBQbuJmPPJB0Bn0qIg5GEhLHKY0VbPMxLRt3n2bYLL2dhVFhEWPj9lnU1Oqpa4Eq127-EfL0r8S3VUQ4WU5o3zmRt4w30y-JaWuTeYLKzHmGPrIJJ4K8CM3UrcHj0xEkhWk2Ho041eGsZ9m6_oBfxf4rO4U2qP3GrIpNmaM6E6rwsqQz7hd4Z3JvufI0k37KDcUFl50V56Vb4kCmn8ms4iheJCZTRMXC0iB4"
++                                        alt="User"
++                                        className="inline-block h-10 w-10 rounded-full ring-2 ring-surface-dark object-cover grayscale hover:grayscale-0 hover:z-10 hover:scale-110 transition-all duration-300"
++                                        onError={(e) => {
++                                            e.currentTarget.style.display = 'none';
++                                            e.currentTarget.parentElement!.innerHTML = '<span class="material-icons text-[16px] text-[#f43f5e]">person</span>';
++                                        }}
++                                    />
++                                    <Image
++                                        width={40}
++                                        height={40}
++                                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuAEqP2nJtZZTQxAvpfW7QWA26HtK0qOtYiQFZXZ_Zslsog0vOubXT04sddljQHWHpt_Kk8wNild5lhDPWt8lg5NdDXMo9RX_3eIuL67a3mhkuiRNjmG4SRf2Bw0dJtYOd6KB0kqL018YsjoPhWEEUvSO_o_LkagxL1LEaw-Bpbp3FrGdfLAbTKXMCvCf5UFJtuNDh5OI_5gH0UwloUNKYvRlhCTuBaiofB6P5biIAoNhaLjpSIbWGW1oQveNwhVNjM6KXFioLDa-ATJ"
++                                        alt="User"
++                                        className="inline-block h-10 w-10 rounded-full ring-2 ring-surface-dark object-cover grayscale hover:grayscale-0 hover:z-10 hover:scale-110 transition-all duration-300"
++                                        onError={(e) => {
++                                            e.currentTarget.style.display = 'none';
++                                            e.currentTarget.parentElement!.innerHTML = '<span class="material-icons text-[16px] text-[#f43f5e]">person</span>';
++                                        }}
++                                    />
++                                    <div className="h-10 w-10 rounded-full ring-2 ring-surface-dark bg-surface-border flex items-center justify-center text-xs text-white font-bold hover:bg-primary transition-colors cursor-pointer">+18</div>
++                                </div>
++                            </div>
++                            <div className="bg-surface-darker border border-surface-border rounded-xl p-5 space-y-3 relative overflow-hidden">
++                                <div className="absolute inset-0 opacity-5 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary via-transparent to-transparent"></div>
++                                <div className="flex justify-between text-sm relative z-10">
++                                    <span className="text-gray-400">Drop-in Rate</span>
++                                    <span className="text-white font-mono">$25.00</span>
++                                </div>
++                                <div className="flex justify-between text-sm relative z-10">
++                                    <span className="text-gray-400">Service Fee</span>
++                                    <span className="text-white font-mono">$1.50</span>
++                                </div>
++                                <div className="h-px bg-surface-border my-2 relative z-10"></div>
++                                <div className="flex justify-between text-base font-bold relative z-10">
++                                    <span className="text-white">Total</span>
++                                    <span className="text-primary-light font-mono text-lg">$26.50</span>
++                                </div>
++                            </div>
++                        </div>
++                        <div className="p-6 border-t border-surface-border bg-surface-darker sticky bottom-0 z-20 pb-8">
++                            <button className="w-full bg-gradient-to-r from-primary to-primary-light hover:to-primary text-white font-bold py-4 px-4 rounded-xl shadow-[0_0_20px_rgba(127,19,236,0.4)] hover:shadow-[0_0_30px_rgba(127,19,236,0.6)] hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 btn-physics group">
++                                <span>Confirm Booking</span>
++                                <span className="material-icons text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
++                            </button>
++                            <p className="text-center text-[10px] text-gray-500 mt-4 flex items-center justify-center gap-1">
++                                <span className="material-icons text-[12px]">info</span>
++                                Cancellation available up to 2 hours before class.
++                            </p>
++                        </div>
+                     </div>
+                 </div>
