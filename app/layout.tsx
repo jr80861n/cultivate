@@ -8,7 +8,7 @@ const splineSans = Spline_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Cultivate Dance Studio | High-Fidelity Deep Purple Edition",
+  title: "Cultivate Dance Studio | High-Fidelity Deep Jade Edition",
   description: "Engineered for the elite. A sanctuary where technical mastery meets the raw edge of modern movement.",
 };
 

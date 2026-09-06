@@ -2,6 +2,7 @@
 "use client";
 import React, { useEffect, useRef } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import type { Swiper as SwiperType } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -75,13 +76,13 @@ const staff = [
 ];
 
 export default function StaffCarousel() {
-  const swiperRef = useRef(null);
-  const carouselRef = useRef(null);
+  const swiperRef = useRef<SwiperType | null>(null);
+  const carouselRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (swiperRef.current) {
+        if (swiperRef.current && swiperRef.current.autoplay) {
           if (entry.isIntersecting) {
             swiperRef.current.autoplay.start();
           } else {
@@ -92,13 +93,14 @@ export default function StaffCarousel() {
       { threshold: 0.5 } 
     );
 
-    if (carouselRef.current) {
-      observer.observe(carouselRef.current);
+    const currentCarousel = carouselRef.current;
+    if (currentCarousel) {
+      observer.observe(currentCarousel);
     }
 
     return () => {
-      if (carouselRef.current) {
-        observer.unobserve(carouselRef.current);
+      if (currentCarousel) {
+        observer.unobserve(currentCarousel);
       }
     };
   }, []);
@@ -106,7 +108,6 @@ export default function StaffCarousel() {
   return (
     <div ref={carouselRef}>
       <Swiper
-        ref={swiperRef}
         modules={[Autoplay, Navigation, Pagination]}
         spaceBetween={50}
         slidesPerView={1}

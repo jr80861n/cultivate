@@ -278,7 +278,7 @@ export default function SchedulePage() {
                                             {day === 4 && (!isTodayOverride || monthDate?.getMonth() === new Date().getMonth()) && (
                                                 <>
                                                     <div onClick={(e) => { e.stopPropagation(); setIsDrawerOpen(true); }} className="text-[10px] bg-blue-500/20 text-blue-300 px-1.5 py-0.5 rounded truncate border border-blue-500/30 font-medium cursor-pointer">10a Morning Flow</div>
-                                                    <div onClick={(e) => { e.stopPropagation(); setIsDrawerOpen(true); }} className="text-[10px] bg-primary/20 text-primary-light px-1.5 py-0.5 rounded truncate border border-primary/40 font-bold shadow-[0_0_10px_rgba(127,19,236,0.2)] cursor-pointer">11:45a Adv. Hip Hop</div>
+                                                    <div onClick={(e) => { e.stopPropagation(); setIsDrawerOpen(true); }} className="text-[10px] bg-primary/20 text-primary-light px-1.5 py-0.5 rounded truncate border border-primary/40 font-bold shadow-[0_0_10px_rgba(4, 120, 87,0.2)] cursor-pointer">11:45a Adv. Hip Hop</div>
                                                     <div onClick={(e) => { e.stopPropagation(); setIsDrawerOpen(true); }} className="text-[10px] bg-orange-500/20 text-orange-300 px-1.5 py-0.5 rounded truncate border border-orange-500/30 font-medium cursor-pointer">2p Kids Ballet</div>
                                                 </>
                                             )}
@@ -537,7 +537,7 @@ export default function SchedulePage() {
                 ></div>
                 <div className={`absolute right-0 h-full w-screen max-w-md transform transition duration-500 ease-in-out sm:duration-700 drawer-slide ${isDrawerOpen ? 'translate-x-0' : 'translate-x-full'}`}>
                         <div className="flex h-full flex-col overflow-y-scroll bg-surface-dark border-l border-surface-border shadow-2xl relative">
-                            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-purple-400 to-primary"></div>
+                            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-emerald-400 to-primary"></div>
                             <div className="px-6 py-6 border-b border-surface-border bg-surface-darker sticky top-0 z-10 backdrop-blur-md bg-opacity-90">
                                 <div className="flex items-start justify-between">
                                     <div>
@@ -638,7 +638,7 @@ export default function SchedulePage() {
                                 </div>
                             </div>
                             <div className="p-6 border-t border-surface-border bg-surface-darker sticky bottom-0 z-20 pb-8">
-                                <button className="w-full bg-gradient-to-r from-primary to-primary-light hover:to-primary text-white font-bold py-4 px-4 rounded-xl shadow-[0_0_20px_rgba(127,19,236,0.4)] hover:shadow-[0_0_30px_rgba(127,19,236,0.6)] hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 btn-physics group">
+                                <button className="w-full bg-gradient-to-r from-primary to-primary-light hover:to-primary text-white font-bold py-4 px-4 rounded-xl shadow-[0_0_20px_rgba(4, 120, 87,0.4)] hover:shadow-[0_0_30px_rgba(4, 120, 87,0.6)] hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 btn-physics group">
                                     <span>Confirm Booking</span>
                                     <span className="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
                                 </button>
@@ -660,7 +660,7 @@ export default function SchedulePage() {
                 ></div>
                 
                 <div className={`relative max-w-lg w-full bg-surface-darker border border-surface-border rounded-2xl shadow-2xl overflow-hidden transform transition-all duration-300 ease-out ${isInstructorModalOpen ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 translate-y-4'}`}>
-                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-purple-400 to-primary"></div>
+                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-emerald-400 to-primary"></div>
                     
                     {/* Header Image Area */}
                     <div className="relative h-48 bg-surface-dark">
@@ -761,7 +761,7 @@ export default function SchedulePage() {
                 ></div>
                 
                 <div className={`relative max-w-lg w-full bg-surface-darker border border-surface-border rounded-2xl shadow-2xl overflow-hidden transform transition-all duration-300 ease-out ${isInstructorModalOpen ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 translate-y-4'}`}>
-                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-purple-400 to-primary"></div>
+                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-emerald-400 to-primary"></div>
                     
                     {/* Header Image Area */}
                     <div className="relative h-48 bg-surface-dark">

@@ -33,7 +33,7 @@ export default function ReviewsSection() {
         <section className="relative py-32 px-6 overflow-hidden bg-[#05020a]">
             {/* Background Glow Elements */}
             <div className="absolute top-1/2 left-1/4 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[120px] -translate-y-1/2 mix-blend-screen pointer-events-none"></div>
-            <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-purple-600/10 rounded-full blur-[100px] mix-blend-screen pointer-events-none"></div>
+            <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-emerald-600/10 rounded-full blur-[100px] mix-blend-screen pointer-events-none"></div>
 
             <div className="max-w-[1536px] mx-auto relative z-10">
                 
@@ -50,7 +50,7 @@ export default function ReviewsSection() {
                     </div>
                     
                     <h2 className="text-5xl md:text-6xl font-black text-white uppercase tracking-tighter mb-6 drop-shadow-xl">
-                        What Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-light via-primary to-purple-400">Family</span> Says
+                        What Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-light via-primary to-emerald-400">Family</span> Says
                     </h2>
                     
                     <div className="flex items-center gap-4">
@@ -59,7 +59,7 @@ export default function ReviewsSection() {
                             <div className="flex text-yellow-400 text-xl">
                                 ★★★★★
                             </div>
-                            <p className="text-purple-300 text-sm font-bold uppercase tracking-widest">Based on 22 Reviews</p>
+                            <p className="text-emerald-300 text-sm font-bold uppercase tracking-widest">Based on 22 Reviews</p>
                         </div>
                     </div>
                 </div>
@@ -69,7 +69,7 @@ export default function ReviewsSection() {
                     {REVIEWS.map((review, i) => (
                         <div 
                             key={review.id} 
-                            className={`group relative p-10 rounded-[2rem] bg-surface-dark/40 border border-primary/20 backdrop-blur-xl transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_50px_-12px_rgba(124,58,237,0.4)] hover:bg-surface-dark/60 hover:border-primary/50 animate-fade-in-up stagger-${(i + 1) * 2}`}
+                            className={`group relative p-10 rounded-[2rem] bg-surface-dark/40 border border-primary/20 backdrop-blur-xl transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_50px_-12px_rgba(16, 185, 129,0.4)] hover:bg-surface-dark/60 hover:border-primary/50 animate-fade-in-up stagger-${(i + 1) * 2}`}
                         >
                             <div className="absolute top-0 right-10 -translate-y-1/2 text-8xl text-primary/10 font-serif group-hover:text-primary/20 transition-colors">&quot;</div>
                             
@@ -77,17 +77,17 @@ export default function ReviewsSection() {
                                 ★★★★★
                             </div>
                             
-                            <p className="text-purple-50 text-lg font-medium leading-relaxed mb-10 min-h-[120px]">
+                            <p className="text-emerald-50 text-lg font-medium leading-relaxed mb-10 min-h-[120px]">
                                 &quot;{review.text}&quot;
                             </p>
                             
                             <div className="flex items-center gap-4 mt-auto">
-                                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-purple-600 flex items-center justify-center text-white font-black text-xl shadow-lg border border-white/10 group-hover:scale-110 transition-transform">
+                                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-emerald-600 flex items-center justify-center text-white font-black text-xl shadow-lg border border-white/10 group-hover:scale-110 transition-transform">
                                     {review.avatar}
                                 </div>
                                 <div>
                                     <h4 className="text-white font-bold text-base">{review.name}</h4>
-                                    <p className="text-purple-400/60 text-xs font-bold uppercase tracking-wider">{review.date}</p>
+                                    <p className="text-emerald-400/60 text-xs font-bold uppercase tracking-wider">{review.date}</p>
                                 </div>
                             </div>
                         </div>

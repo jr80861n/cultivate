@@ -90,11 +90,11 @@ export default function AboutPage() {
     }, []);
 
     return (
-        <div className="bg-[#0a060e] text-white font-display overflow-x-hidden selection:bg-primary selection:text-white">
-            <header className="fixed top-0 w-full z-[100] border-b border-white/5 bg-[#0f0518]/80 backdrop-blur-md transition-all duration-500">
+        <div className="bg-[#020617] text-white font-display overflow-x-hidden selection:bg-primary selection:text-white">
+            <header className="fixed top-0 w-full z-[100] border-b border-white/5 bg-[#020617]/80 backdrop-blur-md transition-all duration-500">
                 <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
                     <Link href="/" className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-primary flex items-center justify-center rounded-lg shadow-[0_0_15px_rgba(168,85,247,0.5)]">
+                        <div className="w-10 h-10 bg-primary flex items-center justify-center rounded-lg shadow-[0_0_15px_rgba(16, 185, 129,0.5)]">
                             <span className="material-symbols-outlined text-white text-2xl">cyclone</span>
                         </div>
                         <span className="text-xl font-extrabold tracking-tighter uppercase text-white">Cultivate</span>
@@ -106,7 +106,7 @@ export default function AboutPage() {
                         <Link className="text-sm font-bold tracking-wider hover:text-primary transition-colors text-white" href="/store">STORE</Link>
                     </nav>
                     <div className="flex items-center gap-4">
-                        <Link href="/signup" className="bg-primary hover:bg-white hover:text-primary-dark text-white px-8 py-2.5 text-sm font-bold tracking-widest uppercase transition-all shadow-[0_0_20px_rgba(168,85,247,0.4)] border border-primary hover:border-white">
+                        <Link href="/signup" className="bg-primary hover:bg-white hover:text-primary-dark text-white px-8 py-2.5 text-sm font-bold tracking-widest uppercase transition-all shadow-[0_0_20px_rgba(16, 185, 129,0.4)] border border-primary hover:border-white">
                             JOIN NOW
                         </Link>
                         <UserMenu />
@@ -118,39 +118,39 @@ export default function AboutPage() {
                 <section className="relative h-[110vh] flex items-center justify-center overflow-hidden">
                     <div className="absolute inset-0 z-0">
                         <div className="parallax-bg absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuDNnAsNgUKbJOtuHSz-rCK5vvrvfVdYIyYUIiOAv6L1IuE8_nzpFTo0TAhKsrhiUwDhMGlq4huiRZl79HplaZudlUrcG2a4yV781R1lEDdCBhTU6bOXwIki8D-hwU3bu40ldq8A2DmcKnaAgNRzlQELurjFQG3h0eXlnsjYV3aA-H51klbLMc_ywpuEGPPZZu2TVGDz96v8U-p39n-t6ez_K6RfEuTF5htWoqLglqKv0JPgaZgoRDGvEMPixatBU-R-WyWyKbwGOhfN')" }}></div>
-                        <div className="absolute inset-0 bg-gradient-to-b from-[#2e1065]/80 via-[#4c1d95]/40 to-[#0a060e] opacity-80"></div>
-                        <div className="absolute inset-0 bg-[#2e1065]/30"></div>
+                        <div className="absolute inset-0 bg-gradient-to-b from-[#064e3b]/80 via-[#047857]/40 to-[#020617] opacity-80"></div>
+                        <div className="absolute inset-0 bg-[#064e3b]/30"></div>
                     </div>
                     <div className="relative z-10 text-center px-6 max-w-6xl w-full">
                         <div className="inline-flex items-center gap-4 px-6 py-2 border border-primary/50 rounded-full bg-black/40 mb-12 reveal-element">
                             <div className="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
                         </div>
                         <h1 className="relative font-black uppercase tracking-tighter leading-[0.8] mb-8">
-                            <span className="block text-6xl md:text-8xl lg:text-[11rem] text-transparent bg-clip-text bg-gradient-to-b from-white to-purple-200 drop-shadow-2xl reveal-element stagger-1 variable-weight-text">About</span>
-                            <span className="block text-6xl md:text-8xl lg:text-[11rem] text-stroke-purple absolute top-1 left-1 -z-10 opacity-50 reveal-element stagger-1">About</span>
+                            <span className="block text-6xl md:text-8xl lg:text-[11rem] text-transparent bg-clip-text bg-gradient-to-b from-white to-emerald-200 drop-shadow-2xl reveal-element stagger-1 variable-weight-text">About</span>
+                            <span className="block text-6xl md:text-8xl lg:text-[11rem] text-stroke-emerald absolute top-1 left-1 -z-10 opacity-50 reveal-element stagger-1">About</span>
                             <span className="block text-6xl md:text-8xl lg:text-[11rem] text-primary italic relative z-10 reveal-element stagger-2 variable-weight-text">Cultivate</span>
                         </h1>
                     </div>
                     <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 reveal-element stagger-4">
                         <div className="flex flex-col items-center gap-3">
                             <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-primary animate-pulse">Explore</span>
-                            <div className="w-[1px] h-24 bg-gradient-to-b from-primary via-purple-400 to-transparent"></div>
+                            <div className="w-[1px] h-24 bg-gradient-to-b from-primary via-emerald-400 to-transparent"></div>
                         </div>
                     </div>
                 </section>
 
-                <section className="relative py-40 overflow-hidden bg-[#2e1065]">
+                <section className="relative py-40 overflow-hidden bg-[#064e3b]">
                     <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
                     <div className="absolute inset-0 z-0">
                         <div className="w-full h-full opacity-30 fixed-bg-section" style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuDNnAsNgUKbJOtuHSz-rCK5vvrvfVdYIyYUIiOAv6L1IuE8_nzpFTo0TAhKsrhiUwDhMGlq4huiRZl79HplaZudlUrcG2a4yV781R1lEDdCBhTU6bOXwIki8D-hwU3bu40ldq8A2DmcKnaAgNRzlQELurjFQG3h0eXlnsjYV3aA-H51klbLMc_ywpuEGPPZZu2TVGDz96v8U-p39n-t6ez_K6RfEuTF5htWoqLglqKv0JPgaZgoRDGvEMPixatBU-R-WyWyKbwGOhfN')" }}></div>
                     </div>
                     <div className="max-w-7xl mx-auto px-6 relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-                        <div className="bg-black/80 p-12 md:p-16 border border-white/10 rounded-2xl shadow-[0_0_50px_rgba(168,85,247,0.15)] reveal-element">
+                        <div className="bg-black/80 p-12 md:p-16 border border-white/10 rounded-2xl shadow-[0_0_50px_rgba(16, 185, 129,0.15)] reveal-element">
                             <h2 className="text-primary-light font-bold text-2xl tracking-[0.4em] uppercase mb-8 flex items-center gap-4">
                                 <span className="w-12 h-[1px] bg-primary"></span>
                                 Our Story
                             </h2>
-                            <div className="space-y-6 text-lg text-purple-100 font-light leading-relaxed">
+                            <div className="space-y-6 text-lg text-emerald-100 font-light leading-relaxed">
                                 <p>A place to plant your dance roots. Be cultivated up from foundational dance technique to reap the harvest and rewards of advanced dance movement and skills. </p>
                                 <p>A studio home with classes in various dance styles, including, but not limited to Ballet, Tap, Jazz, Hip Hop, Lyrical, Contemporary, and Musical Theater.</p>
                                 <p>A positive, nurturing environment where every dancer is encouraged, supported, and pushed to their fullest potential.</p>
@@ -174,7 +174,7 @@ export default function AboutPage() {
                             <div className="max-w-2xl">
                                 <h2 className="text-primary font-bold text-sm tracking-[0.4em] uppercase mb-4"></h2>
                                 <h3 className="text-5xl md:text-7xl font-black uppercase tracking-tighter leading-none mb-6 text-white variable-weight-text">
-                                    The Cultivate <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-400">Faculty</span>
+                                    The Cultivate <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-emerald-400">Faculty</span>
                                 </h3>
                             </div>
                             <div className="hidden md:block w-32 h-32 border border-white/10 rounded-full flex items-center justify-center">
@@ -187,8 +187,8 @@ export default function AboutPage() {
                     </div>
                 </section>
 
-                <section className="py-40 px-6 bg-[#0a060e] relative overflow-hidden timeline-section">
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(76,29,149,0.1),transparent)]"></div>
+                <section className="py-40 px-6 bg-[#020617] relative overflow-hidden timeline-section">
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(6, 78, 59,0.1),transparent)]"></div>
                     <div className="max-w-4xl mx-auto relative z-10">
                         <div className="text-center mb-40 reveal-element">
                             <span className="inline-block py-1 px-3 rounded bg-primary/20 text-primary border border-primary/30 text-xs font-bold tracking-[0.3em] uppercase mb-6">Our Path</span>
@@ -198,17 +198,17 @@ export default function AboutPage() {
                             <div className="absolute left-0 top-0 w-full h-full pointer-events-none z-0">
                                 <svg className="hidden md:block absolute left-1/2 -translate-x-1/2 h-full w-[100px] overflow-visible" fill="none" preserveAspectRatio="none" viewBox="0 0 100 1200" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M50 0 V1200" stroke="rgba(255,255,255,0.1)" strokeLinecap="round" strokeWidth="2"></path>
-                                    <path className="svg-timeline-path" d="M50 0 V1200" id="timeline-svg-path" stroke="#a855f7" strokeLinecap="round" strokeWidth="4" style={{ filter: "drop-shadow(0 0 8px #a855f7)" }}></path>
+                                    <path className="svg-timeline-path" d="M50 0 V1200" id="timeline-svg-path" stroke="#10b981" strokeLinecap="round" strokeWidth="4" style={{ filter: "drop-shadow(0 0 8px #10b981)" }}></path>
                                 </svg>
                                 <div className="md:hidden absolute left-[20px] top-0 bottom-0 w-[2px] bg-white/10">
-                                    <div className="bg-primary w-full shadow-[0_0_15px_rgba(168,85,247,0.8)]" style={{ height: "100%", transform: "scaleY(0)", transformOrigin: "top", transition: "transform 0.1s linear" }}></div>
+                                    <div className="bg-primary w-full shadow-[0_0_15px_rgba(16, 185, 129,0.8)]" style={{ height: "100%", transform: "scaleY(0)", transformOrigin: "top", transition: "transform 0.1s linear" }}></div>
                                 </div>
                             </div>
                             <div className="relative top-0 flex flex-col md:flex-row items-center justify-between group h-[400px]">
                                 <div className="md:w-[45%] text-left md:text-right pl-16 md:pl-0 reveal-element">
                                     <span className="text-transparent bg-clip-text bg-gradient-to-b from-white to-slate-400 text-7xl font-black mb-2 block">2015</span>
                                     <h4 className="text-2xl font-bold uppercase tracking-widest mb-4 text-primary">The Genesis</h4>
-                                    <p className="text-[#e9d5ff] font-light leading-relaxed text-lg">
+                                    <p className="text-[#a7f3d0] font-light leading-relaxed text-lg">
                                         Cultivate opened its doors in a repurposed industrial loft. 12 students. One vision. No compromises.
                                     </p>
                                 </div>
@@ -221,8 +221,8 @@ export default function AboutPage() {
                                 <div className="md:w-[45%] text-left pl-16 reveal-element stagger-1">
                                     <span className="text-transparent bg-clip-text bg-gradient-to-b from-white to-slate-400 text-7xl font-black mb-2 block">2018</span>
                                     <h4 className="text-2xl font-bold uppercase tracking-widest mb-4 text-primary">Mainstage Debut</h4>
-                                    <p className="text-[#e9d5ff] font-light leading-relaxed text-lg">
-                                        &apos;Cultivate Collective&apos; sold out the Grand Theater residency. Critics called it &quot;The new purple standard of modern ballet.&quot;
+                                    <p className="text-[#a7f3d0] font-light leading-relaxed text-lg">
+                                        &apos;Cultivate Collective&apos; sold out the Grand Theater residency. Critics called it &quot;The new emerald standard of modern ballet.&quot;
                                     </p>
                                 </div>
                             </div>
@@ -230,7 +230,7 @@ export default function AboutPage() {
                                 <div className="md:w-[45%] text-left md:text-right pl-16 md:pl-0 reveal-element stagger-2">
                                     <span className="text-transparent bg-clip-text bg-gradient-to-b from-white to-slate-400 text-7xl font-black mb-2 block">2024</span>
                                     <h4 className="text-2xl font-bold uppercase tracking-widest mb-4 text-primary">Digital Frontiers</h4>
-                                    <p className="text-[#e9d5ff] font-light leading-relaxed text-lg">
+                                    <p className="text-[#a7f3d0] font-light leading-relaxed text-lg">
                                         We integrated real-time bio-feedback into our studios, merging the physical and digital for optimal performance.
                                     </p>
                                 </div>
@@ -241,11 +241,11 @@ export default function AboutPage() {
                     </div>
                 </section>
 
-                <section className="relative py-48 px-6 bg-gradient-to-br from-primary via-primary-dark to-[#2e1065] overflow-hidden">
+                <section className="relative py-48 px-6 bg-gradient-to-br from-primary via-primary-dark to-[#064e3b] overflow-hidden">
                     <div className="relative z-10 max-w-5xl mx-auto text-center flex flex-col items-center">
                         <h2 className="text-6xl md:text-9xl font-black uppercase tracking-tighter mb-8 leading-[0.85] text-white variable-weight-text">
                             Join The <br />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-purple-200">Collective</span>
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-emerald-200">Collective</span>
                         </h2>
                         <p className="text-xl md:text-2xl font-medium text-white/90 max-w-2xl mb-16 reveal-element stagger-1">
                             Your evolution is waiting. Step into the light.

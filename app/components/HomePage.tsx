@@ -42,31 +42,31 @@ export default function HomePage() {
       <div className="relative flex min-h-screen w-full flex-col">
         <header className="flex items-center justify-between px-6 py-5 lg:px-12 sticky top-0 z-[100] bg-background-deep/10 border-b border-white/5 transition-all duration-300">
           <div className="flex items-center gap-3 group cursor-pointer interactive-hover">
-            <div className="size-10 flex items-center justify-center rounded-lg bg-primary text-white shadow-[0_0_25px_rgba(188,19,254,0.6)] group-hover:shadow-[0_0_40px_rgba(188,19,254,0.9)] transition-all duration-500 magnetic-btn">
+            <div className="size-10 flex items-center justify-center rounded-lg bg-primary text-white shadow-[0_0_25px_rgba(16, 185, 129,0.6)] group-hover:shadow-[0_0_40px_rgba(16, 185, 129,0.9)] transition-all duration-500 magnetic-btn">
               <span className="material-symbols-outlined !text-[28px]">spa</span>
             </div>
             <h2 className="text-2xl font-black leading-tight tracking-tighter uppercase italic group-hover:text-primary-light transition-colors duration-300">Cultivate</h2>
           </div>
           <div className="hidden lg:flex flex-1 justify-end gap-10 items-center">
             <nav className="flex items-center gap-10">
-              <Link className="text-xs font-black uppercase tracking-[0.2em] text-purple-200/80 hover:text-white hover:text-glow transition-all relative group interactive-hover" href="/programs">
+              <Link className="text-xs font-black uppercase tracking-[0.2em] text-emerald-200/80 hover:text-white hover:text-glow transition-all relative group interactive-hover" href="/programs">
                 PROGRAMS
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full box-shadow-[0_0_10px_#bc13fe]"></span>
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full box-shadow-[0_0_10px_#10b981]"></span>
               </Link>
-              <Link className="text-xs font-black uppercase tracking-[0.2em] text-purple-200/80 hover:text-white hover:text-glow transition-all relative group interactive-hover" href="/schedule">
+              <Link className="text-xs font-black uppercase tracking-[0.2em] text-emerald-200/80 hover:text-white hover:text-glow transition-all relative group interactive-hover" href="/schedule">
                 SCHEDULE
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full box-shadow-[0_0_10px_#bc13fe]"></span>
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full box-shadow-[0_0_10px_#10b981]"></span>
               </Link>
-              <Link className="text-xs font-black uppercase tracking-[0.2em] text-purple-200/80 hover:text-white hover:text-glow transition-all relative group interactive-hover" href="/store">
+              <Link className="text-xs font-black uppercase tracking-[0.2em] text-emerald-200/80 hover:text-white hover:text-glow transition-all relative group interactive-hover" href="/store">
                 STORE
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full box-shadow-[0_0_10px_#bc13fe]"></span>
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full box-shadow-[0_0_10px_#10b981]"></span>
               </Link>
-              <Link className="text-xs font-black uppercase tracking-[0.2em] text-purple-200/80 hover:text-white hover:text-glow transition-all relative group interactive-hover" href="/about">
+              <Link className="text-xs font-black uppercase tracking-[0.2em] text-emerald-200/80 hover:text-white hover:text-glow transition-all relative group interactive-hover" href="/about">
                 ABOUT US
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full box-shadow-[0_0_10px_#bc13fe]"></span>
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full box-shadow-[0_0_10px_#10b981]"></span>
               </Link>
             </nav>
-            <Link href="/signin" className="flex items-center justify-center rounded-full h-8 px-5 bg-primary hover:bg-white hover:text-black transition-all duration-500 text-white text-xs font-black uppercase tracking-[0.2em] shadow-[0_0_20px_rgba(188,19,254,0.4)] hover:shadow-[0_0_30px_rgba(255,255,255,0.6)] translate-x-[-4px] translate-y-[-4px] active:translate-x-0 active:translate-y-0 border border-transparent hover:border-primary magnetic-btn interactive-hover">
+            <Link href="/signin" className="flex items-center justify-center rounded-full h-8 px-5 bg-primary hover:bg-white hover:text-black transition-all duration-500 text-white text-xs font-black uppercase tracking-[0.2em] shadow-[0_0_20px_rgba(16, 185, 129,0.4)] hover:shadow-[0_0_30px_rgba(255,255,255,0.6)] translate-x-[-4px] translate-y-[-4px] active:translate-x-0 active:translate-y-0 border border-transparent hover:border-primary magnetic-btn interactive-hover">
               Sign In
             </Link>
           </div>
@@ -88,7 +88,7 @@ export default function HomePage() {
             <div className="absolute bottom-[20%] left-[10%] w-60 h-60 border-b-2 border-l-2 border-primary/20 -rotate-6 shard-float-rev opacity-30 z-0 velocity-item-left"></div>
             <div className="container mx-auto px-6 lg:px-12 relative z-10 hero-exit-anim">
               <div className="max-w-6xl">
-                <div className="inline-flex items-center gap-4 bg-primary/10 border border-primary/40 px-5 py-2 rounded-full backdrop-blur-xl mb-10 shadow-[0_0_30px_rgba(188,19,254,0.2)]">
+                <div className="inline-flex items-center gap-4 bg-primary/10 border border-primary/40 px-5 py-2 rounded-full backdrop-blur-xl mb-10 shadow-[0_0_30px_rgba(16, 185, 129,0.2)]">
                   <span className="relative flex h-3 w-3">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
                     <span className="relative inline-flex rounded-full h-3 w-3 bg-primary"></span>
@@ -101,7 +101,7 @@ export default function HomePage() {
                   </h1>
                 </div>
                 <div className="flex flex-col md:flex-row items-start md:items-center gap-10">
-                  <p className="text-purple-200 text-lg md:text-2xl font-light max-w-xl leading-relaxed border-l-4 border-primary pl-8 shadow-[-20px_0_40px_-10px_rgba(188,19,254,0.1)]">
+                  <p className="text-emerald-200 text-lg md:text-2xl font-light max-w-xl leading-relaxed border-l-4 border-primary pl-8 shadow-[-20px_0_40px_-10px_rgba(16, 185, 129,0.1)]">
                     Engineered for the elite. A sanctuary where technical mastery meets the raw edge of modern movement.
                   </p>
                   <div className="flex flex-wrap gap-6">
@@ -129,11 +129,11 @@ export default function HomePage() {
                     <span className="material-symbols-outlined !text-9xl text-primary">bolt</span>
                   </div>
                   <div className="text-primary mb-8 relative z-10">
-                    <span className="material-symbols-outlined !text-6xl drop-shadow-[0_0_15px_rgba(188,19,254,0.6)]">bolt</span>
+                    <span className="material-symbols-outlined !text-6xl drop-shadow-[0_0_15px_rgba(16, 185, 129,0.6)]">bolt</span>
                   </div>
                   <h3 className="text-3xl font-black mb-4 uppercase italic tracking-tight text-white group-hover:text-primary-light transition-colors">High Intensity</h3>
-                  <p className="text-slate-400 group-hover:text-purple-200 leading-relaxed text-lg transition-colors">Elite training protocols designed to shatter physical limits and rebuild your athletic foundation.</p>
-                  <div className="mt-8 w-12 h-1 bg-primary group-hover:w-full transition-all duration-700 shadow-[0_0_10px_#bc13fe]"></div>
+                  <p className="text-slate-400 group-hover:text-emerald-200 leading-relaxed text-lg transition-colors">Elite training protocols designed to shatter physical limits and rebuild your athletic foundation.</p>
+                  <div className="mt-8 w-12 h-1 bg-primary group-hover:w-full transition-all duration-700 shadow-[0_0_10px_#10b981]"></div>
                 </div>
                 <div className="group p-12 bg-surface-dark/30 border border-white/5 hover:border-primary/50 transition-all duration-500 relative overflow-hidden card-fade-up stagger-delay-2 interactive-hover">
                   <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
@@ -141,11 +141,11 @@ export default function HomePage() {
                     <span className="material-symbols-outlined !text-9xl text-primary">psychology</span>
                   </div>
                   <div className="text-primary mb-8 relative z-10">
-                    <span className="material-symbols-outlined !text-6xl drop-shadow-[0_0_15px_rgba(188,19,254,0.6)]">psychology</span>
+                    <span className="material-symbols-outlined !text-6xl drop-shadow-[0_0_15px_rgba(16, 185, 129,0.6)]">psychology</span>
                   </div>
                   <h3 className="text-3xl font-black mb-4 uppercase italic tracking-tight text-white group-hover:text-primary-light transition-colors">Pure Vision</h3>
-                  <p className="text-slate-400 group-hover:text-purple-200 leading-relaxed text-lg transition-colors">Curated mentorship from global industry leaders focusing on the evolution of your artistic identity.</p>
-                  <div className="mt-8 w-12 h-1 bg-primary group-hover:w-full transition-all duration-700 shadow-[0_0_10px_#bc13fe]"></div>
+                  <p className="text-slate-400 group-hover:text-emerald-200 leading-relaxed text-lg transition-colors">Curated mentorship from global industry leaders focusing on the evolution of your artistic identity.</p>
+                  <div className="mt-8 w-12 h-1 bg-primary group-hover:w-full transition-all duration-700 shadow-[0_0_10px_#10b981]"></div>
                 </div>
                 <div className="group p-12 bg-surface-dark/30 border border-white/5 hover:border-primary/50 transition-all duration-500 relative overflow-hidden card-fade-up stagger-delay-3 interactive-hover">
                   <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
@@ -153,11 +153,11 @@ export default function HomePage() {
                     <span className="material-symbols-outlined !text-9xl text-primary">all_inclusive</span>
                   </div>
                   <div className="text-primary mb-8 relative z-10">
-                    <span className="material-symbols-outlined !text-6xl drop-shadow-[0_0_15px_rgba(188,19,254,0.6)]">all_inclusive</span>
+                    <span className="material-symbols-outlined !text-6xl drop-shadow-[0_0_15px_rgba(16, 185, 129,0.6)]">all_inclusive</span>
                   </div>
                   <h3 className="text-3xl font-black mb-4 uppercase italic tracking-tight text-white group-hover:text-primary-light transition-colors">Global Reach</h3>
-                  <p className="text-slate-400 group-hover:text-purple-200 leading-relaxed text-lg transition-colors">Direct pipelines to international agencies and major performance opportunities worldwide.</p>
-                  <div className="mt-8 w-12 h-1 bg-primary group-hover:w-full transition-all duration-700 shadow-[0_0_10px_#bc13fe]"></div>
+                  <p className="text-slate-400 group-hover:text-emerald-200 leading-relaxed text-lg transition-colors">Direct pipelines to international agencies and major performance opportunities worldwide.</p>
+                  <div className="mt-8 w-12 h-1 bg-primary group-hover:w-full transition-all duration-700 shadow-[0_0_10px_#10b981]"></div>
                 </div>
               </div>
             </div>
@@ -168,18 +168,18 @@ export default function HomePage() {
             <div className="container mx-auto px-6 lg:px-12 relative z-10">
               <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-12 gap-12">
                 <div className="max-w-3xl card-entry-3d">
-                  <span className="text-primary font-black uppercase tracking-[0.5em] text-xs mb-6 block drop-shadow-[0_0_10px_rgba(188,19,254,0.5)]">Our Curriculum</span>
+                  <span className="text-primary font-black uppercase tracking-[0.5em] text-xs mb-6 block drop-shadow-[0_0_10px_rgba(16, 185, 129,0.5)]">Our Curriculum</span>
                   <h2 className="text-5xl md:text-7xl font-black uppercase italic tracking-tighter leading-none scroll-mask-text">
                     Forging<br /><span className="text-transparent bg-clip-text bg-linear-to-r from-primary via-white to-primary animate-pulse shimmer-text-effect">The Future</span>
                   </h2>
                 </div>
-                <a className="inline-flex items-center gap-4 group font-black uppercase tracking-[0.3em] text-[10px] border-b-2 border-primary pb-3 transition-all hover:gap-8 hover:text-primary hover:shadow-[0_20px_20px_-10px_rgba(188,19,254,0.3)] interactive-hover" href="#">
+                <a className="inline-flex items-center gap-4 group font-black uppercase tracking-[0.3em] text-[10px] border-b-2 border-primary pb-3 transition-all hover:gap-8 hover:text-primary hover:shadow-[0_20px_20px_-10px_rgba(16, 185, 129,0.3)] interactive-hover" href="#">
                   Explore All Pathways <span className="material-symbols-outlined">arrow_forward</span>
                 </a>
               </div>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start velocity-grid">
                 <div className="w-full relative z-10">
-                  <div className="card-fade-up group relative bg-surface-dark/50 border border-white/10 overflow-hidden shadow-[0_0_50px_-10px_rgba(0,0,0,0.5)] hover:shadow-[0_0_80px_-20px_rgba(188,19,254,0.3)] hover:border-primary/40 transition-all duration-700 cursor-pointer h-full rounded-2xl will-change-transform interactive-hover scale-[0.85] hover:scale-90">
+                  <div className="card-fade-up group relative bg-surface-dark/50 border border-white/10 overflow-hidden shadow-[0_0_50px_-10px_rgba(0,0,0,0.5)] hover:shadow-[0_0_80px_-20px_rgba(16, 185, 129,0.3)] hover:border-primary/40 transition-all duration-700 cursor-pointer h-full rounded-2xl will-change-transform interactive-hover scale-[0.85] hover:scale-90">
                     <div className="relative h-[400px] md:h-[600px] img-parallax-container image-loader">
                     <Image
                         width={800}
@@ -199,7 +199,7 @@ export default function HomePage() {
                       <h3 className="text-4xl md:text-5xl font-black italic uppercase tracking-tighter text-white group-hover:text-primary transition-colors">NXTLVL</h3>
                       <span className="text-white/10 text-5xl md:text-6xl font-black absolute -top-8 right-8 z-0 select-none">01</span>
                     </div>
-                    <p className="text-slate-400 group-hover:text-purple-200 text-lg md:text-xl mb-10 leading-relaxed font-light relative z-10 transition-colors">
+                    <p className="text-slate-400 group-hover:text-emerald-200 text-lg md:text-xl mb-10 leading-relaxed font-light relative z-10 transition-colors">
                       The industry gold standard. A 9-month immersive technical residency designed for professional conversion.
                     </p>
                     <button className="group/btn relative w-full h-16 md:h-20 bg-background-deep text-white font-black uppercase tracking-[0.4em] text-xs overflow-hidden transition-colors border border-white/10 hover:border-primary magnetic-btn">
@@ -210,7 +210,7 @@ export default function HomePage() {
                 </div>
                 </div>
                 <div className="w-full mt-0 lg:mt-16 relative z-20">
-                  <div className="card-fade-up stagger-delay-2 group relative bg-surface-dark/50 border border-white/10 overflow-hidden shadow-[0_0_50px_-10px_rgba(0,0,0,0.5)] hover:shadow-[0_0_80px_-20px_rgba(188,19,254,0.3)] hover:border-primary/40 transition-all duration-700 cursor-pointer h-full rounded-2xl will-change-transform interactive-hover scale-[0.85] hover:scale-90">
+                  <div className="card-fade-up stagger-delay-2 group relative bg-surface-dark/50 border border-white/10 overflow-hidden shadow-[0_0_50px_-10px_rgba(0,0,0,0.5)] hover:shadow-[0_0_80px_-20px_rgba(16, 185, 129,0.3)] hover:border-primary/40 transition-all duration-700 cursor-pointer h-full rounded-2xl will-change-transform interactive-hover scale-[0.85] hover:scale-90">
                     <div className="relative h-[400px] md:h-[600px] img-parallax-container image-loader">
                     <Image
                         width={800}
@@ -222,7 +222,7 @@ export default function HomePage() {
                     <div className="absolute inset-0 bg-primary/40 opacity-20 group-hover:opacity-0 transition-opacity duration-700 pointer-events-none"></div>
                     <div className="absolute inset-0 bg-gradient-to-t from-background-deep via-transparent to-transparent pointer-events-none"></div>
                     <div className="absolute top-6 left-6 md:top-10 md:left-10 pointer-events-none z-10">
-                      <span className="bg-primary text-white px-6 py-3 text-[11px] font-black uppercase tracking-[0.3em] shadow-[0_0_20px_rgba(188,19,254,0.4)]">Open Enrollment</span>
+                      <span className="bg-primary text-white px-6 py-3 text-[11px] font-black uppercase tracking-[0.3em] shadow-[0_0_20px_rgba(16, 185, 129,0.4)]">Open Enrollment</span>
                     </div>
                   </div>
                   <div className="p-8 md:p-12 relative bg-surface-dark border-t border-white/5">
@@ -230,7 +230,7 @@ export default function HomePage() {
                       <h3 className="text-4xl md:text-5xl font-black italic uppercase tracking-tighter text-white group-hover:text-primary transition-colors">Summer</h3>
                       <span className="text-white/10 text-5xl md:text-6xl font-black absolute -top-8 right-8 z-0 select-none">02</span>
                     </div>
-                    <p className="text-slate-400 group-hover:text-purple-200 text-lg md:text-xl mb-10 leading-relaxed font-light relative z-10 transition-colors">
+                    <p className="text-slate-400 group-hover:text-emerald-200 text-lg md:text-xl mb-10 leading-relaxed font-light relative z-10 transition-colors">
                       High-impact bursts of creative energy. Weekly intensives with rotating global guest choreographers.
                     </p>
                     <button className="group/btn relative w-full h-16 md:h-20 bg-background-deep text-white font-black uppercase tracking-[0.4em] text-xs overflow-hidden transition-colors border border-white/10 hover:border-primary magnetic-btn">
@@ -256,11 +256,11 @@ export default function HomePage() {
                 <h2 className="text-6xl md:text-8xl font-black uppercase italic tracking-tighter mb-10 leading-tight scroll-mask-text">
                   Enter the<br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-white to-primary animate-pulse shimmer-text-effect">Frequency</span>
                 </h2>
-                <p className="text-2xl text-purple-200/70 mb-16 max-w-2xl mx-auto font-light leading-relaxed">
+                <p className="text-2xl text-emerald-200/70 mb-16 max-w-2xl mx-auto font-light leading-relaxed">
                   Join our inner circle for priority audition dates, masterclass drops, and exclusive performance insight.
                 </p>
-                <form className="flex flex-col md:flex-row gap-0 max-w-3xl mx-auto border border-white/20 p-2 glass-panel group focus-within:border-primary focus-within:shadow-[0_0_30px_rgba(188,19,254,0.3)] transition-all duration-300 rounded-sm">
-                  <input className="flex-grow h-20 bg-transparent px-10 text-xl text-white placeholder-purple-300/30 focus:outline-none border-none uppercase tracking-[0.2em] font-bold interactive-hover" placeholder="Email Address" type="email" />
+                <form className="flex flex-col md:flex-row gap-0 max-w-3xl mx-auto border border-white/20 p-2 glass-panel group focus-within:border-primary focus-within:shadow-[0_0_30px_rgba(16, 185, 129,0.3)] transition-all duration-300 rounded-sm">
+                  <input className="flex-grow h-20 bg-transparent px-10 text-xl text-white placeholder-emerald-300/30 focus:outline-none border-none uppercase tracking-[0.2em] font-bold interactive-hover" placeholder="Email Address" type="email" />
                   <button className="h-20 px-16 bg-white text-black font-black uppercase tracking-[0.3em] text-sm hover:bg-primary hover:text-white transition-all duration-500 magnetic-btn interactive-hover">
                     Connect
                   </button>
