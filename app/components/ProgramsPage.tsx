@@ -382,7 +382,7 @@ export default function ProgramsPage() {
             <section className="reveal">
               <div className="relative rounded-[4rem] bg-gradient-to-br from-primary-dark via-primary to-emerald-900 p-12 md:p-24 overflow-hidden text-center shadow-[0_20px_60px_rgba(6, 78, 59,0.5)] border border-white/10 tilt-card">
                 <div className="absolute inset-0 bg-[url('https://lh3.googleusercontent.com/aida-public/AB6AXuCGq2svkImppsShMnbJXknBe25QfozHsRJaNDcc7RI2gp9i_gjSPJRUqA5kVlLCiqDkvBR_99AlXO476SZ1d0LQ9uoio-7xpHSq7-EHjrDfrzrVReyc0N514evbIOeUo8g4qwLKS4M9cePHfvsY0xMd4U89_u2us4CYfhSd_2-NgUnBGJn4E3SyinpoNE2fBtFRoehIaGCSwc8Dr2XJQeOfDQrrLfLIXEu70DTFJuRIH4ia_zRBddCx_EhFFcVWHwDgMXIxBU5U8cWD')] opacity-20 bg-cover bg-center mix-blend-overlay grayscale"></div>
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[radial-gradient(circle_at_center,rgba(217,70,239,0.3),transparent_60%)] animate-pulse"></div>
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[radial-gradient(circle_at_center,rgba(16,185,129,0.3),transparent_60%)] animate-pulse"></div>
                 <div className="relative z-10 max-w-4xl mx-auto space-y-10 tilt-content">
                   <h2 className="text-5xl md:text-8xl font-black text-white tracking-tighter leading-[0.9] drop-shadow-2xl">STAKE YOUR <br/><span className="text-black/40 mix-blend-overlay">CLAIM.</span></h2>
                   <p className="text-xl text-emerald-100 font-light leading-relaxed max-w-2xl mx-auto drop-shadow-md">
